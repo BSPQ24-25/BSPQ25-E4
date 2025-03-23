@@ -1,37 +1,108 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>com.carrental</groupId>
   <artifactId>CarRentalSystem</artifactId>
-  <packaging>jar</packaging>
   <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
   <name>CarRentalSystem</name>
   <url>http://maven.apache.org</url>
+
+  <properties>
+      <java.version>17</java.version>
+      <spring-boot.version>3.4.4</spring-boot.version>
+      <hibernate.version>6.2.0.Final</hibernate.version>
+      <junit.version>5.9.2</junit.version>
+      <mockito.version>5.3.1</mockito.version>
+      <mysql.version>8.0.33</mysql.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-dependencies</artifactId>
+        <version>${spring-boot.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <dependencies>
-  <!-- JUNIT 5 -->
+    <!-- Spring Boot Starter Parent -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>${spring-boot.version}</version>
     </dependency>
-    <!-- SQL -->
+
+    <!-- Spring Boot Starter Web (Para APIs REST) -->
     <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.33</version> <!-- Verifica la versión más reciente -->
-	</dependency>
-	<!-- MOCKITO -->
-	<dependency>
-    <groupId>org.mockito</groupId>
-    <artifactId>mockito-core</artifactId>
-    <version>5.8.0</version>
-    <scope>test</scope>
-	</dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-web</artifactId>
+        <version>${spring-boot.version}</version>
+    </dependency>
+
+    <!-- Spring Boot Starter JPA (Para Hibernate y JPA) -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-data-jpa</artifactId>
+        <version>${spring-boot.version}</version>
+    </dependency>
+
+    <!-- Driver de MySQL -->
+    <dependency>
+        <groupId>mysql</groupId>
+        <artifactId>mysql-connector-java</artifactId>
+        <version>${mysql.version}</version>
+        <scope>runtime</scope>
+    </dependency>
+
+    <!-- Hibernate Core -->
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${hibernate.version}</version>
+    </dependency>
+
+    <!-- Spring Boot Starter Test -->
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <version>${spring-boot.version}</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- JUnit 5 -->
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>${junit.version}</version>
+        <scope>test</scope>
+    </dependency>
+
+    <!-- Mockito -->
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>${mockito.version}</version>
+        <scope>test</scope>
+    </dependency>
   </dependencies>
+
   <build>
     <plugins>
-        <!-- JaCoCo -->
+        <!-- Plugin de Spring Boot -->
+        <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+            <version>${spring-boot.version}</version>
+        </plugin>
+
+        <!-- Plugin de JaCoCo -->
         <plugin>
             <groupId>org.jacoco</groupId>
             <artifactId>jacoco-maven-plugin</artifactId>
@@ -52,5 +123,6 @@
             </executions>
         </plugin>
     </plugins>
-</build>
+  </build>
+
 </project>
