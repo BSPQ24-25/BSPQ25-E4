@@ -1,6 +1,119 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Car.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.models</a> &gt; <span class="el_source">Car.java</span></div><h1>Car.java</h1><pre class="source lang-java linenums">package com.carrental.models;
 
-<span class="nc" id="L3">public class Car {</span>
+import jakarta.persistence.*;
+import java.util.List;
 
+@Entity
+@Table(name = &quot;cars&quot;)
+<span class="nc" id="L8">public class Car {</span>
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long vehicleId;
+
+    private String brand;
+    private String model;
+    private String color;
+    private double fuelLevel;
+    private String transmission;
+    private String status;
+    private int mileage;
+    private int manufacturingYear;
+
+    @OneToOne
+    @JoinColumn(name = &quot;insurance_id&quot;)
+    private Insurance insurance;
+
+    @OneToMany(mappedBy = &quot;car&quot;, cascade = CascadeType.ALL)
+    private List&lt;Booking&gt; bookings;
+
+    // Getters and Setters
+    public Long getVehicleId() {
+<span class="nc" id="L32">        return vehicleId;</span>
+    }
+
+    public void setVehicleId(Long vehicleId) {
+<span class="nc" id="L36">        this.vehicleId = vehicleId;</span>
+<span class="nc" id="L37">    }</span>
+
+    public String getBrand() {
+<span class="nc" id="L40">        return brand;</span>
+    }
+
+    public void setBrand(String brand) {
+<span class="nc" id="L44">        this.brand = brand;</span>
+<span class="nc" id="L45">    }</span>
+
+    public String getModel() {
+<span class="nc" id="L48">        return model;</span>
+    }
+
+    public void setModel(String model) {
+<span class="nc" id="L52">        this.model = model;</span>
+<span class="nc" id="L53">    }</span>
+
+    public String getColor() {
+<span class="nc" id="L56">        return color;</span>
+    }
+
+    public void setColor(String color) {
+<span class="nc" id="L60">        this.color = color;</span>
+<span class="nc" id="L61">    }</span>
+
+    public double getFuelLevel() {
+<span class="nc" id="L64">        return fuelLevel;</span>
+    }
+
+    public void setFuelLevel(double fuelLevel) {
+<span class="nc" id="L68">        this.fuelLevel = fuelLevel;</span>
+<span class="nc" id="L69">    }</span>
+
+    public String getTransmission() {
+<span class="nc" id="L72">        return transmission;</span>
+    }
+
+    public void setTransmission(String transmission) {
+<span class="nc" id="L76">        this.transmission = transmission;</span>
+<span class="nc" id="L77">    }</span>
+
+    public String getStatus() {
+<span class="nc" id="L80">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="nc" id="L84">        this.status = status;</span>
+<span class="nc" id="L85">    }</span>
+
+    public int getMileage() {
+<span class="nc" id="L88">        return mileage;</span>
+    }
+
+    public void setMileage(int mileage) {
+<span class="nc" id="L92">        this.mileage = mileage;</span>
+<span class="nc" id="L93">    }</span>
+
+    public int getManufacturingYear() {
+<span class="nc" id="L96">        return manufacturingYear;</span>
+    }
+
+    public void setManufacturingYear(int manufacturingYear) {
+<span class="nc" id="L100">        this.manufacturingYear = manufacturingYear;</span>
+<span class="nc" id="L101">    }</span>
+
+    public Insurance getInsurance() {
+<span class="nc" id="L104">        return insurance;</span>
+    }
+
+    public void setInsurance(Insurance insurance) {
+<span class="nc" id="L108">        this.insurance = insurance;</span>
+<span class="nc" id="L109">    }</span>
+
+    public List&lt;Booking&gt; getBookings() {
+<span class="nc" id="L112">        return bookings;</span>
+    }
+
+    public void setBookings(List&lt;Booking&gt; bookings) {
+<span class="nc" id="L116">        this.bookings = bookings;</span>
+<span class="nc" id="L117">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,1 +1,6 @@
+com\carrental\models\Car.class
+com\carrental\models\Insurance.class
 com\carrental\App.class
+com\carrental\models\User.class
+com\carrental\database\DatabaseConnection.class
+com\carrental\models\Booking.class

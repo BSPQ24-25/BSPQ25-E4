@@ -1,6 +1,7 @@
 GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
-CarRentalSystem,com.carrental,App,27,0,4,0,8,0,4,0,2,0
-CarRentalSystem,com.carrental.models,User,3,0,0,0,1,0,1,0,1,0
-CarRentalSystem,com.carrental.models,Booking,3,0,0,0,1,0,1,0,1,0
-CarRentalSystem,com.carrental.models,Car,3,0,0,0,1,0,1,0,1,0
-CarRentalSystem,com.carrental.database,DatabaseConnection,46,0,0,0,11,0,2,0,2,0
+CarRentalSystem,com.carrental,App,21,0,4,0,8,0,4,0,2,0
+CarRentalSystem,com.carrental.models,User,52,0,0,0,22,0,15,0,15,0
+CarRentalSystem,com.carrental.models,Booking,80,0,0,0,34,0,23,0,23,0
+CarRentalSystem,com.carrental.models,Insurance,38,0,0,0,16,0,11,0,11,0
+CarRentalSystem,com.carrental.models,Car,80,0,0,0,34,0,23,0,23,0
+CarRentalSystem,com.carrental.database,DatabaseConnection,40,0,0,0,11,0,2,0,2,0
