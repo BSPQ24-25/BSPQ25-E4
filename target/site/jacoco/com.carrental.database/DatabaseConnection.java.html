@@ -9,15 +9,15 @@ import java.util.Properties;
 <span class="nc" id="L9">public class DatabaseConnection {</span>
 	public static Connection getConnection() {
         try {
-<span class="nc" id="L12">            Properties props = new Properties();</span>
-<span class="nc" id="L13">            InputStream input = DatabaseConnection.class.getClassLoader().getResourceAsStream(&quot;config.properties&quot;);</span>
-<span class="nc" id="L14">            props.load(input);</span>
+<span class="fc" id="L12">            Properties props = new Properties();</span>
+<span class="fc" id="L13">            InputStream input = DatabaseConnection.class.getClassLoader().getResourceAsStream(&quot;config.properties&quot;);</span>
+<span class="fc" id="L14">            props.load(input);</span>
 
-<span class="nc" id="L16">            String url = props.getProperty(&quot;db.url&quot;);</span>
-<span class="nc" id="L17">            String user = props.getProperty(&quot;db.user&quot;);</span>
-<span class="nc" id="L18">            String password = props.getProperty(&quot;db.password&quot;);</span>
+<span class="fc" id="L16">            String url = props.getProperty(&quot;db.url&quot;);</span>
+<span class="fc" id="L17">            String user = props.getProperty(&quot;db.user&quot;);</span>
+<span class="fc" id="L18">            String password = props.getProperty(&quot;db.password&quot;);</span>
 
-<span class="nc" id="L20">            return DriverManager.getConnection(url, user, password);</span>
+<span class="fc" id="L20">            return DriverManager.getConnection(url, user, password);</span>
 <span class="nc" id="L21">        } catch (Exception e) {</span>
 <span class="nc" id="L22">            System.out.println(&quot;❌ Error loading DB config: &quot; + e.getMessage());</span>
 <span class="nc" id="L23">            return null;</span>
