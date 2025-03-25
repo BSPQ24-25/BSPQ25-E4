@@ -1,3 +1,4 @@
+com\carrental\controller\AdminDashboardController.class
 com\carrental\models\Car.class
 com\carrental\models\Insurance.class
 com\carrental\App.class
