@@ -1,12 +1,12 @@
 package com.carrental.models;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "user_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "users")
-public abstract class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,27 +15,11 @@ public abstract class User {
     private String name;
     private String telephone;
     private String email;
-    private String address; 
-
-    public User() {
-		super();
-	}
-
-	public User(String name, String telephone, String email, String address) {
-		super();
-		this.name = name;
-		this.telephone = telephone;
-		this.email = email;
-		this.address = address;
-	}
-
-	public User(Long userId, String name, String telephone, String email, String address) {
-		super();
-		this.name = name;
-		this.telephone = telephone;
-		this.email = email;
-		this.address = address;
-	}
+    private String address;
+    private boolean isAdmin;
+    
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	private List<Booking> bookings;
 
 	public Long getUserId() {
         return userId;
@@ -75,5 +59,21 @@ public abstract class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+    
+	public List<Booking> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<Booking> bookings) {
+        this.bookings = bookings;
     }
 }
