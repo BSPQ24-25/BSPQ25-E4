@@ -15,29 +15,34 @@ public abstract class User {
     private String name;
     private String telephone;
     private String email;
-    private String address; 
+    private String address;
+    
+    private Boolean is_admin;
 
     public User() {
-		super();
-	}
+        super();
+    }
 
-	public User(String name, String telephone, String email, String address) {
-		super();
-		this.name = name;
-		this.telephone = telephone;
-		this.email = email;
-		this.address = address;
-	}
+    public User(String name, String telephone, String email, String address, Boolean is_admin) {
+        super();
+        this.name = name;
+        this.telephone = telephone;
+        this.email = email;
+        this.address = address;
+        this.is_admin = is_admin;
+    }
 
-	public User(Long userId, String name, String telephone, String email, String address) {
-		super();
-		this.name = name;
-		this.telephone = telephone;
-		this.email = email;
-		this.address = address;
-	}
+    public User(Long userId, String name, String telephone, String email, String address, Boolean is_admin) {
+        super();
+        this.userId = userId;
+        this.name = name;
+        this.telephone = telephone;
+        this.email = email;
+        this.address = address;
+        this.is_admin = is_admin;
+    }
 
-	public Long getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
@@ -75,5 +80,13 @@ public abstract class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Boolean getIs_admin() {
+        return is_admin;
+    }
+
+    public void setIs_admin(Boolean is_admin) {
+        this.is_admin = is_admin;
     }
 }
