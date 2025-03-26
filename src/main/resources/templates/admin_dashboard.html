@@ -4,15 +4,48 @@
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #4CAF50;
+            font-size: 36px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .list-group-item {
+            font-size: 18px;
+            background-color: #f8f9fa;
+            border: none;
+            color: #333;
+            transition: background-color 0.3s;
+        }
+        .list-group-item:hover {
+            background-color: #e2e6ea;
+        }
+        .list-group-item-action {
+            cursor: pointer;
+        }
+        .list-group-item-action:hover {
+            background-color: #d4edda;
+        }
+    </style>
 </head>
 <body>
     <div class="container py-5">
-        <h1 class="mb-4">Admin Dashboard</h1>
+        <h1 class="mb-4">Admin Dashboard 🖥️</h1>
         <div class="list-group">
-            <a href="#" class="list-group-item list-group-item-action">Gestión de Usuarios</a>
-            <a href="#" class="list-group-item list-group-item-action">Gestión de Vehículos</a>
-            <a href="#" class="list-group-item list-group-item-action">Reservas Pendientes</a>
-            <a href="#" class="list-group-item list-group-item-action">Historial de Alquileres</a>
+            <a href="#" class="list-group-item list-group-item-action">User Management 👥</a>
+            <a href="#" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
+            <a href="#" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
+            <a href="#" class="list-group-item list-group-item-action">Rental History 📜</a>
         </div>
     </div>
 </body>
