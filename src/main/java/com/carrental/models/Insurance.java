@@ -1,5 +1,7 @@
 package com.carrental.models;
 
+import java.util.List;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -14,8 +16,8 @@ public class Insurance {
     private String coverage;
     private double monthlyPrice;
 
-    @OneToOne(mappedBy = "insurance")
-    private Car car;
+    @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)
+    private List<Car> cars;
 
     // Getters and Setters
     public Long getInsuranceId() {
@@ -50,11 +52,11 @@ public class Insurance {
         this.monthlyPrice = monthlyPrice;
     }
 
-    public Car getCar() {
-        return car;
+    public List<Car> getCar() {
+        return cars;
     }
 
-    public void setCar(Car car) {
-        this.car = car;
+    public void setCar(List<Car> cars) {
+        this.cars = cars;
     }
 }

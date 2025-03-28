@@ -20,7 +20,7 @@ public class Car {
     private int mileage;
     private int manufacturingYear;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "insurance_id")
     private Insurance insurance;
 
