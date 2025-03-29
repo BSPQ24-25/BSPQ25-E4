@@ -1,7 +1,13 @@
+com\carrental\authentication\IAPIAuthentication.class
 com\carrental\models\Car.class
+com\carrental\authentication\AuthGateway.class
 com\carrental\App.class
+com\carrental\repository\CarRepository.class
+com\carrental\controller\CarController.class
 com\carrental\models\Booking.class
 com\carrental\controller\AdminDashboardController.class
 com\carrental\models\Insurance.class
+com\carrental\authentication\AuthFactory.class
+com\carrental\service\CarService.class
 com\carrental\models\User.class
 com\carrental\database\DatabaseConnection.class

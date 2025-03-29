@@ -28,7 +28,7 @@ Thumbs.db
 # 🔐 Sensitive config files
 # ==========================
 # Don't track DB credentials!
-src/main/resources/config.properties
+src/main/resources/application.properties
 
 # ==========================
 # 📦 Package managers

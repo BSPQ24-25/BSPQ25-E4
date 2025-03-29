@@ -11,3 +11,4 @@ public class AdminDashboardController {
         return "admin_dashboard";
     }
 }
+
