@@ -15,6 +15,7 @@ public class User {
     private String name;
     private String telephone;
     private String email;
+    private String password;
     private String address;
     private boolean isAdmin;
     
@@ -53,7 +54,15 @@ public class User {
         this.email = email;
     }
 
-    public String getAddress() {
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getAddress() {
         return address;
     }
 
