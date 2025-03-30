@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚗 Booking List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            text-align: center;
+        }
+        h1 {
+            color: #4caf50;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ffcccb;
+            transition: 0.3s;
+        }
+        td {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🚗 Booking List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>💰 Daily Price</th>
+                <th>📅 Start Date</th>
+                <th>📅 End Date</th>
+                <th>📌 Status</th>
+                <th>💳 Payment</th>
+                <th>🔒 Security Deposit</th>
+                <th>👤 User</th>
+                <th>🚘 Vehicle</th>
+                <th>⭐ Rating</th>
+                <th>💬 Review</th>
+            </tr>
+        </thead>
+        <tbody id="bookingsTableBody">
+            <!-- Bookings will be inserted here -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchBookings() {
+            try {
+                const response = await fetch('/api/bookings'); // Modify the URL based on your API
+                const bookings = await response.json();
+                
+                const tableBody = document.getElementById('bookingsTableBody');
+                tableBody.innerHTML = '';
+
+                bookings.forEach(booking => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>${booking.bookingId}</td>
+                        <td>💰 ${booking.dailyPrice.toFixed(2)} €</td>
+                        <td>📅 ${booking.startDate}</td>
+                        <td>📅 ${booking.endDate}</td>
+                        <td>📌 ${booking.bookingStatus}</td>
+                        <td>💳 ${booking.paymentMethod}</td>
+                        <td>🔒 ${booking.securityDeposit.toFixed(2)} €</td>
+                        <td>👤 ${booking.user ? booking.user.name : 'N/A'}</td>
+                        <td>🚘 ${booking.car ? booking.car.model : 'N/A'}</td>
+                        <td>⭐ ${booking.rating || 'N/A'}</td>
+                        <td>💬 ${booking.review || 'No review'}</td>
+                    `;
+                    tableBody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error fetching bookings:', error);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', fetchBookings);
+    </script>
+</body>
+</html>
