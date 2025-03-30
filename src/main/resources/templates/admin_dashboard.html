@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
@@ -36,38 +37,27 @@
         .list-group-item-action:hover {
             background-color: #d4edda;
         }
-        .metrics {
-            margin-top: 30px;
-        }
-        .metrics .card {
-            border: none;
-            background-color: #e3fcef;
-            padding: 20px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .metrics .card h5 {
-            margin-bottom: 10px;
+        .user-info {
+            text-align: right;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container py-5">
-        <h1 class="mb-4">Admin Dashboard 🖥️</h1>
-
-        <div class="metrics">
-            <div class="card">
-                <h5>Available Cars</h5>
-                <p th:text="${availableCars}">0</p>
-            </div>
-            <!-- Aquí luego añadiremos active rentals y revenue -->
+        <div class="user-info">
+            <p>Welcome, <span sec:authentication="name"></span></p>
+            <form th:action="@{/logout}" method="post">
+                <button type="submit" class="btn btn-outline-danger">Log out</button>
+            </form>
         </div>
-
-        <div class="list-group mt-4">
-            <a href="#" class="list-group-item list-group-item-action">User Management 👥</a>
-            <a href="#" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
-            <a href="#" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
-            <a href="#" class="list-group-item list-group-item-action">Rental History 📜</a>
+        
+        <h1 class="mb-4">Admin Dashboard</h1>
+        <div class="list-group">
+            <a th:href="#" class="list-group-item list-group-item-action">User Management 👥</a>
+            <a th:href="#" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
+            <a th:href="#" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
+            <a th:href="#" class="list-group-item list-group-item-action">Rental History 📊</a>
         </div>
     </div>
 </body>
