@@ -10,7 +10,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id") // Coincide con la columna real en la base de datos
+    @Column(name = "id") 
     private Long id;
 
     private String name;
