@@ -32,4 +32,9 @@ public class CarService {
     public void deleteCar(Long id) {
         carRepository.deleteById(id);
     }
+    // Count available cars by status
+    public long countAvailableCars() {
+        return carRepository.countByStatusIgnoreCase("available");
+    }
+
 }

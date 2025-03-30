@@ -36,12 +36,34 @@
         .list-group-item-action:hover {
             background-color: #d4edda;
         }
+        .metrics {
+            margin-top: 30px;
+        }
+        .metrics .card {
+            border: none;
+            background-color: #e3fcef;
+            padding: 20px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .metrics .card h5 {
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container py-5">
         <h1 class="mb-4">Admin Dashboard 🖥️</h1>
-        <div class="list-group">
+
+        <div class="metrics">
+            <div class="card">
+                <h5>Available Cars</h5>
+                <p th:text="${availableCars}">0</p>
+            </div>
+            <!-- Aquí luego añadiremos active rentals y revenue -->
+        </div>
+
+        <div class="list-group mt-4">
             <a href="#" class="list-group-item list-group-item-action">User Management 👥</a>
             <a href="#" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
             <a href="#" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>

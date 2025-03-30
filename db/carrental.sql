@@ -1,38 +1,36 @@
--- MySQL dump 10.13  Distrib 8.0.41, for Win64 (x86_64)
---
--- Host: localhost    Database: carrental
--- ------------------------------------------------------
--- Server version	8.0.41
-
+-- 🔄 Reset de foreign keys
 SET FOREIGN_KEY_CHECKS=0;
 
--- Table structure for table `users`
-
+-- 🧹 Eliminar tabla si ya existe
 DROP TABLE IF EXISTS `users`;
+
+-- 👤 Crear tabla de usuarios con contraseña
 CREATE TABLE `users` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `email` varchar(100) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) DEFAULT NULL,
+  `email` VARCHAR(100) DEFAULT NULL,
+  `phone` VARCHAR(20) DEFAULT NULL,
+  `address` VARCHAR(255) DEFAULT NULL,
   `is_admin` BOOLEAN DEFAULT FALSE,
+  `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-INSERT INTO `users` (name, email, phone, address, is_admin) VALUES
-('user1', 'user1@example.com', '1234567890', '123 Elm Street', FALSE),
-('admin', 'admin@example.com', '9876543210', '456 Oak Avenue', TRUE),
-('user2', 'user2@example.com', '555667788', '789 Pine Road', FALSE),
-('user3', 'user3@example.com', '111222333', '321 Cedar Lane', FALSE);
+-- 👤 Insertar usuarios con contraseñas BCrypt
+-- Contraseñas: user1, admin, user2, user3
+INSERT INTO `users` (name, email, phone, address, is_admin, password) VALUES
+('user1', 'user1@example.com', '1234567890', '123 Elm Street', FALSE, '$2a$10$e0NRu4g7/FvYaMo6Y9j.3ed13O0I6jxoyQy.cQi9eAlmscdDA6S4a'),
+('admin', 'admin@example.com', '9876543210', '456 Oak Avenue', TRUE, '$2a$10$Wz6IfzZpK.rbnxqpjN0H3uKnSzDY5TuQ6fUMyN8eFw3t9LyrBAYqa'),
+('user2', 'user2@example.com', '555667788', '789 Pine Road', FALSE, '$2a$10$e0NRu4g7/FvYaMo6Y9j.3ed13O0I6jxoyQy.cQi9eAlmscdDA6S4a'),
+('user3', 'user3@example.com', '111222333', '321 Cedar Lane', FALSE, '$2a$10$e0NRu4g7/FvYaMo6Y9j.3ed13O0I6jxoyQy.cQi9eAlmscdDA6S4a');
 
--- Table structure for table `insurances`
-
+-- 📄 Tabla insurances
 DROP TABLE IF EXISTS `insurances`;
 CREATE TABLE `insurances` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `provider` varchar(100) NOT NULL,
-  `coverage` varchar(255) NOT NULL,
-  `monthly_price` double NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `provider` VARCHAR(100) NOT NULL,
+  `coverage` VARCHAR(255) NOT NULL,
+  `monthly_price` DOUBLE NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
@@ -43,20 +41,19 @@ INSERT INTO `insurances` (provider, coverage, monthly_price) VALUES
 ('Progressive', 'Comprehensive', 40.00),
 ('Liberty Mutual', 'Theft Protection', 35.00);
 
--- Table structure for table `cars`
-
+-- 🚗 Tabla de coches
 DROP TABLE IF EXISTS `cars`;
 CREATE TABLE `cars` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `brand` varchar(50) NOT NULL,
-  `model` varchar(50) NOT NULL,
-  `color` varchar(30) NOT NULL,
-  `fuel_level` double NOT NULL,
-  `transmission` varchar(20) NOT NULL,
-  `status` varchar(20) NOT NULL,
-  `mileage` int NOT NULL,
-  `manufacturing_year` int NOT NULL,
-  `insurance_id` int DEFAULT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `brand` VARCHAR(50) NOT NULL,
+  `model` VARCHAR(50) NOT NULL,
+  `color` VARCHAR(30) NOT NULL,
+  `fuel_level` DOUBLE NOT NULL,
+  `transmission` VARCHAR(20) NOT NULL,
+  `status` VARCHAR(20) NOT NULL,
+  `mileage` INT NOT NULL,
+  `manufacturing_year` INT NOT NULL,
+  `insurance_id` INT DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`insurance_id`) REFERENCES `insurances`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -70,21 +67,20 @@ INSERT INTO `cars` (brand, model, color, fuel_level, transmission, status, milea
 ('Audi', 'A4', 'Gray', 85.0, 'Automatic', 'Available', 20000, 2023, 4),
 ('Tesla', 'Model 3', 'Black', 95.0, 'Automatic', 'Rented', 5000, 2024, 5);
 
--- Table structure for table `bookings`
-
+-- 📅 Tabla de reservas
 DROP TABLE IF EXISTS `bookings`;
 CREATE TABLE `bookings` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `user_id` int NOT NULL,
-  `car_id` int NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
-  `daily_price` double NOT NULL,
-  `booking_status` varchar(50) NOT NULL,
-  `payment_method` varchar(50) NOT NULL,
-  `security_deposit` double NOT NULL,
-  `rating` int DEFAULT NULL,
-  `review` text DEFAULT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user_id` INT NOT NULL,
+  `car_id` INT NOT NULL,
+  `start_date` DATE NOT NULL,
+  `end_date` DATE NOT NULL,
+  `daily_price` DOUBLE NOT NULL,
+  `booking_status` VARCHAR(50) NOT NULL,
+  `payment_method` VARCHAR(50) NOT NULL,
+  `security_deposit` DOUBLE NOT NULL,
+  `rating` INT DEFAULT NULL,
+  `review` TEXT DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   FOREIGN KEY (`car_id`) REFERENCES `cars` (`id`)
@@ -98,4 +94,5 @@ INSERT INTO `bookings` (user_id, car_id, start_date, end_date, daily_price, book
 (3, 5, '2025-07-10', '2025-07-15', 100.00, 'Confirmed', 'Credit Card', 500.00, 5, 'Luxury ride!'),
 (4, 6, '2025-08-20', '2025-08-30', 90.00, 'Completed', 'PayPal', 400.00, 4, 'Very comfortable car!');
 
+-- ✅ Restaurar foreign keys
 SET FOREIGN_KEY_CHECKS=1;

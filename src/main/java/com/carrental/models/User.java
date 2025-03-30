@@ -10,7 +10,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    @Column(name = "id") // Coincide con la columna real en la base de datos
+    private Long id;
 
     private String name;
     private String telephone;
@@ -18,16 +19,16 @@ public class User {
     private String password;
     private String address;
     private boolean isAdmin;
-    
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	private List<Booking> bookings;
 
-	public Long getUserId() {
-        return userId;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Booking> bookings;
+
+    public Long getId() {
+        return id;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -55,14 +56,14 @@ public class User {
     }
 
     public String getPassword() {
-		return password;
-	}
+        return password;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public String getAddress() {
+    public String getAddress() {
         return address;
     }
 
@@ -70,15 +71,15 @@ public class User {
         this.address = address;
     }
 
-	public boolean isAdmin() {
-		return isAdmin;
-	}
+    public boolean isAdmin() {
+        return isAdmin;
+    }
 
-	public void setAdmin(boolean isAdmin) {
-		this.isAdmin = isAdmin;
-	}
-    
-	public List<Booking> getBookings() {
+    public void setAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public List<Booking> getBookings() {
         return bookings;
     }
 
