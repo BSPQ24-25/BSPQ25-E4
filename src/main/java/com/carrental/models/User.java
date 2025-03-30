@@ -2,7 +2,14 @@ package com.carrental.models;
 
 import java.util.List;
 
-import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users")
@@ -14,7 +21,7 @@ public class User {
     private Long id;
 
     private String name;
-    private String telephone;
+    private String phone;
     private String email;
     private String password;
     private String address;
@@ -39,12 +46,12 @@ public class User {
         this.name = name;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getphone() {
+        return phone;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setphone(String phone) {
+        this.phone = phone;
     }
 
     public String getEmail() {
