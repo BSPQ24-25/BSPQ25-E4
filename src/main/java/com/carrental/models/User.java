@@ -78,7 +78,7 @@ public class User {
         this.address = address;
     }
 
-    public boolean isAdmin() {
+    public boolean getIsAdmin() {
         return isAdmin;
     }
 

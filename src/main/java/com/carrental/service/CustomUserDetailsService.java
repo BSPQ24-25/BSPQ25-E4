@@ -1,7 +1,7 @@
 package com.carrental.service;
 
-import com.carrental.models.User;
-import com.carrental.repository.UserRepository;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -10,8 +10,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
+import com.carrental.models.User;
+import com.carrental.repository.UserRepository;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -26,7 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
         
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         
-        if (user.isAdmin()) {
+        if (user.getIsAdmin()) {
             authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
         }
         
