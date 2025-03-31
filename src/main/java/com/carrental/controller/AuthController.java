@@ -53,11 +53,11 @@ public class AuthController {
     
     @GetMapping("/dashboard")
     public String dashboard(Authentication authentication) {
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
             return "redirect:/admin/dashboard";
         }
         
-        return "user-dashboard";
+        return "admin_dashboard";
     }
     
     @GetMapping("/admin/dashboard")

@@ -26,7 +26,7 @@ public class User {
     private String password;
     private String address;
 
-    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    @Column(name = "is_admin", nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
     private Boolean isAdmin;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

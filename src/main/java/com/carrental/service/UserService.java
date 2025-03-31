@@ -25,7 +25,9 @@ public class UserService {
         
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         
-        user.setIsAdmin(false);
+        if (user.getIsAdmin() == null) {
+            user.setIsAdmin(false);
+        }
         
         return userRepository.save(user);
     }

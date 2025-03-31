@@ -120,11 +120,10 @@
             <input type="text" id="address" th:field="*{address}" />
         </div>
         <div>
-            <input type="hidden" name="isAdmin" value="false"/>
-            <input type="checkbox" id="isAdmin" th:field="*{isAdmin}" />
+            <input type="checkbox" id="isAdmin" th:field="*{isAdmin}" th:checked="${user.isAdmin}" />
             <label for="isAdmin">Select if you are an admin</label>
-
         </div>
+        
         <button type="submit">Register</button>
     </form>
 
