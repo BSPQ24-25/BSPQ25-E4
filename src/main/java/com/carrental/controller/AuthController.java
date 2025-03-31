@@ -32,6 +32,10 @@ public class AuthController {
         if (result.hasErrors()) {
             return "register";
         }
+
+        if (user.getIsAdmin() == null) {  
+            user.setIsAdmin(Boolean.FALSE);
+        }        
         
         try {
             userService.registerUser(user);

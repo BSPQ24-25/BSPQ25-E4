@@ -25,7 +25,9 @@ public class User {
     private String email;
     private String password;
     private String address;
-    private boolean isAdmin;
+
+    @Column(nullable = false, columnDefinition = "BOOLEAN DEFAULT FALSE")
+    private Boolean isAdmin;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Booking> bookings;
@@ -78,11 +80,11 @@ public class User {
         this.address = address;
     }
 
-    public boolean getIsAdmin() {
+    public Boolean getIsAdmin() {
         return isAdmin;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
+    public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
     }
 
