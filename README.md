@@ -29,9 +29,10 @@ To run the project:
 1. mvn clean compile
 2. mvn package (optional)
 3. mvn spring-boot:run
-4. Go to http://localhost:<port> on browser
+4. Go to http://localhost:port on browser
 
 ### 1️⃣ Clone the repository:
 ```bash
 git clone https://github.com/BSPQ24-25/BSPQ25-E4.git
 cd BSPQ25-E4
+
