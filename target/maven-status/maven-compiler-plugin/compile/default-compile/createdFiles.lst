@@ -1,11 +1,13 @@
 com\carrental\service\UserService.class
 com\carrental\models\Car.class
+com\carrental\controller\AdminController.class
 com\carrental\App.class
 com\carrental\repository\CarRepository.class
 com\carrental\config\SecurityConfig.class
 com\carrental\controller\CarController.class
 com\carrental\service\CustomUserDetailsService.class
 com\carrental\models\Booking.class
+com\carrental\controller\UserController.class
 com\carrental\controller\AdminDashboardController.class
 com\carrental\models\Insurance.class
 com\carrental\controller\AuthController.class
