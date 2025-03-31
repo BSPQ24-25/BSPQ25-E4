@@ -47,6 +47,12 @@
         <version>${spring-boot.version}</version>
     </dependency>
 
+    <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        <version>2.3.0</version>
+    </dependency>
+
     <!-- Spring Boot Starter JPA (Para Hibernate y JPA) -->
     <dependency>
         <groupId>org.springframework.boot</groupId>
