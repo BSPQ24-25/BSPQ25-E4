@@ -11,14 +11,14 @@ CREATE TABLE `users` (
   `email` VARCHAR(100) DEFAULT NULL,
   `phone` VARCHAR(20) DEFAULT NULL,
   `address` VARCHAR(255) DEFAULT NULL,
-  `is_admin` BOOLEAN DEFAULT FALSE,
+  `isAdmin` BOOLEAN DEFAULT FALSE,
   `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 👤 Insertar usuarios con contraseñas BCrypt
 -- Contraseñas: user1, admin, user2, user3
-INSERT INTO `users` (name, email, phone, address, is_admin, password) VALUES
+INSERT INTO `users` (name, email, phone, address, isAdmin, password) VALUES
 ('user1', 'user1@example.com', '1234567890', '123 Elm Street', FALSE, '$2a$10$e0NRu4g7/FvYaMo6Y9j.3ed13O0I6jxoyQy.cQi9eAlmscdDA6S4a'),
 ('admin', 'admin@example.com', '9876543210', '456 Oak Avenue', TRUE, '$2a$10$Wz6IfzZpK.rbnxqpjN0H3uKnSzDY5TuQ6fUMyN8eFw3t9LyrBAYqa'),
 ('user2', 'user2@example.com', '555667788', '789 Pine Road', FALSE, '$2a$10$e0NRu4g7/FvYaMo6Y9j.3ed13O0I6jxoyQy.cQi9eAlmscdDA6S4a'),
