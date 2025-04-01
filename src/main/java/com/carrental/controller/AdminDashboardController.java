@@ -16,6 +16,6 @@ public class AdminDashboardController {
     public String dashboard(Model model) {
         long availableCars = carService.countAvailableCars();
         model.addAttribute("availableCars", availableCars);
-        return "admin_dashboard";
+        return "redirect:/admin/dashboard";
     }
 }
