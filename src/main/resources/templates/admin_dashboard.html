@@ -54,10 +54,10 @@
         
         <h1 class="mb-4">Admin Dashboard</h1>
         <div class="list-group">
-            <a th:href="#" class="list-group-item list-group-item-action">User Management 👥</a>
-            <a th:href="#" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
-            <a th:href="#" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
-            <a th:href="#" class="list-group-item list-group-item-action">Rental History 📊</a>
+            <a th:href="@{/admin/users}" class="list-group-item list-group-item-action">User Management 👥</a>
+            <a th:href="@{/admin/vehicles}" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
+            <a th:href="@{/admin/reservations}" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
+            <a th:href="@{/admin/history}" class="list-group-item list-group-item-action">Rental History 📊</a>
         </div>
     </div>
 </body>
