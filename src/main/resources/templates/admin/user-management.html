@@ -14,13 +14,18 @@
             height: 100vh;
         }
 
+        .container {
+            width: 90%;
+            max-width: 1200px;
+        }
+
         h1 {
             text-align: center;
             color: #333;
         }
 
         table {
-            width: 80%;
+            width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
             background-color: white;
@@ -46,38 +51,59 @@
             background-color: #ddd;
         }
 
-        td {
-            color: #555;
+        .action-btn {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .edit-btn {
+            background-color: #2196F3;
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+            color: white;
         }
     </style>
 </head>
 <body>
-    <div>
-        <h1>User Management</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone</th>
-                    <th>Address</th>
-                    <th>Is Admin</th>
-                    <th>Password</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="user : ${users}">
-                    <td th:text="${user.id}"></td>
-                    <td th:text="${user.name}"></td>
-                    <td th:text="${user.email}"></td>
-                    <td th:text="${user.phone}"></td>
-                    <td th:text="${user.address}"></td>
-                    <td th:text="${user.isAdmin}"></td>
-                    <td th:text="${user.password}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
+<div class="container">
+    <h1>User Management</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Address</th>
+            <th>Is Admin</th>
+            <th>Password</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.phone}"></td>
+            <td th:text="${user.address}"></td>
+            <td th:text="${user.isAdmin}"></td>
+            <td th:text="${user.password}"></td>
+            <td>
+                <a th:href="@{'/admin/users/edit/' + ${user.id}}" class="action-btn edit-btn">Edit</a>
+                <a th:href="@{'/admin/users/delete/' + ${user.id}}" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
 </body>
 </html>
