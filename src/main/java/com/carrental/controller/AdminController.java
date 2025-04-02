@@ -40,15 +40,6 @@ public class AdminController {
         return "admin/user-management"; // Vista de gestión de usuarios
     }
 
-    // Mostrar vehículos
-    @GetMapping("/vehicles")
-    public String vehicleManagement(Model model) {
-        // Obtener todos los vehículos desde el servicio
-        List<Car> vehicles = carService.getAllCars();
-        model.addAttribute("vehicles", vehicles); // Pasar vehículos a la vista
-        return "admin/vehicle-management"; // Vista de gestión de vehículos
-    }
-
     // Mostrar reservas pendientes
     @GetMapping("/reservations")
     public String pendingReservations(Model model) {

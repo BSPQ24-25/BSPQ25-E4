@@ -48,7 +48,8 @@ public class CarController {
     @GetMapping("/admin/vehicles")
     public String showVehicles(Model model) {
         model.addAttribute("cars", carService.getAllCars());
-        return "vehicle-management"; // nombre del HTML
+        return "admin/edit-vehicle";
+
     }
 
 }

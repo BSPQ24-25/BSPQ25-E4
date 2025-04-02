@@ -45,6 +45,12 @@ public class AdminDashboardController {
         return "admin_dashboard";
     }
     
+    @GetMapping("/admin/vehicles")
+    public String showVehicleList(Model model) {
+        model.addAttribute("vehicles", carService.getAllCars());
+        return "admin/vehicle-management"; // la plantilla HTML
+    }
+    
     @PostMapping("/admin/vehicles/add")
     public String addVehicle(@ModelAttribute Car car, @RequestParam(name = "insuranceId", required = false) Long insuranceId) {
         if (insuranceId != null) {
@@ -60,6 +66,28 @@ public class AdminDashboardController {
         carService.deleteCarById(id);
         return "redirect:/admin/vehicles";
     }
+    
+    @GetMapping("/admin/vehicles/edit/{id}")
+    public String showEditForm(@PathVariable("id") Long id, Model model) {
+        Car car = carService.getCarById(id);
+        model.addAttribute("car", car);
+        model.addAttribute("insurances", insuranceRepository.findAll()); // Por si necesitas mostrar opciones de seguro
+        return "admin/edit-vehicle";
+    }
+    
+    @PostMapping("/admin/vehicles/edit")
+    public String updateVehicle(@ModelAttribute Car car, @RequestParam(name = "insuranceId", required = false) Long insuranceId) {
+        if (insuranceId != null) {
+            Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);
+            car.setInsurance(insurance);
+        }
+
+        carService.saveCar(car);
+        return "redirect:/admin/vehicles";
+    }
+
+
+
 }
 
 

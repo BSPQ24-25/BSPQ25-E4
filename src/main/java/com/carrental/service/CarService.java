@@ -37,6 +37,9 @@ public class CarService {
         return carRepository.countByStatusIgnoreCase("available");
     }
     
-    
+    public void saveCar(Car car) {
+        carRepository.save(car);
+    }
+
 
 }
