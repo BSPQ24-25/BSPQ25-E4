@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Pending Reservations</title>
+    <title>Rental History</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -51,7 +51,6 @@
             color: #555;
         }
 
-        /* Optional: Add some spacing and center the table */
         .container {
             width: 80%;
             overflow-x: auto;
@@ -60,7 +59,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>Pending Reservations</h1>
+        <h1>Rental History</h1>
         <table>
             <thead>
                 <tr>
@@ -78,7 +77,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="booking : ${pendingBookings}">
+                <tr th:each="booking : ${historyBookings}">
                     <td th:text="${booking.bookingId}"></td>
                     <td th:text="${booking.user.id}"></td>
                     <td th:text="${booking.car.vehicleId}"></td>

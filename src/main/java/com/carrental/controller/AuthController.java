@@ -1,8 +1,5 @@
 package com.carrental.controller;
 
-import com.carrental.models.User;
-import com.carrental.service.UserService;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,6 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.carrental.models.User;
+import com.carrental.service.UserService;
+
 import jakarta.validation.Valid;
 
 @Controller
@@ -20,13 +20,13 @@ public class AuthController {
 
     @Autowired
     private UserService userService;
-    
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model) {
         model.addAttribute("user", new User());
         return "register";
     }
-    
+
     @PostMapping("/register")
     public String registerUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -34,9 +34,9 @@ public class AuthController {
         }
 
         if (user.getIsAdmin() == null) {  
-            user.setIsAdmin(Boolean.FALSE);
-        }        
-        
+            user.setIsAdmin(Boolean.FALSE); // Por defecto, los nuevos usuarios no son admin
+        }
+
         try {
             userService.registerUser(user);
             return "redirect:/login?success";
@@ -45,23 +45,21 @@ public class AuthController {
             return "register";
         }
     }
-    
+
     @GetMapping("/login")
     public String showLoginForm() {
         return "login";
     }
-    
+
     @GetMapping("/dashboard")
     public String dashboard(Authentication authentication) {
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ADMIN"))) {
-            return "redirect:/admin/dashboard";
+        // Verificamos el rol del usuario logueado
+        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            // Si el usuario tiene el rol de administrador, lo redirigimos al dashboard de admin
+            return "admin_dashboard";  // Corresponde con el archivo admin_dashboard.html
         }
-        
-        return "admin_dashboard";
-    }
-    
-    @GetMapping("/admin/dashboard")
-    public String adminDashboard() {
-        return "admin-dashboard";
+
+        // Si no es admin, lo redirigimos al dashboard de usuario
+        return "user-dashboard"; // Corresponde con el archivo user-dashboard.html
     }
 }

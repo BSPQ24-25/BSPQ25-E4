@@ -43,6 +43,10 @@ public class BookingService {
         return bookingRepository.save(booking);
     }
 
+    public List<Booking> getUserRentalHistory(String userName, List<String> statuses) {
+        return bookingRepository.findByUserNameAndBookingStatusIn(userName, statuses);
+    }
+
     // Update an existing booking
     public Booking updateBooking(Long id, Booking bookingDetails) {
         Optional<Booking> optionalBooking = bookingRepository.findById(id);
