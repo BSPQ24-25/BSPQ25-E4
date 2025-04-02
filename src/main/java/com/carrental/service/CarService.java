@@ -28,13 +28,15 @@ public class CarService {
         return carRepository.findById(id).orElse(null);
     }
 
-    // Delete car by ID
-    public void deleteCar(Long id) {
+    public void deleteCarById(Long id) {
         carRepository.deleteById(id);
     }
+    
     // Count available cars by status
     public long countAvailableCars() {
         return carRepository.countByStatusIgnoreCase("available");
     }
+    
+    
 
 }

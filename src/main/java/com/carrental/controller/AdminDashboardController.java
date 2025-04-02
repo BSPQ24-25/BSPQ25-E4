@@ -5,13 +5,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.carrental.models.Car;
+import com.carrental.models.Insurance;
+import com.carrental.repository.CarRepository;
+import com.carrental.repository.InsuranceRepository;
 import com.carrental.service.BookingService;
 
 
 @Controller
 public class AdminDashboardController {
 
+	@Autowired
+	private InsuranceRepository insuranceRepository;
+
+	@Autowired
+	private CarRepository carRepository;
+	
     @Autowired
     private CarService carService;
 
@@ -29,6 +43,22 @@ public class AdminDashboardController {
         model.addAttribute("totalRevenue", totalRevenue);
 
         return "admin_dashboard";
+    }
+    
+    @PostMapping("/admin/vehicles/add")
+    public String addVehicle(@ModelAttribute Car car, @RequestParam(name = "insuranceId", required = false) Long insuranceId) {
+        if (insuranceId != null) {
+            Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);
+            car.setInsurance(insurance);
+        }
+        carRepository.save(car);
+        return "redirect:/admin/vehicles";
+    }
+
+    @PostMapping("/admin/vehicles/delete/{id}")
+    public String deleteVehicle(@PathVariable Long id) {
+        carService.deleteCarById(id);
+        return "redirect:/admin/vehicles";
     }
 }
 

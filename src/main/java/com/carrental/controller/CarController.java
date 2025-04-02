@@ -3,6 +3,7 @@ package com.carrental.controller;
 import com.carrental.models.Car;
 import com.carrental.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,13 @@ public class CarController {
         if (!admin) {
             throw new RuntimeException("Only admins can delete cars.");
         }
-        carService.deleteCar(id);
+        carService.deleteCarById(id);
     }
+    
+    @GetMapping("/admin/vehicles")
+    public String showVehicles(Model model) {
+        model.addAttribute("cars", carService.getAllCars());
+        return "vehicle-management"; // nombre del HTML
+    }
+
 }
