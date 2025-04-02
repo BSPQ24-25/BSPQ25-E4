@@ -110,7 +110,7 @@ class CarServiceTest {
     @Test
     void testDeleteCar() {
         Long carId = 1L;
-        carService.deleteCar(carId);
+        carService.deleteCarById(carId);
         verify(carRepository, times(1)).deleteById(carId);
     }
 }
