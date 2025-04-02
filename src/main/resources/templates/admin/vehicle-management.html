@@ -69,6 +69,7 @@
                     <td><input type="text" name="color" placeholder="Color" required></td>
                     <td><input type="number" step="0.1" min="0" name="fuelLevel" placeholder="Fuel Level" required></td>
                     <td><input type="text" name="transmission" placeholder="Transmission" required></td>
+                    <td><input type="text" name="status" placeholder="Status" required></td>
                     <td><input type="number" step="0.1" min="0" name="mileage" placeholder="Mileage" required></td>
                     <td><input type="number" min="1960" name="manufacturingYear" placeholder="Year" required></td>
                     <td><input type="number" name="insuranceId" placeholder="Insurance ID"></td>
@@ -84,6 +85,7 @@
                     <th>Color</th>
                     <th>Fuel level</th>
                     <th>Transmission</th>
+                    <th>Status</th>
                     <th>Mileage</th>
                     <th>Manufacturing Year</th>
                     <th>Insurance ID</th>
@@ -99,6 +101,7 @@
                     <td th:text="${vehicle.color}"></td>
                     <td th:text="${vehicle.fuelLevel}"></td>
                     <td th:text="${vehicle.transmission}"></td>
+                    <td th:text="${vehicle.status}"></td>
                     <td th:text="${vehicle.mileage}"></td>
                     <td th:text="${vehicle.manufacturingYear}"></td>
                     <td th:text="${vehicle.insurance.insuranceId}"></td>
