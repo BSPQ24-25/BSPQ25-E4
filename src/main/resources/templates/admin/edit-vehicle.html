@@ -3,43 +3,113 @@
 <head>
     <title>Edit Vehicle</title>
     <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .back-link {
+            display: block;
+            margin-top: 15px;
+            text-align: center;
+            text-decoration: none;
+            color: #2196F3;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
+<div class="container">
     <h1>Edit Vehicle</h1>
     <form th:action="@{'/admin/vehicles/edit'}" th:object="${car}" method="post">
-
         <input type="hidden" th:field="*{vehicleId}" />
 
         <label>Brand:</label>
-        <input type="text" th:field="*{brand}" /><br>
+        <input type="text" th:field="*{brand}" required />
 
         <label>Model:</label>
-        <input type="text" th:field="*{model}" /><br>
+        <input type="text" th:field="*{model}" required />
 
         <label>Color:</label>
-        <input type="text" th:field="*{color}" /><br>
+        <input type="text" th:field="*{color}" required />
 
         <label>Fuel Level:</label>
-        <input type="number" step="0.1" min="0" th:field="*{fuelLevel}" /><br>
+        <input type="number" step="0.1" min="0" th:field="*{fuelLevel}" required />
 
         <label>Transmission:</label>
-        <input type="text" th:field="*{transmission}" /><br>
+        <input type="text" th:field="*{transmission}" required />
 
         <label>Status:</label>
-        <input type="text" th:field="*{status}" /><br>
+        <input type="text" th:field="*{status}" required />
 
         <label>Mileage:</label>
-        <input type="number" th:field="*{mileage}" /><br>
+        <input type="number" step="10" min="0"  th:field="*{mileage}" required />
 
         <label>Manufacturing Year:</label>
-        <input type="number" th:field="*{manufacturingYear}" /><br>
+        <input type="number" th:field="*{manufacturingYear}" required />
 
         <label>Insurance ID:</label>
-        <input type="number" name="insuranceId" th:value="${car.insurance != null ? car.insurance.insuranceId : ''}" /><br>
+        <input type="number" name="insuranceId" th:value="${car.insurance != null ? car.insurance.insuranceId : ''}" />
 
         <button type="submit">Update Vehicle</button>
     </form>
-    <br>
-    <a href="/admin/vehicle-management">Back to Vehicle List</a>
+    <a href="/admin/vehicles" class="back-link">← Back to Vehicle List</a>
+</div>
 </body>
 </html>
