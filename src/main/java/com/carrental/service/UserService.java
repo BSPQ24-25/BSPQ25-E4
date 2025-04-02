@@ -1,13 +1,14 @@
 package com.carrental.service;
 
-import com.carrental.models.User;
-import com.carrental.repository.UserRepository;
-
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import com.carrental.models.User;
+import com.carrental.repository.UserRepository;
 
 @Service
 public class UserService {
@@ -39,6 +40,10 @@ public class UserService {
         } else {
             throw new RuntimeException("User not found");
         }
+    }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
 }

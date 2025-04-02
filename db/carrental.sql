@@ -11,14 +11,14 @@ CREATE TABLE `users` (
   `email` VARCHAR(100) DEFAULT NULL,
   `phone` VARCHAR(20) DEFAULT NULL,
   `address` VARCHAR(255) DEFAULT NULL,
-  `isAdmin` BOOLEAN DEFAULT FALSE,
+  `is_admin` BOOLEAN DEFAULT FALSE,
   `password` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- 👤 Insertar usuarios con contraseñas BCrypt
 -- Contraseñas: user1, admin, user2, user3
-INSERT INTO `users` (name, email, phone, address, isAdmin, password) VALUES
+INSERT INTO `users` (name, email, phone, address, is_admin, password) VALUES
 ('user1', 'user1@example.com', '1234567890', '123 Elm Street', FALSE, '$2a$10$e0NRu4g7/FvYaMo6Y9j.3ed13O0I6jxoyQy.cQi9eAlmscdDA6S4a'),
 ('admin', 'admin@example.com', '9876543210', '456 Oak Avenue', TRUE, '$2a$10$Wz6IfzZpK.rbnxqpjN0H3uKnSzDY5TuQ6fUMyN8eFw3t9LyrBAYqa'),
 ('user2', 'user2@example.com', '555667788', '789 Pine Road', FALSE, '$2a$10$e0NRu4g7/FvYaMo6Y9j.3ed13O0I6jxoyQy.cQi9eAlmscdDA6S4a'),
@@ -89,8 +89,8 @@ CREATE TABLE `bookings` (
 INSERT INTO `bookings` (user_id, car_id, start_date, end_date, daily_price, booking_status, payment_method, security_deposit, rating, review) VALUES
 (1, 1, '2025-03-01', '2025-03-10', 40.00, 'Confirmed', 'Credit Card', 200.00, 5, 'Great experience!'),
 (2, 2, '2025-04-05', '2025-04-15', 50.00, 'Completed', 'PayPal', 250.00, 4, 'Smooth process, will rent again!'),
-(1, 3, '2025-05-10', '2025-05-20', 45.00, 'Pending', 'Debit Card', 220.00, NULL, NULL),
-(2, 4, '2025-06-01', '2025-06-07', 70.00, 'Cancelled', 'Cash', 300.00, NULL, NULL),
+(1, 3, '2025-05-10', '2025-05-20', 45.00, 'Pending', 'Debit Card', 220.00, 3, 'Okay'),
+(2, 4, '2025-06-01', '2025-06-07', 70.00, 'Cancelled', 'Cash', 300.00, 4, 'Great'),
 (3, 5, '2025-07-10', '2025-07-15', 100.00, 'Confirmed', 'Credit Card', 500.00, 5, 'Luxury ride!'),
 (4, 6, '2025-08-20', '2025-08-30', 90.00, 'Completed', 'PayPal', 400.00, 4, 'Very comfortable car!');
 

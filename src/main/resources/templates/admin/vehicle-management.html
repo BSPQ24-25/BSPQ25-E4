@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Vehicle Management</title>
+</head>
+<body>
+    <h1>Vehicle Management</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Brand</th>
+                <th>Model</th>
+                <th>Color</th>
+                <th>Fuel level</th>
+                <th>Transmission</th>
+                <th>Mileage</th>
+                <th>Manufacturing Year</th>
+                <th>Insurance ID</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="vehicle : ${vehicles}">
+                <td th:text="${vehicle.vehicleId}"></td>
+                <td th:text="${vehicle.brand}"></td>
+                <td th:text="${vehicle.model}"></td>
+                <td th:text="${vehicle.color}"></td>
+                <td th:text="${vehicle.fuelLevel}"></td>
+                <td th:text="${vehicle.transmission}"></td>
+                <td th:text="${vehicle.status}"></td>
+                <td th:text="${vehicle.mileage}"></td>
+                <td th:text="${vehicle.manufacturingYear}"></td>
+                <td th:text="${vehicle.insurance.insuranceId}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rental History</title>
+</head>
+<body>
+    <h1>Rental History</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User ID</th>
+                <th>Car ID</th>
+                <th>Start date</th>
+                <th>End date</th>
+                <th>Daily price</th>
+                <th>Booking status</th>
+                <th>Payment method</th>
+                <th>Security deposit</th>
+                <th>Rating</th>
+                <th>Review</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="booking : ${historyBookings}">
+                <td th:text="${booking.bookingId}"></td>
+                <td th:text="${booking.user.id}"></td>
+                <td th:text="${booking.car.vehicleId}"></td>
+                <td th:text="${booking.startDate}"></td>
+                <td th:text="${booking.endDate}"></td>
+                <td th:text="${booking.dailyPrice}"></td>
+                <td th:text="${booking.bookingStatus}"></td>
+                <td th:text="${booking.paymentMethod}"></td>
+                <td th:text="${booking.securityDeposit}"></td>
+                <td th:text="${booking.rating}"></td>
+                <td th:text="${booking.review}"></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,12 +1,13 @@
 package com.carrental.service;
 
-import com.carrental.models.Booking;
-import com.carrental.repository.BookingRepository;
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.carrental.models.Booking;
+import com.carrental.repository.BookingRepository;
 
 @Service
 public class BookingService {
@@ -21,6 +22,15 @@ public class BookingService {
     // Get all bookings
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
+    }
+
+    public List<Booking> getPendingBookings() {
+        return bookingRepository.findByBookingStatus("pending");
+    }
+
+    // Obtener historial de reservas (estados "confirmed", "completed", "cancelled")
+    public List<Booking> getHistoryBookings() {
+        return bookingRepository.findByBookingStatusIn(List.of("confirmed", "completed", "cancelled"));
     }
 
     // Get a booking by its ID
