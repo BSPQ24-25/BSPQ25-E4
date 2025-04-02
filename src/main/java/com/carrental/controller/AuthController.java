@@ -33,8 +33,8 @@ public class AuthController {
             return "register";
         }
 
-        if (user.getIsAdmin() == null) {  
-            user.setIsAdmin(Boolean.FALSE); // Por defecto, los nuevos usuarios no son admin
+        if (user.getIsAdmin() == null) {
+            user.setIsAdmin(Boolean.FALSE);
         }
 
         try {
@@ -51,15 +51,13 @@ public class AuthController {
         return "login";
     }
 
-    @GetMapping("/dashboard")
-    public String dashboard(Authentication authentication) {
-        // Verificamos el rol del usuario logueado
-        if (authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            // Si el usuario tiene el rol de administrador, lo redirigimos al dashboard de admin
-            return "admin_dashboard";  // Corresponde con el archivo admin_dashboard.html
+    @GetMapping("/redirect")
+    public String redirectAfterLogin(Authentication authentication) {
+        if (authentication != null &&
+            authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
+            return "redirect:/admin";
+        } else {
+            return "redirect:/profile";
         }
-
-        // Si no es admin, lo redirigimos al dashboard de usuario
-        return "user-dashboard"; // Corresponde con el archivo user-dashboard.html
     }
 }

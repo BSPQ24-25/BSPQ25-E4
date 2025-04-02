@@ -53,6 +53,34 @@
         </div>
         
         <h1 class="mb-4">Admin Dashboard</h1>
+
+        <div class="row mb-4">
+            <div class="col-md-4">
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Available Cars</h5>
+                        <p class="card-text fs-4" th:text="${availableCars}">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-warning mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Active Rentals</h5>
+                        <p class="card-text fs-4" th:text="${activeRentals}">0</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Total Revenue</h5>
+                        <p class="card-text fs-4">€<span th:text="${totalRevenue}">0.00</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="list-group">
             <a th:href="@{/admin/users}" class="list-group-item list-group-item-action">User Management 👥</a>
             <a th:href="@{/admin/vehicles}" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>

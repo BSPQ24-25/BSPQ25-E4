@@ -13,8 +13,6 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.carrental.repository.UserRepository;
 import com.carrental.service.CustomUserDetailsService;
 
-//This java class was created with the help of Claude
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -35,29 +33,29 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         return new CustomUserDetailsService(userRepository);
     }
-    
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-            .requestMatchers("/register").permitAll()
-            .requestMatchers("/admin/**").hasRole("ADMIN")
-            .anyRequest().authenticated()
-    )
+                .requestMatchers("/register", "/login", "/css/**", "/js/**").permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .anyRequest().authenticated()
+            )
             .userDetailsService(userDetailsService())
             .formLogin(form -> form
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/dashboard", true)
+                .defaultSuccessUrl("/redirect", true) // Se gestiona en el controller
                 .permitAll()
             )
             .logout(logout -> logout
                 .logoutSuccessUrl("/login?logout")
                 .permitAll()
             );
-            
+
         return http.build();
     }
 }

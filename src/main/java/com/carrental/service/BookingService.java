@@ -19,7 +19,6 @@ public class BookingService {
         this.bookingRepository = bookingRepository;
     }
 
-    // Get all bookings
     public List<Booking> getAllBookings() {
         return bookingRepository.findAll();
     }
@@ -28,17 +27,14 @@ public class BookingService {
         return bookingRepository.findByBookingStatus("pending");
     }
 
-    // Obtener historial de reservas (estados "confirmed", "completed", "cancelled")
     public List<Booking> getHistoryBookings() {
         return bookingRepository.findByBookingStatusIn(List.of("confirmed", "completed", "cancelled"));
     }
 
-    // Get a booking by its ID
     public Optional<Booking> getBookingById(Long id) {
         return bookingRepository.findById(id);
     }
 
-    // Create a new booking
     public Booking createBooking(Booking booking) {
         return bookingRepository.save(booking);
     }
@@ -47,7 +43,6 @@ public class BookingService {
         return bookingRepository.findByUserNameAndBookingStatusIn(userName, statuses);
     }
 
-    // Update an existing booking
     public Booking updateBooking(Long id, Booking bookingDetails) {
         Optional<Booking> optionalBooking = bookingRepository.findById(id);
         if (optionalBooking.isPresent()) {
@@ -68,12 +63,20 @@ public class BookingService {
         }
     }
 
-    // Delete a booking by its ID
     public void deleteBooking(Long id) {
         if (bookingRepository.existsById(id)) {
             bookingRepository.deleteById(id);
         } else {
             throw new RuntimeException("Booking not found with id: " + id);
         }
+    }
+
+    public long countActiveBookings() {
+        return bookingRepository.countByBookingStatus("confirmed");
+    }
+
+    public double getTotalRevenue() {
+        Double total = bookingRepository.sumDailyPriceByBookingStatus("completed");
+        return total != null ? total : 0.0;
     }
 }

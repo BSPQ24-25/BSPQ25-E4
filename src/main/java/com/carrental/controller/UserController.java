@@ -18,21 +18,22 @@ public class UserController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping("/profile")
-    public String userProfile() {
-        return "user/profile";
-    }
-    
+    // Este método está en conflicto con el AuthController, por eso se comenta o elimina.
+    // @GetMapping("/profile")
+    // public String userProfile() {
+    //     return "user/profile";
+    // }
+
     @GetMapping("/vehicles")
     public String browseVehicles() {
         return "user/browse-vehicles";
     }
-    
+
     @GetMapping("/reservations")
     public String userReservations() {
         return "user/reservations";
     }
-    
+
     @GetMapping("/history")
     public String userRentalHistory(Authentication authentication, Model model) {
         String userName = authentication.getName();  // Obtiene el 'name' del usuario autenticado

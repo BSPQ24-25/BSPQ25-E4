@@ -1,7 +1,7 @@
 package com.carrental.service;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,13 +26,10 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
 
-        Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        
-        if (user.getIsAdmin()) {
-            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-        }
-
-        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        // Solo un rol según si es admin o no
+        Collection<SimpleGrantedAuthority> authorities = user.getIsAdmin()
+                ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
+                : List.of(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new org.springframework.security.core.userdetails.User(
                 user.getEmail(),
