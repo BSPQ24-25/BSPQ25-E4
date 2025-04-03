@@ -40,24 +40,91 @@
             text-align: right;
             margin-bottom: 20px;
         }
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
+
     <div class="container py-5">
         <div class="user-info">
-            <p>Welcome, <span sec:authentication="name"></span></p>
+            <p id="welcomeMessage">Welcome, <span sec:authentication="name"></span></p>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-outline-danger">Log out</button>
+                <button type="submit" class="btn btn-outline-danger" id="logoutButton">Log out</button>
             </form>
         </div>
         
-        <h1 class="mb-4">User Dashboard</h1>
+        <h1 class="mb-4" id="dashboardTitle">User Dashboard</h1>
         <div class="list-group">
-            <a th:href="@{/profile}" class="list-group-item list-group-item-action">Profile 🧑</a>
-            <a th:href="@{/vehicles}" class="list-group-item list-group-item-action">Browse Vehicles 🚗</a>
-            <a th:href="@{/reservations}" class="list-group-item list-group-item-action">Your Reservations ⏳</a>
-            <a th:href="@{/history}" class="list-group-item list-group-item-action">Rental History 📊</a>
+            <a th:href="@{/profile}" class="list-group-item list-group-item-action" id="profileLink">Profile 🧑</a>
+            <a th:href="@{/vehicles}" class="list-group-item list-group-item-action" id="vehiclesLink">Browse Vehicles 🚗</a>
+            <a th:href="@{/reservations}" class="list-group-item list-group-item-action" id="reservationsLink">Your Reservations ⏳</a>
+            <a th:href="@{/history}" class="list-group-item list-group-item-action" id="historyLink">Rental History 📊</a>
         </div>
     </div>
+
+    <script>
+        const translations = {
+            en: {
+                welcomeMessage: "Welcome,",
+                dashboardTitle: "User Dashboard",
+                profileLink: "Profile 🧑",
+                vehiclesLink: "Browse Vehicles 🚗",
+                reservationsLink: "Your Reservations ⏳",
+                historyLink: "Rental History 📊",
+                logoutButton: "Log out"
+            },
+            es: {
+                welcomeMessage: "Bienvenido,",
+                dashboardTitle: "Panel de usuario",
+                profileLink: "Perfil 🧑",
+                vehiclesLink: "Ver vehículos 🚗",
+                reservationsLink: "Tus reservas ⏳",
+                historyLink: "Historial de alquiler 📊",
+                logoutButton: "Cerrar sesión"
+            },
+            fr: {
+                welcomeMessage: "Bienvenue,",
+                dashboardTitle: "Tableau de bord utilisateur",
+                profileLink: "Profil 🧑",
+                vehiclesLink: "Parcourir les véhicules 🚗",
+                reservationsLink: "Vos réservations ⏳",
+                historyLink: "Historique des locations 📊",
+                logoutButton: "Se déconnecter"
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById("languageSelect").value;
+            localStorage.setItem("selectedLanguage", lang);
+            updateText(lang);
+        }
+
+        function updateText(lang) {
+            document.getElementById("welcomeMessage").innerText = translations[lang].welcomeMessage;
+            document.getElementById("dashboardTitle").innerText = translations[lang].dashboardTitle;
+            document.getElementById("profileLink").innerText = translations[lang].profileLink;
+            document.getElementById("vehiclesLink").innerText = translations[lang].vehiclesLink;
+            document.getElementById("reservationsLink").innerText = translations[lang].reservationsLink;
+            document.getElementById("historyLink").innerText = translations[lang].historyLink;
+            document.getElementById("logoutButton").innerText = translations[lang].logoutButton;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem("selectedLanguage") || "en";
+            document.getElementById("languageSelect").value = savedLang;
+            updateText(savedLang);
+        });
+    </script>
 </body>
 </html>

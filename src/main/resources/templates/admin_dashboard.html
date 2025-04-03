@@ -14,6 +14,7 @@
             background-color: white;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            position: relative;
         }
         h1 {
             color: #4CAF50;
@@ -31,61 +32,130 @@
         .list-group-item:hover {
             background-color: #e2e6ea;
         }
-        .list-group-item-action {
-            cursor: pointer;
-        }
-        .list-group-item-action:hover {
-            background-color: #d4edda;
-        }
         .user-info {
             text-align: right;
             margin-bottom: 20px;
         }
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
     </style>
+    <script>
+        const translations = {
+            en: {
+                welcome: "Welcome,",
+                logout: "Log out",
+                dashboard: "Admin Dashboard",
+                availableCars: "Available Cars",
+                activeRentals: "Active Rentals",
+                totalRevenue: "Total Revenue",
+                userManagement: "User Management 👥",
+                vehicleManagement: "Vehicle Management 🚗",
+                pendingReservations: "Pending Reservations ⏳",
+                rentalHistory: "Rental History 📊"
+            },
+            es: {
+                welcome: "Bienvenido,",
+                logout: "Cerrar sesión",
+                dashboard: "Panel de Administración",
+                availableCars: "Coches Disponibles",
+                activeRentals: "Alquileres Activos",
+                totalRevenue: "Ingresos Totales",
+                userManagement: "Gestión de Usuarios 👥",
+                vehicleManagement: "Gestión de Vehículos 🚗",
+                pendingReservations: "Reservas Pendientes ⏳",
+                rentalHistory: "Historial de Alquiler 📊"
+            },
+            fr: {
+                welcome: "Bienvenue,",
+                logout: "Déconnexion",
+                dashboard: "Tableau de bord Admin",
+                availableCars: "Voitures Disponibles",
+                activeRentals: "Locations Actives",
+                totalRevenue: "Revenu Total",
+                userManagement: "Gestion des Utilisateurs 👥",
+                vehicleManagement: "Gestion des Véhicules 🚗",
+                pendingReservations: "Réservations en Attente ⏳",
+                rentalHistory: "Historique des Locations 📊"
+            }
+        };
+        
+        function changeLanguage() {
+            const lang = document.getElementById("languageSelect").value;
+            localStorage.setItem("selectedLanguage", lang);
+            updateText(lang);
+        }
+        
+        function updateText(lang) {
+            document.getElementById("welcomeText").innerText = translations[lang].welcome;
+            document.getElementById("logoutButton").innerText = translations[lang].logout;
+            document.getElementById("dashboardTitle").innerText = translations[lang].dashboard;
+            document.getElementById("availableCars").innerText = translations[lang].availableCars;
+            document.getElementById("activeRentals").innerText = translations[lang].activeRentals;
+            document.getElementById("totalRevenue").innerText = translations[lang].totalRevenue;
+            document.getElementById("userManagement").innerText = translations[lang].userManagement;
+            document.getElementById("vehicleManagement").innerText = translations[lang].vehicleManagement;
+            document.getElementById("pendingReservations").innerText = translations[lang].pendingReservations;
+            document.getElementById("rentalHistory").innerText = translations[lang].rentalHistory;
+        }
+        
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedLang = localStorage.getItem("selectedLanguage") || "en";
+            document.getElementById("languageSelect").value = savedLang;
+            updateText(savedLang);
+        });
+    </script>
 </head>
 <body>
     <div class="container py-5">
+        <div class="language-selector">
+            <select id="languageSelect" class="form-select" onchange="changeLanguage()">
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+        
         <div class="user-info">
-            <p>Welcome, <span sec:authentication="name"></span></p>
+            <p><span id="welcomeText">Welcome,</span> <span sec:authentication="name"></span></p>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-outline-danger">Log out</button>
+                <button id="logoutButton" type="submit" class="btn btn-outline-danger">Log out</button>
             </form>
         </div>
         
-        <h1 class="mb-4">Admin Dashboard</h1>
+        <h1 id="dashboardTitle" class="mb-4">Admin Dashboard</h1>
 
         <div class="row mb-4">
             <div class="col-md-4">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Available Cars</h5>
-                        <p class="card-text fs-4" th:text="${availableCars}">0</p>
+                        <h5 id="availableCars" class="card-title">Available Cars</h5>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card text-white bg-warning mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Active Rentals</h5>
-                        <p class="card-text fs-4" th:text="${activeRentals}">0</p>
+                        <h5 id="activeRentals" class="card-title">Active Rentals</h5>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card text-white bg-success mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Total Revenue</h5>
-                        <p class="card-text fs-4">€<span th:text="${totalRevenue}">0.00</span></p>
+                        <h5 id="totalRevenue" class="card-title">Total Revenue</h5>
                     </div>
                 </div>
             </div>
         </div>
 
         <div class="list-group">
-            <a th:href="@{/admin/users}" class="list-group-item list-group-item-action">User Management 👥</a>
-            <a th:href="@{/admin/vehicles}" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
-            <a th:href="@{/admin/reservations}" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
-            <a th:href="@{/admin/history}" class="list-group-item list-group-item-action">Rental History 📊</a>
+            <a id="userManagement" class="list-group-item list-group-item-action">User Management 👥</a>
+            <a id="vehicleManagement" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
+            <a id="pendingReservations" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
+            <a id="rentalHistory" class="list-group-item list-group-item-action">Rental History 📊</a>
         </div>
     </div>
 </body>

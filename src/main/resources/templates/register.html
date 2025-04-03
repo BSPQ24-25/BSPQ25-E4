@@ -88,46 +88,132 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>Register</h1>
-
-    <div th:if="${error}" class="alert alert-danger">
-        <p th:text="${error}"></p>
+    <div class="language-selector">
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+        </select>
     </div>
 
-    <form th:action="@{/register}" th:object="${user}" method="post">
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" id="name" th:field="*{name}" required />
-        </div>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" id="email" th:field="*{email}" required />
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" th:field="*{password}" required />
-        </div>
-        <div>
-            <label for="telephone">Phone number:</label>
-            <input type="text" id="telephone" th:field="*{phone}" />
-        </div>
-        <div>
-            <label for="address">Address:</label>
-            <input type="text" id="address" th:field="*{address}" />
-        </div>
-        <div>
-            <input type="checkbox" id="isAdmin" th:field="*{isAdmin}" th:checked="${user.isAdmin}" />
-            <label for="isAdmin">Select if you are an admin</label>
-        </div>
-        
-        <button type="submit">Register</button>
-    </form>
+    <div class="container">
+        <h1 id="pageTitle">Register</h1>
 
-    <p>Already have an account? <a th:href="@{/login}">Log In</a></p>
-</div>
+        <div id="errorMessage" class="alert alert-danger" style="display: none;">
+            <p id="errorText"></p>
+        </div>
+
+        <form th:action="@{/register}" th:object="${user}" method="post">
+            <div>
+                <label for="name" id="nameLabel">Name:</label>
+                <input type="text" id="name" th:field="*{name}" required />
+            </div>
+            <div>
+                <label for="email" id="emailLabel">Email:</label>
+                <input type="email" id="email" th:field="*{email}" required />
+            </div>
+            <div>
+                <label for="password" id="passwordLabel">Password:</label>
+                <input type="password" id="password" th:field="*{password}" required />
+            </div>
+            <div>
+                <label for="telephone" id="telephoneLabel">Phone number:</label>
+                <input type="text" id="telephone" th:field="*{phone}" />
+            </div>
+            <div>
+                <label for="address" id="addressLabel">Address:</label>
+                <input type="text" id="address" th:field="*{address}" />
+            </div>
+            <div>
+                <input type="checkbox" id="isAdmin" th:field="*{isAdmin}" th:checked="${user.isAdmin}" />
+                <label for="isAdmin" id="isAdminLabel">Select if you are an admin</label>
+            </div>
+            
+            <button type="submit" id="registerButton">Register</button>
+        </form>
+
+        <p id="loginLink">Already have an account? <a th:href="@{/login}">Log In</a></p>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                pageTitle: "Register",
+                errorMessage: "There was an error during registration.",
+                nameLabel: "Name:",
+                emailLabel: "Email:",
+                passwordLabel: "Password:",
+                telephoneLabel: "Phone number:",
+                addressLabel: "Address:",
+                isAdminLabel: "Select if you are an admin",
+                registerButton: "Register",
+                loginLink: "Already have an account? Log In"
+            },
+            es: {
+                pageTitle: "Registrar",
+                errorMessage: "Hubo un error durante el registro.",
+                nameLabel: "Nombre:",
+                emailLabel: "Correo electrónico:",
+                passwordLabel: "Contraseña:",
+                telephoneLabel: "Número de teléfono:",
+                addressLabel: "Dirección:",
+                isAdminLabel: "Selecciona si eres administrador",
+                registerButton: "Registrar",
+                loginLink: "¿Ya tienes una cuenta? Iniciar sesión"
+            },
+            fr: {
+                pageTitle: "S'inscrire",
+                errorMessage: "Une erreur est survenue lors de l'inscription.",
+                nameLabel: "Nom :",
+                emailLabel: "Email :",
+                passwordLabel: "Mot de passe :",
+                telephoneLabel: "Numéro de téléphone :",
+                addressLabel: "Adresse :",
+                isAdminLabel: "Sélectionnez si vous êtes administrateur",
+                registerButton: "S'inscrire",
+                loginLink: "Vous avez déjà un compte ? Se connecter"
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById("languageSelect").value;
+            localStorage.setItem("selectedLanguage", lang);
+            updateText(lang);
+        }
+
+        function updateText(lang) {
+            document.getElementById("pageTitle").innerText = translations[lang].pageTitle;
+            document.getElementById("nameLabel").innerText = translations[lang].nameLabel;
+            document.getElementById("emailLabel").innerText = translations[lang].emailLabel;
+            document.getElementById("passwordLabel").innerText = translations[lang].passwordLabel;
+            document.getElementById("telephoneLabel").innerText = translations[lang].telephoneLabel;
+            document.getElementById("addressLabel").innerText = translations[lang].addressLabel;
+            document.getElementById("isAdminLabel").innerText = translations[lang].isAdminLabel;
+            document.getElementById("registerButton").innerText = translations[lang].registerButton;
+            document.getElementById("loginLink").innerText = translations[lang].loginLink;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem("selectedLanguage") || "en";
+            document.getElementById("languageSelect").value = savedLang;
+            updateText(savedLang);
+
+            // Display error message if any
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('error')) {
+                document.getElementById("errorMessage").style.display = "block";
+                document.getElementById("errorText").innerText = translations[savedLang].errorMessage;
+            }
+        });
+    </script>
 </body>
 </html>

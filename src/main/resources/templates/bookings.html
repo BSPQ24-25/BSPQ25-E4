@@ -41,25 +41,39 @@
         td {
             font-size: 14px;
         }
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
     </style>
 </head>
 <body>
-    <h1>🚗 Booking List</h1>
+    <div class="language-selector">
+        <select id="languageSelect" class="form-select" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
+
+    <h1 id="pageTitle">🚗 Booking List</h1>
+
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>💰 Daily Price</th>
-                <th>📅 Start Date</th>
-                <th>📅 End Date</th>
-                <th>📌 Status</th>
-                <th>💳 Payment</th>
-                <th>🔒 Security Deposit</th>
-                <th>👤 User</th>
-                <th>🚘 Vehicle</th>
-                <th>⭐ Rating</th>
-                <th>💬 Review</th>
-                <th>❌ Cancel</th> <!-- New column for cancel button -->
+                <th id="idHeader">ID</th>
+                <th id="dailyPriceHeader">💰 Daily Price</th>
+                <th id="startDateHeader">📅 Start Date</th>
+                <th id="endDateHeader">📅 End Date</th>
+                <th id="statusHeader">📌 Status</th>
+                <th id="paymentHeader">💳 Payment</th>
+                <th id="depositHeader">🔒 Security Deposit</th>
+                <th id="userHeader">👤 User</th>
+                <th id="vehicleHeader">🚘 Vehicle</th>
+                <th id="ratingHeader">⭐ Rating</th>
+                <th id="reviewHeader">💬 Review</th>
+                <th id="cancelHeader">❌ Cancel</th>
             </tr>
         </thead>
         <tbody id="bookingsTableBody">
@@ -68,9 +82,79 @@
     </table>
 
     <script>
+        const translations = {
+            en: {
+                pageTitle: "🚗 Booking List",
+                idHeader: "ID",
+                dailyPriceHeader: "💰 Daily Price",
+                startDateHeader: "📅 Start Date",
+                endDateHeader: "📅 End Date",
+                statusHeader: "📌 Status",
+                paymentHeader: "💳 Payment",
+                depositHeader: "🔒 Security Deposit",
+                userHeader: "👤 User",
+                vehicleHeader: "🚘 Vehicle",
+                ratingHeader: "⭐ Rating",
+                reviewHeader: "💬 Review",
+                cancelHeader: "❌ Cancel"
+            },
+            es: {
+                pageTitle: "🚗 Lista de Reservas",
+                idHeader: "ID",
+                dailyPriceHeader: "💰 Precio Diario",
+                startDateHeader: "📅 Fecha de Inicio",
+                endDateHeader: "📅 Fecha de Fin",
+                statusHeader: "📌 Estado",
+                paymentHeader: "💳 Pago",
+                depositHeader: "🔒 Depósito de Seguridad",
+                userHeader: "👤 Usuario",
+                vehicleHeader: "🚘 Vehículo",
+                ratingHeader: "⭐ Calificación",
+                reviewHeader: "💬 Reseña",
+                cancelHeader: "❌ Cancelar"
+            },
+            fr: {
+                pageTitle: "🚗 Liste des Réservations",
+                idHeader: "ID",
+                dailyPriceHeader: "💰 Prix Par Jour",
+                startDateHeader: "📅 Date de Début",
+                endDateHeader: "📅 Date de Fin",
+                statusHeader: "📌 Statut",
+                paymentHeader: "💳 Paiement",
+                depositHeader: "🔒 Caution de Sécurité",
+                userHeader: "👤 Utilisateur",
+                vehicleHeader: "🚘 Véhicule",
+                ratingHeader: "⭐ Évaluation",
+                reviewHeader: "💬 Avis",
+                cancelHeader: "❌ Annuler"
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById("languageSelect").value;
+            localStorage.setItem("selectedLanguage", lang);
+            updateText(lang);
+        }
+
+        function updateText(lang) {
+            document.getElementById("pageTitle").innerText = translations[lang].pageTitle;
+            document.getElementById("idHeader").innerText = translations[lang].idHeader;
+            document.getElementById("dailyPriceHeader").innerText = translations[lang].dailyPriceHeader;
+            document.getElementById("startDateHeader").innerText = translations[lang].startDateHeader;
+            document.getElementById("endDateHeader").innerText = translations[lang].endDateHeader;
+            document.getElementById("statusHeader").innerText = translations[lang].statusHeader;
+            document.getElementById("paymentHeader").innerText = translations[lang].paymentHeader;
+            document.getElementById("depositHeader").innerText = translations[lang].depositHeader;
+            document.getElementById("userHeader").innerText = translations[lang].userHeader;
+            document.getElementById("vehicleHeader").innerText = translations[lang].vehicleHeader;
+            document.getElementById("ratingHeader").innerText = translations[lang].ratingHeader;
+            document.getElementById("reviewHeader").innerText = translations[lang].reviewHeader;
+            document.getElementById("cancelHeader").innerText = translations[lang].cancelHeader;
+        }
+
         async function fetchBookings() {
             try {
-                const response = await fetch('/api/bookings'); // Modify the URL if needed
+                const response = await fetch('/api/bookings');
                 const bookings = await response.json();
                 
                 const tableBody = document.getElementById('bookingsTableBody');
@@ -90,7 +174,7 @@
                         <td>🚘 ${booking.car ? booking.car.model : 'N/A'}</td>
                         <td>⭐ ${booking.rating || 'N/A'}</td>
                         <td>💬 ${booking.review || 'No review'}</td>
-                        <td><button onclick="cancelBooking(${booking.bookingId})">❌ Cancel</button></td> <!-- Cancel button -->
+                        <td><button onclick="cancelBooking(${booking.bookingId})">❌ Cancel</button></td>
                     `;
                     tableBody.appendChild(row);
                 });
@@ -116,7 +200,12 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', fetchBookings);
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem("selectedLanguage") || "en";
+            document.getElementById("languageSelect").value = savedLang;
+            updateText(savedLang);
+            fetchBookings();
+        });
     </script>
 </body>
 </html>

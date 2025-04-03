@@ -39,14 +39,27 @@
         .btn-primary:hover {
             background: #ff5277;
         }
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+        }
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <select id="languageSelect" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
+
     <div class="container text-center">
-        <h2 class="mb-4">🚗 Leave a review</h2>
+        <h2 class="mb-4" id="pageTitle">🚗 Leave a review</h2>
         <form id="reviewForm">
             <div class="mb-3 rating-select">
-                <label for="rating" class="form-label">Rate Your Experience</label>
+                <label for="rating" class="form-label" id="ratingLabel">Rate Your Experience</label>
                 <select id="rating" class="form-control">
                     <option value="5">⭐⭐⭐⭐⭐ (Amazing!)</option>
                     <option value="4">⭐⭐⭐⭐ (Great)</option>
@@ -56,13 +69,58 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="review" class="form-label">Your Thoughts</label>
+                <label for="review" class="form-label" id="reviewLabel">Your Thoughts</label>
                 <textarea class="form-control" id="review" rows="4" required placeholder="Tell us about your ride! 🚘"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Submit Review 🎯</button>
+            <button type="submit" class="btn btn-primary w-100" id="submitButton">Submit Review 🎯</button>
         </form>
     </div>
+
     <script>
+        const translations = {
+            en: {
+                pageTitle: "🚗 Leave a review",
+                ratingLabel: "Rate Your Experience",
+                reviewLabel: "Your Thoughts",
+                submitButton: "Submit Review 🎯",
+                placeholder: "Tell us about your ride! 🚘"
+            },
+            es: {
+                pageTitle: "🚗 Deja una reseña",
+                ratingLabel: "Califica tu experiencia",
+                reviewLabel: "Tus pensamientos",
+                submitButton: "Enviar reseña 🎯",
+                placeholder: "¡Cuéntanos sobre tu viaje! 🚘"
+            },
+            fr: {
+                pageTitle: "🚗 Laissez un avis",
+                ratingLabel: "Évaluez votre expérience",
+                reviewLabel: "Vos impressions",
+                submitButton: "Soumettre l'avis 🎯",
+                placeholder: "Parlez-nous de votre trajet ! 🚘"
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById("languageSelect").value;
+            localStorage.setItem("selectedLanguage", lang);
+            updateText(lang);
+        }
+
+        function updateText(lang) {
+            document.getElementById("pageTitle").innerText = translations[lang].pageTitle;
+            document.getElementById("ratingLabel").innerText = translations[lang].ratingLabel;
+            document.getElementById("reviewLabel").innerText = translations[lang].reviewLabel;
+            document.getElementById("submitButton").innerText = translations[lang].submitButton;
+            document.getElementById("review").placeholder = translations[lang].placeholder;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedLang = localStorage.getItem("selectedLanguage") || "en";
+            document.getElementById("languageSelect").value = savedLang;
+            updateText(savedLang);
+        });
+
         document.getElementById("reviewForm").addEventListener("submit", function(event) {
             event.preventDefault();
             
