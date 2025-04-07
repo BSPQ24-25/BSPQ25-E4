@@ -15,10 +15,11 @@ import jakarta.persistence.Table;
 @Table(name = "insurances")
 public class Insurance {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long insuranceId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id;
+
 
     private String provider;
     private String coverage;
@@ -29,11 +30,11 @@ public class Insurance {
 
     // Getters and Setters
     public Long getInsuranceId() {
-        return insuranceId;
+        return id;
     }
 
     public void setInsuranceId(Long insuranceId) {
-        this.insuranceId = insuranceId;
+        this.id = insuranceId;
     }
 
     public String getProvider() {

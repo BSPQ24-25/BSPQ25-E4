@@ -3,10 +3,12 @@ SET FOREIGN_KEY_CHECKS=0;
 
 -- 🧹 Eliminar tabla si ya existe
 DROP TABLE IF EXISTS `users`;
-
+DROP TABLE IF EXISTS `cars`;
+DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `insurances`;
 -- 👤 Crear tabla de usuarios con contraseña
 CREATE TABLE `users` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) DEFAULT NULL,
   `email` VARCHAR(100) DEFAULT NULL,
   `phone` VARCHAR(20) DEFAULT NULL,
@@ -27,7 +29,7 @@ INSERT INTO `users` (name, email, phone, address, is_admin, password) VALUES
 -- 📄 Tabla insurances
 DROP TABLE IF EXISTS `insurances`;
 CREATE TABLE `insurances` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `provider` VARCHAR(100) NOT NULL,
   `coverage` VARCHAR(255) NOT NULL,
   `monthly_price` DOUBLE NOT NULL,
@@ -44,7 +46,7 @@ INSERT INTO `insurances` (provider, coverage, monthly_price) VALUES
 -- 🚗 Tabla de coches
 DROP TABLE IF EXISTS `cars`;
 CREATE TABLE `cars` (
-  `id` INT NOT NULL AUTO_INCREMENT,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
   `brand` VARCHAR(50) NOT NULL,
   `model` VARCHAR(50) NOT NULL,
   `color` VARCHAR(30) NOT NULL,
@@ -53,7 +55,7 @@ CREATE TABLE `cars` (
   `status` VARCHAR(20) NOT NULL,
   `mileage` INT NOT NULL,
   `manufacturing_year` INT NOT NULL,
-  `insurance_id` INT DEFAULT NULL,
+  `insurance_id` BIGINT DEFAULT NULL,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`insurance_id`) REFERENCES `insurances`(`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -70,9 +72,9 @@ INSERT INTO `cars` (brand, model, color, fuel_level, transmission, status, milea
 -- 📅 Tabla de reservas
 DROP TABLE IF EXISTS `bookings`;
 CREATE TABLE `bookings` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `user_id` INT NOT NULL,
-  `car_id` INT NOT NULL,
+  `id` BIGINT NOT NULL AUTO_INCREMENT,
+  `user_id` BIGINT NOT NULL,
+  `car_id` BIGINT NOT NULL,
   `start_date` DATE NOT NULL,
   `end_date` DATE NOT NULL,
   `daily_price` DOUBLE NOT NULL,

@@ -17,10 +17,11 @@ import jakarta.persistence.Table;
 @Table(name = "cars")
 public class Car {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long vehicleId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
+	private Long id; // <- en vez de vehicleId
+
 
     private String brand;
     private String model;
@@ -40,11 +41,11 @@ public class Car {
 
     // Getters and Setters
     public Long getVehicleId() {
-        return vehicleId;
+        return id;
     }
 
     public void setVehicleId(Long vehicleId) {
-        this.vehicleId = vehicleId;
+        this.id = vehicleId;
     }
 
     public String getBrand() {

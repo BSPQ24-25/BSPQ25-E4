@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Available Insurances </title>
+</head>
+<body>
+    <h1>Available Insurances</h1>
+    <table>
+        <tr>
+            <th>Provider</th>
+            <th>Coverage</th>
+            <th> Monthly Price </th>
+        </tr>
+        <tr th:each="insurance : ${insurances}">
+            <td th:text="${insurance.provider}"></td>
+            <td th:text="${insurance.coverage}"></td>
+            <td th:text="${insurance.monthlyPrice}"></td>
+        </tr>
+    </table>
+</body>
+</html>
