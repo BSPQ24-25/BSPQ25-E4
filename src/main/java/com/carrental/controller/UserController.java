@@ -42,4 +42,9 @@ public class UserController {
         model.addAttribute("historyBookings", historyBookings);  // Agregar los bookings al modelo
         return "user/rental-history";  // Retorna la vista
     }
+
+    @GetMapping("/user/dashboard")
+    public String userDashboard() {
+        return "user-dashboard"; // Asegúrate de que este archivo HTML exista en /templates
+    }
 }

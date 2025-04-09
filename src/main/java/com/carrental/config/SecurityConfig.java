@@ -48,7 +48,7 @@ public class SecurityConfig {
                 .passwordParameter("password")
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/redirect", true) // Se gestiona en el controller
+                .defaultSuccessUrl("/redirect", true)
                 .permitAll()
             )
             .logout(logout -> logout
