@@ -18,12 +18,6 @@ public class UserController {
     @Autowired
     private BookingService bookingService;
 
-    // Este método está en conflicto con el AuthController, por eso se comenta o elimina.
-    // @GetMapping("/profile")
-    // public String userProfile() {
-    //     return "user/profile";
-    // }
-
     @GetMapping("/vehicles")
     public String browseVehicles() {
         return "user/browse-vehicles";

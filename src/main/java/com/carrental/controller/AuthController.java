@@ -57,7 +57,7 @@ public class AuthController {
             authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
             return "redirect:/admin";
         } else {
-            return "redirect:/user/profile"; // Cambiado de /profile a /user/profile
+            return "redirect:/user/dashboard";
         }
     }
 }

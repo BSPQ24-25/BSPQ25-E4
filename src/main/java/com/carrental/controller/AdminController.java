@@ -10,12 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.security.core.Authentication;
 
 import com.carrental.models.Booking;
-import com.carrental.models.Car;
 import com.carrental.models.User;
 import com.carrental.service.BookingService;
-import com.carrental.service.CarService;
 import com.carrental.service.UserService;
 
 @Controller
@@ -26,36 +25,36 @@ public class AdminController {
     private UserService userService;
 
     @Autowired
-    private CarService carService;
-
-    @Autowired
     private BookingService bookingService;
 
-    // Mostrar usuarios
+    @GetMapping("/dashboard")
+    public String showAdminDashboard(Model model, Authentication authentication) {
+        String email = authentication.getName();
+        User user = userService.findByEmail(email); 
+        model.addAttribute("adminName", user.getName());
+
+        return "admin/dashboard";
+    }
+
     @GetMapping("/users")
     public String userManagement(Model model) {
-        // Obtener todos los usuarios desde el servicio
         List<User> users = userService.getAllUsers();
-        model.addAttribute("users", users); // Pasar usuarios a la vista
-        return "admin/user-management"; // Vista de gestión de usuarios
+        model.addAttribute("users", users);
+        return "admin/user-management";
     }
 
-    // Mostrar reservas pendientes
     @GetMapping("/reservations")
     public String pendingReservations(Model model) {
-        // Obtener todas las reservas pendientes desde el servicio
         List<Booking> pendingBookings = bookingService.getPendingBookings();
-        model.addAttribute("pendingBookings", pendingBookings); // Pasar reservas pendientes a la vista
-        return "admin/pending-reservations"; // Vista de reservas pendientes
+        model.addAttribute("pendingBookings", pendingBookings);
+        return "admin/pending-reservations";
     }
 
-    // Mostrar historial de reservas
     @GetMapping("/history")
     public String rentalHistory(Model model) {
-        // Obtener todas las reservas confirmadas, completadas o canceladas desde el servicio
         List<Booking> historyBookings = bookingService.getHistoryBookings();
-        model.addAttribute("historyBookings", historyBookings); // Pasar historial de reservas a la vista
-        return "admin/rental-history"; // Vista de historial de reservas
+        model.addAttribute("historyBookings", historyBookings);
+        return "admin/rental-history";
     }
 
     @GetMapping("/users/edit/{id}")

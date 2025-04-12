@@ -48,7 +48,7 @@ public class AdminDashboardController {
     @GetMapping("/admin/vehicles")
     public String showVehicleList(Model model) {
         model.addAttribute("vehicles", carService.getAllCars());
-        return "admin/vehicle-management"; // la plantilla HTML
+        return "admin/vehicle-management";
     }
     
     @PostMapping("/admin/vehicles/add")
