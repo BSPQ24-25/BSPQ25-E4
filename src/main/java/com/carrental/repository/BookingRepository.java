@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.carrental.models.Booking;
+import com.carrental.models.User;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Long> {
@@ -24,5 +25,6 @@ public interface BookingRepository extends JpaRepository<Booking, Long> {
 
     @Query("SELECT SUM(b.dailyPrice) FROM Booking b WHERE b.bookingStatus = :status")
     Double sumDailyPriceByBookingStatus(String status);
-
+    
+    List<Booking> findByUser(User user);
 }
