@@ -26,14 +26,18 @@ public class AdminController {
 
     @Autowired
     private BookingService bookingService;
-
+    
     @GetMapping("/dashboard")
-    public String showAdminDashboard(Model model, Authentication authentication) {
-        String email = authentication.getName();
-        User user = userService.findByEmail(email); 
-        model.addAttribute("adminName", user.getName());
+    public String showAdminDashboard(Authentication authentication, Model model) {
+        String username = authentication.getName();
+        User user = userService.findByEmail(username);
 
-        return "admin/dashboard";
+        if (user != null && user.getIsAdmin()) {
+            model.addAttribute("adminName", user.getName());
+            return "admin_dashboard";
+        } else {
+            return "redirect:/access-denied";
+        }
     }
 
     @GetMapping("/users")

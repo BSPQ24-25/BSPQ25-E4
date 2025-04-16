@@ -55,7 +55,7 @@ public class AuthController {
     public String redirectAfterLogin(Authentication authentication) {
         if (authentication != null &&
             authentication.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
-            return "redirect:/admin";
+            return "redirect:/admin/dashboard";
         } else {
             return "redirect:/user/dashboard";
         }

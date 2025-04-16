@@ -30,15 +30,15 @@ public class UserController {
 
     @GetMapping("/history")
     public String userRentalHistory(Authentication authentication, Model model) {
-        String userName = authentication.getName();  // Obtiene el 'name' del usuario autenticado
-        List<String> statuses = Arrays.asList("confirmed", "completed", "cancelled");  // Los estados de la reserva
+        String userName = authentication.getName();
+        List<String> statuses = Arrays.asList("confirmed", "completed", "cancelled");
         List<Booking> historyBookings = bookingService.getUserRentalHistory(userName, statuses);
-        model.addAttribute("historyBookings", historyBookings);  // Agregar los bookings al modelo
-        return "user/rental-history";  // Retorna la vista
+        model.addAttribute("historyBookings", historyBookings);
+        return "user/rental-history";
     }
 
     @GetMapping("/user/dashboard")
     public String userDashboard() {
-        return "user-dashboard"; // Asegúrate de que este archivo HTML exista en /templates
+        return "user-dashboard";
     }
 }

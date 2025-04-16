@@ -17,7 +17,7 @@ public class Booking {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id") // ← solo si la columna real en la DB se llama 'id'
+    @Column(name = "booking_id")
     private Long bookingId;
 
     private double dailyPrice;

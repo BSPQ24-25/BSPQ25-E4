@@ -15,7 +15,6 @@ public class CarController {
     @Autowired
     private CarService carService;
 
-    // ✅ Add a new car (admin only)
     @PostMapping
     public Car addCar(@RequestBody Car car, @RequestParam boolean admin) {
         if (!admin) {
@@ -24,19 +23,16 @@ public class CarController {
         return carService.addCar(car);
     }
 
-    // ✅ Get a list of all cars
     @GetMapping
     public List<Car> getAllCars() {
         return carService.getAllCars();
     }
 
-    // ✅ Get a specific car by ID
     @GetMapping("/{id}")
     public Car getCarById(@PathVariable Long id) {
         return carService.getCarById(id);
     }
 
-    // ✅ Delete a car by ID (admin only)
     @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable Long id, @RequestParam boolean admin) {
         if (!admin) {
@@ -51,5 +47,4 @@ public class CarController {
         return "admin/edit-vehicle";
 
     }
-
 }

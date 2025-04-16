@@ -26,7 +26,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found: " + email));
 
-        // Solo un rol según si es admin o no
         Collection<SimpleGrantedAuthority> authorities = user.getIsAdmin()
                 ? List.of(new SimpleGrantedAuthority("ROLE_ADMIN"))
                 : List.of(new SimpleGrantedAuthority("ROLE_USER"));

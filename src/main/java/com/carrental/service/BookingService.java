@@ -79,5 +79,4 @@ public class BookingService {
         Double total = bookingRepository.sumDailyPriceByBookingStatus("completed");
         return total != null ? total : 0.0;
     }
-    
 }

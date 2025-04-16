@@ -29,7 +29,6 @@ public class BookingWebController {
     @Autowired
     private UserRepository userRepository;
 
-    // Mostrar formulario
     @GetMapping("/new")
     public String showBookingForm(Model model) {
         model.addAttribute("cars", carService.getAllCars());
@@ -37,7 +36,6 @@ public class BookingWebController {
 
     }
 
-    // Procesar formulario
     @PostMapping("/create")
     public String createBooking(@RequestParam Long carId,
                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
@@ -60,7 +58,7 @@ public class BookingWebController {
         booking.setEndDate(endDate);
         booking.setBookingStatus("Pending");
         booking.setPaymentMethod(paymentMethod);
-        booking.setDailyPrice(dailyPrice); // puedes ajustarlo por coche
+        booking.setDailyPrice(dailyPrice);
         booking.setSecurityDeposit(200.0);
         booking.setRating(rating);
         bookingService.createBooking(booking);

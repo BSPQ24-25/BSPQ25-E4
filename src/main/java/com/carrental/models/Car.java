@@ -19,7 +19,7 @@ public class Car {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id")  // Cambiado de "vehicle_id" a "id"
+	@Column(name = "vehicle_id")
 	private Long id;
 
 

@@ -46,7 +46,7 @@
 <body>
     <div class="container py-5">
         <div class="user-info">
-            <p>Welcome, <span th:text="${adminName}">Admin</span></p>
+            <p>Welcome, <span sec:authentication="name"></span></p>
             <form th:action="@{/logout}" method="post">
                 <button type="submit" class="btn btn-outline-danger">Log out</button>
             </form>

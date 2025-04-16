@@ -1,19 +1,15 @@
 package com.carrental.controller;
 
 import com.carrental.models.Booking;
-import com.carrental.models.Car;
 import com.carrental.models.User;
 import com.carrental.repository.UserRepository;
 import com.carrental.service.BookingService;
-import com.carrental.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 @Controller
@@ -38,8 +34,7 @@ public class RentalHistoryController {
                 user.getName(), 
                 List.of("confirmed", "completed", "cancelled")
             );
-            
-            
+             
             model.addAttribute("historyBookings", historyBookings);
         }
         

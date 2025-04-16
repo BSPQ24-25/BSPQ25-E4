@@ -6,7 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CarRepository extends JpaRepository<Car, Long> {
-    // You can add custom queries here later if needed
     long countByStatusIgnoreCase(String status);
-
 }

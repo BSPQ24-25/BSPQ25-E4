@@ -5,12 +5,14 @@ com\carrental\repository\CarRepository.class
 com\carrental\config\SecurityConfig.class
 com\carrental\controller\CarController.class
 com\carrental\service\CustomUserDetailsService.class
+com\carrental\controller\RentalHistoryController.class
 com\carrental\models\Booking.class
 com\carrental\service\InsuranceService.class
 com\carrental\models\Insurance.class
 com\carrental\repository\BookingRepository.class
 com\carrental\service\CarService.class
 com\carrental\service\BookingService.class
+com\carrental\controller\BookingWebController.class
 com\carrental\controller\AdminController.class
 com\carrental\App.class
 com\carrental\controller\BookingController.class

@@ -13,17 +13,14 @@ public class CarService {
     @Autowired
     private CarRepository carRepository;
 
-    // Add a new car
     public Car addCar(Car car) {
         return carRepository.save(car);
     }
 
-    // Get all cars
     public List<Car> getAllCars() {
         return carRepository.findAll();
     }
 
-    // Get car by ID
     public Car getCarById(Long id) {
         return carRepository.findById(id).orElse(null);
     }
@@ -32,7 +29,6 @@ public class CarService {
         carRepository.deleteById(id);
     }
     
-    // Count available cars by status
     public long countAvailableCars() {
         return carRepository.countByStatusIgnoreCase("available");
     }
@@ -40,6 +36,4 @@ public class CarService {
     public void saveCar(Car car) {
         carRepository.save(car);
     }
-
-
 }

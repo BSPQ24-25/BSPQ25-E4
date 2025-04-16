@@ -16,7 +16,6 @@ public class InsuranceController {
 	@Autowired
 	private InsuranceService insuranceService;
 
-    // VISTA ADMIN - LISTA
     @GetMapping("/admin/insurances")
     public String listAdminInsurances(Model model) {
         model.addAttribute("insurances", insuranceService.getAllInsurances());
@@ -35,7 +34,6 @@ public class InsuranceController {
         return "redirect:/admin/insurances";
     }
 
-    // VISTA ADMIN - FORMULARIO NUEVO
     @GetMapping("/admin/insurances/new")
     public String createInsuranceForm(Model model) {
         model.addAttribute("insurance", new Insurance());
@@ -48,7 +46,6 @@ public class InsuranceController {
         return "redirect:/admin/insurances";
     }
 
-    // VISTA USER - VER SEGUROS
     @GetMapping("/user/insurances")
     public String listUserInsurances(Model model) {
         model.addAttribute("insurances", insuranceService.getAllInsurances());

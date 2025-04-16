@@ -17,10 +17,8 @@ public class Insurance {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id") // 👈 asumimos que la columna real es 'id'
+	@Column(name = "insurance_id")
 	private Long id;
-
-
 
     private String provider;
     private String coverage;
@@ -29,7 +27,6 @@ public class Insurance {
     @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)
     private List<Car> cars;
 
-    // Getters and Setters
     public Long getInsuranceId() {
         return id;
     }

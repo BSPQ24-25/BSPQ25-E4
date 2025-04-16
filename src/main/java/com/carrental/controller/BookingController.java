@@ -19,20 +19,17 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    // Get all bookings
     @GetMapping
     public List<Booking> getAllBookings() {
         return bookingService.getAllBookings();
     }
 
-    // Get booking by ID
     @GetMapping("/{id}")
     public ResponseEntity<Booking> getBookingById(@PathVariable Long id) {
         Optional<Booking> booking = bookingService.getBookingById(id);
         return booking.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    // Create a new booking
     @PostMapping
     public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
         try {
@@ -43,7 +40,6 @@ public class BookingController {
         }
     }
 
-    // Update an existing booking
     @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking bookingDetails) {
         try {
@@ -54,7 +50,6 @@ public class BookingController {
         }
     }
 
-    // Delete a booking by ID
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBooking(@PathVariable Long id) {
         Optional<Booking> booking = bookingService.getBookingById(id);
