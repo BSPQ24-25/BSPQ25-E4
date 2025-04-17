@@ -23,14 +23,24 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/vehicles")
+    @GetMapping("/user/profile")
+    public String userProfile() {
+        return "user/profile";
+    }
+
+    @GetMapping("/user/vehicles")
     public String browseVehicles() {
         return "user/browse-vehicles";
     }
 
-    @GetMapping("/reservations")
-    public String userReservations() {
-        return "user/reservations";
+    @GetMapping("/user/bookings/new")
+    public String bookingForm() {
+        return "user/booking-form";
+    }
+
+    @GetMapping("/user/rental-history")
+    public String rentalHistory() {
+        return "user/rental-history";
     }
 
     @GetMapping("/history")

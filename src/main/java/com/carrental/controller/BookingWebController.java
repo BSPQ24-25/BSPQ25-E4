@@ -29,7 +29,7 @@ public class BookingWebController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/new")
+    @GetMapping("/form")
     public String showBookingForm(Model model) {
         model.addAttribute("cars", carService.getAllCars());
         return "user/booking-form";
