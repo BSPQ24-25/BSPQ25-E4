@@ -23,7 +23,7 @@ public class RentalHistoryController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/user/rental-history")
+    @GetMapping("/history")
     public String showRentalHistory(Model model, Authentication authentication) {
         String email = authentication.getName();
         Optional<User> optionalUser = userRepository.findByEmail(email);

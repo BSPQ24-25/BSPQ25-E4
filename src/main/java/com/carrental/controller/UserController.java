@@ -38,11 +38,6 @@ public class UserController {
         return "user/booking-form";
     }
 
-    @GetMapping("/user/rental-history")
-    public String rentalHistory() {
-        return "user/rental-history";
-    }
-
     @GetMapping("/history")
     public String userRentalHistory(Authentication authentication, Model model) {
         String userName = authentication.getName();
