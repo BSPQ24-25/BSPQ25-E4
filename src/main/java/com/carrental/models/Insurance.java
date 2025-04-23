@@ -17,7 +17,7 @@ public class Insurance {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "insurance_id")
+	@Column(name = "id")
 	private Long id;
 
     private String provider;
