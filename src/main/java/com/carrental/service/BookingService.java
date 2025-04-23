@@ -79,4 +79,12 @@ public class BookingService {
         Double total = bookingRepository.sumDailyPriceByBookingStatus("completed");
         return total != null ? total : 0.0;
     }
+
+    public void confirmBooking(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+            .orElseThrow(() -> new RuntimeException("Booking not found"));
+        booking.setBookingStatus("Confirmed");
+        bookingRepository.save(booking);
+    }
+    
 }

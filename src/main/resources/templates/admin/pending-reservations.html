@@ -56,6 +56,23 @@
             width: 80%;
             overflow-x: auto;
         }
+
+        /* Estilo para el botón rojo */
+        .btn-back {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background-color: darkred;
+        }
     </style>
 </head>
 <body>
@@ -90,9 +107,18 @@
                     <td th:text="${booking.securityDeposit}"></td>
                     <td th:text="${booking.rating}"></td>
                     <td th:text="${booking.review}"></td>
+                    <td>
+                        <form th:action="@{/admin/reservations/confirm}" method="post">
+                            <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+                            <button type="submit">Accept</button>
+                        </form>                     
+                    </td>
                 </tr>
             </tbody>
         </table>
+        
+        <!-- Botón para regresar al dashboard de administración -->
+        <a href="/admin/dashboard" class="btn-back">Back</a>
     </div>
 </body>
 </html>

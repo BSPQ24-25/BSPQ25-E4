@@ -3,6 +3,7 @@ package com.carrental.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.carrental.models.Booking;
 import com.carrental.models.User;
@@ -78,5 +79,12 @@ public class AdminController {
     public String deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return "redirect:/admin/users";
+    }
+
+    // Confirmar la reserva
+    @PostMapping("/reservations/confirm")
+    public String confirmBooking(@RequestParam("bookingId") Long bookingId) {
+        bookingService.confirmBooking(bookingId);  // Confirmar la reserva en la base de datos
+        return "redirect:/admin/reservations";  // Redirigir de vuelta a la lista de reservas
     }
 }
