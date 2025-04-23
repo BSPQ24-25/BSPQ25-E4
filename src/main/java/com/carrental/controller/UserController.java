@@ -24,9 +24,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping("/user/profile")
-    public String userProfile() {
-        return "user/profile";
+        public String userProfile(Authentication authentication, Model model) {
+        String email = authentication.getName();
+        User user = userService.findByEmail(email);
+        model.addAttribute("user", user);
+        return "user/profile"; 
     }
+
 
     @GetMapping("/user/vehicles")
     public String browseVehicles() {
