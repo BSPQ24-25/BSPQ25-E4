@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.carrental.models.Booking;
 import com.carrental.models.User;
@@ -58,4 +60,11 @@ public class UserController {
         model.addAttribute("userName", user.getName());
         return "user-dashboard";
     }
+
+    @PostMapping("/user/history/cancel")
+    public String cancelBooking(@RequestParam("bookingId") Long bookingId) {
+        bookingService.cancelBooking(bookingId);
+        return "redirect:/user/history";
+    }
+
 }

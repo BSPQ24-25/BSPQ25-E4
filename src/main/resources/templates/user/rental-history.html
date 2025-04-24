@@ -106,6 +106,12 @@
                     <td th:text="${booking.securityDeposit}"></td>
                     <td th:text="${booking.rating}"></td>
                     <td th:text="${booking.review}"></td>
+                    <td>
+                        <form th:action="@{/user/history/cancel}" method="post" th:if="${booking.bookingStatus != 'Cancelled'}">
+                            <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+                            <button type="submit">Cancelar</button>
+                        </form>
+                    </td>
                 </tr>
             </tbody>
         </table>

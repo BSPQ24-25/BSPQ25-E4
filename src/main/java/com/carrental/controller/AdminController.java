@@ -81,10 +81,9 @@ public class AdminController {
         return "redirect:/admin/users";
     }
 
-    // Confirmar la reserva
     @PostMapping("/reservations/confirm")
     public String confirmBooking(@RequestParam("bookingId") Long bookingId) {
-        bookingService.confirmBooking(bookingId);  // Confirmar la reserva en la base de datos
-        return "redirect:/admin/reservations";  // Redirigir de vuelta a la lista de reservas
+        bookingService.confirmBooking(bookingId); 
+        return "redirect:/admin/reservations"; 
     }
 }
