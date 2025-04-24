@@ -67,4 +67,10 @@ public class UserController {
         return "redirect:/user/history";
     }
 
+    @PostMapping("/user/history/complete")
+    public String completeBooking(@RequestParam("bookingId") Long bookingId) {
+        bookingService.completeBooking(bookingId);
+        return "redirect:/user/history";
+    }
+
 }

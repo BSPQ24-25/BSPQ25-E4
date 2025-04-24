@@ -93,6 +93,13 @@ public class BookingService {
         booking.setBookingStatus("Cancelled");
         bookingRepository.save(booking);
     }
+
+    public void completeBooking(Long bookingId) {
+        Booking booking = bookingRepository.findById(bookingId)
+            .orElseThrow(() -> new RuntimeException("Booking not found"));
+        booking.setBookingStatus("Completed");
+        bookingRepository.save(booking);
+    }
     
     
 }

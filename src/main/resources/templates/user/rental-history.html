@@ -107,9 +107,15 @@
                     <td th:text="${booking.rating}"></td>
                     <td th:text="${booking.review}"></td>
                     <td>
-                        <form th:action="@{/user/history/cancel}" method="post" th:if="${booking.bookingStatus != 'Cancelled'}">
+                        <form th:action="@{/user/history/cancel}" method="post" th:if="${booking.bookingStatus != 'Cancelled' and booking.bookingStatus != 'Completed'}">
                             <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
-                            <button type="submit">Cancelar</button>
+                            <button type="submit">Cancel</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{/user/history/complete}" method="post" th:if="${booking.bookingStatus == 'Confirmed' or booking.bookingStatus == 'confirmed'}">
+                            <input type="hidden" name="bookingId" th:value="${booking.bookingId}" />
+                            <button type="submit">Complete</button>
                         </form>
                     </td>
                 </tr>
