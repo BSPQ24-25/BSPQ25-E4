@@ -2,6 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Available Insurances </title>
+    <style>
+        /* Estilo para el botón rojo */
+        .btn-back {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background-color: darkred;
+        }
+    </style>
 </head>
 <body>
     <h1>Available Insurances</h1>
@@ -17,5 +35,6 @@
             <td th:text="${insurance.monthlyPrice}"></td>
         </tr>
     </table>
+    <a href="/user/dashboard" class="btn-back">Back</a>
 </body>
 </html>

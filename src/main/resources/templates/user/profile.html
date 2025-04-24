@@ -38,6 +38,23 @@
         .profile-info p strong {
             color: #222;
         }
+
+        /* Estilo para el botón rojo */
+        .btn-back {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background-color: darkred;
+        }
     </style>
 </head>
 <body>
@@ -49,6 +66,7 @@
             <p><strong>Teléfono:</strong> <span th:text="${user.phone}"></span></p>
             <p><strong>Dirección:</strong> <span th:text="${user.address}"></span></p>
         </div>
+        <a href="/user/dashboard" class="btn-back">Back</a>
     </div>
 </body>
 </html>

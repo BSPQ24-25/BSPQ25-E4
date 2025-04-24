@@ -61,17 +61,23 @@
             background-color: #45a049;
         }
 
-        .back-link {
-            display: block;
-            margin-top: 15px;
-            text-align: center;
+        /* Estilo para el botón rojo */
+        .btn-back {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
             text-decoration: none;
-            color: #2196F3;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+            text-align: center;
         }
 
-        .back-link:hover {
-            text-decoration: underline;
+        .btn-back:hover {
+            background-color: darkred;
         }
+        
     </style>
 </head>
 <body>
@@ -109,7 +115,7 @@
 
         <button type="submit">Update Vehicle</button>
     </form>
-    <a href="/admin/vehicles" class="back-link">← Back to Vehicle List</a>
+    <a href="/admin/vehicles" class="back-link">Back</a>
 </div>
 </body>
 </html>
