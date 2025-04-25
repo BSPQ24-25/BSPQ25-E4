@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import com.carrental.DTO.CarDTO;
 
 @RestController
 @RequestMapping("/cars")
@@ -24,14 +25,53 @@ public class CarController {
     }
 
     @GetMapping
-    public List<Car> getAllCars() {
-        return carService.getAllCars();
+    public List<CarDTO> getAllCars() {
+        return carService.getAllCars()
+                .stream()
+                .map(car -> {
+                    CarDTO dto = new CarDTO();
+                    dto.setId(car.getVehicleId());
+                    dto.setBrand(car.getBrand());
+                    dto.setModel(car.getModel());
+                    dto.setColor(car.getColor());
+                    dto.setFuelLevel(car.getFuelLevel());
+                    dto.setTransmission(car.getTransmission());
+                    dto.setStatus(car.getStatus());
+                    dto.setMileage(car.getMileage());
+                    dto.setManufacturingYear(car.getManufacturingYear());
+                    dto.setInsuranceId(car.getInsurance() != null ? car.getInsurance().getInsuranceId() : null);
+                    return dto;
+                })
+                .toList();
     }
 
     @GetMapping("/{id}")
     public Car getCarById(@PathVariable Long id) {
         return carService.getCarById(id);
     }
+    
+    @GetMapping("/search")
+    public List<CarDTO> searchCarsByField(@RequestParam String field, @RequestParam String value) {
+        return carService.searchByField(field, value)
+                .stream()
+                .map(car -> {
+                    CarDTO dto = new CarDTO();
+                    dto.setId(car.getVehicleId());
+                    dto.setBrand(car.getBrand());
+                    dto.setModel(car.getModel());
+                    dto.setColor(car.getColor());
+                    dto.setFuelLevel(car.getFuelLevel());
+                    dto.setTransmission(car.getTransmission());
+                    dto.setStatus(car.getStatus());
+                    dto.setMileage(car.getMileage());
+                    dto.setManufacturingYear(car.getManufacturingYear());
+                    dto.setInsuranceId(car.getInsurance() != null ? car.getInsurance().getInsuranceId() : null);
+                    return dto;
+                })
+                .toList();
+    }
+
+
 
     @DeleteMapping("/{id}")
     public void deleteCar(@PathVariable Long id, @RequestParam boolean admin) {

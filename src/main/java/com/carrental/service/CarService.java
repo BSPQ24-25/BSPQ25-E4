@@ -36,4 +36,21 @@ public class CarService {
     public void saveCar(Car car) {
         carRepository.save(car);
     }
+    
+    public List<Car> searchByField(String field, String value) {
+        switch (field.toLowerCase()) {
+            case "brand": return carRepository.findByBrandContainingIgnoreCase(value);
+            case "model": return carRepository.findByModelContainingIgnoreCase(value);
+            case "color": return carRepository.findByColorContainingIgnoreCase(value);
+            case "transmission": return carRepository.findByTransmissionContainingIgnoreCase(value);
+            case "status": return carRepository.findByStatusContainingIgnoreCase(value);
+            case "fuellevel": return carRepository.findByFuelLevel(Double.parseDouble(value));
+            case "mileage": return carRepository.findByMileage(Integer.parseInt(value));
+            case "manufacturingyear": return carRepository.findByManufacturingYear(Integer.parseInt(value));
+            case "insuranceid": return carRepository.findByInsurance_Id(Long.parseLong(value));
+            default: return List.of(); // Lista vacía si no se reconoce el campo
+        }
+    }
+
+    
 }
