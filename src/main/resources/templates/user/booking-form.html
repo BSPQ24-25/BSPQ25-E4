@@ -118,7 +118,7 @@
             <select id="carId" name="carId" class="form-select" required>
                 <option disabled selected value="">-- Select a Car --</option>
                 <option th:each="car : ${cars}" 
-                        th:value="${car.vehicleId}" 
+                        th:value="${car.id}" 
                         th:text="${car.model}">Car</option>
             </select>
         </div>
