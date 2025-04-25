@@ -40,11 +40,11 @@ public class Car {
     private List<Booking> bookings;
 
     // Getters and Setters
-    public Long getVehicleId() {
+    public Long getId() {
         return id;
     }
 
-    public void setVehicleId(Long vehicleId) {
+    public void setId(Long vehicleId) {
         this.id = vehicleId;
     }
 

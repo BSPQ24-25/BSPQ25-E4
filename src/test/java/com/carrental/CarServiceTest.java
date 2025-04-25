@@ -97,7 +97,7 @@ class CarServiceTest {
     @Test
     void testGetCarById() {
         Car car = new Car();
-        car.setVehicleId(1L);
+        car.setId(1L);
         car.setBrand("BMW");
 
         when(carRepository.findById(1L)).thenReturn(Optional.of(car));
