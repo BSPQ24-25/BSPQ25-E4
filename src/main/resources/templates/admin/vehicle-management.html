@@ -1,6 +1,6 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-
 <head>
     <title>Vehicle Management</title>
     <style>
@@ -29,8 +29,7 @@
             border: 1px solid #ddd;
         }
 
-        th,
-        td {
+        th, td {
             padding: 12px;
             text-align: left;
             border: 1px solid #ddd;
@@ -49,11 +48,6 @@
             background-color: #ddd;
         }
 
-        td {
-            color: #555;
-        }
-
-        /* Optional: Add some spacing and center the table */
         .container {
             width: 80%;
             overflow-x: auto;
@@ -80,130 +74,149 @@
         }
 
         .vehicle-form-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background-color: white;
-    }
-
-    .vehicle-form-table td {
-        padding: 8px;
-    }
-
-    .vehicle-form-table input {
-        width: 100%;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 6px;
-        font-size: 14px;
-        box-sizing: border-box;
-    }
-
-    .vehicle-form-table button {
-        background-color: #4CAF50;
-        color: white;
-        padding: 8px 12px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    .vehicle-form-table button:hover {
-        background-color: #45a049;
-    }
-
-    .table-scroll-container {
-        overflow-x: auto;
-    }
-
-    /* Estilo para el botón rojo */
-    .btn-back {
-            background-color: red;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 20px;
-            display: inline-block;
-            text-align: center;
+            background-color: white;
         }
 
-        .btn-back:hover {
-            background-color: darkred;
+        .vehicle-form-table td {
+            padding: 8px;
         }
 
+        .vehicle-form-table input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .vehicle-form-table button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .vehicle-form-table button:hover {
+            background-color: #45a049;
+        }
+
+        .table-scroll-container {
+            overflow-x: auto;
+        }
     </style>
 </head>
-
 <body>
-    <div class="container">
-        <h1>Vehicle Management</h1>
-        <form th:action="@{/admin/vehicles/add}" method="post">
-            <div class="table-scroll-container">
-                <table class="vehicle-form-table">
-                    <tr>
-                        <td><input type="text" name="brand" placeholder="Brand" required></td>
-                        <td><input type="text" name="model" placeholder="Model" required></td>
-                        <td><input type="text" name="color" placeholder="Color" required></td>
-                        <td><input type="number" step="0.1" min="0" name="fuelLevel" placeholder="Fuel Level" required></td>
-                        <td><input type="text" name="transmission" placeholder="Transmission" required></td>
-                        <td><input type="text" name="status" placeholder="Status" required></td>
-                        <td><input type="number" step="0.1" min="0" name="mileage" placeholder="Mileage" required></td>
-                        <td><input type="number" min="1960" name="manufacturingYear" placeholder="Year" required></td>
-                        <td><input type="number" name="insuranceId" placeholder="Insurance ID" required></td>
-                        <td><button type="submit">Add Vehicle</button></td>
-                    </tr>
-                </table>
-            </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Brand</th>
-                        <th>Model</th>
-                        <th>Color</th>
-                        <th>Fuel level</th>
-                        <th>Transmission</th>
-                        <th>Status</th>
-                        <th>Mileage</th>
-                        <th>Manufacturing Year</th>
-                        <th>Insurance ID</th>
-                        <th>Edit</th>
-                        <th> </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="vehicle : ${vehicles}">
-                        <td th:text="${vehicle.vehicleId}"></td>
-                        <td th:text="${vehicle.brand}"></td>
-                        <td th:text="${vehicle.model}"></td>
-                        <td th:text="${vehicle.color}"></td>
-                        <td th:text="${vehicle.fuelLevel}"></td>
-                        <td th:text="${vehicle.transmission}"></td>
-                        <td th:text="${vehicle.status}"></td>
-                        <td th:text="${vehicle.mileage}"></td>
-                        <td th:text="${vehicle.manufacturingYear}"></td>
-                        <td th:text="${vehicle.insurance.insuranceId}"></td>
-                        <td>
-                            <a th:href="@{'/admin/vehicles/edit/' + ${vehicle.vehicleId}}"
-                                class="action-btn edit-btn">Edit</a>
-                        </td>
-                        <td>
-                            <form th:action="@{'/admin/vehicles/delete/' + ${vehicle.vehicleId}}" method="post"
-                                style="display:inline;">
-                                <button type="submit" class="action-btn delete-btn"
-                                    onclick="return confirm('Are you sure you want to delete this vehicle?')">
-                                    Delete
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <a href="/admin/dashboard" class="btn-back">Back</a>
-    </div>
-</body>
+<div class="container">
+    <h1>Vehicle Management</h1>
 
+    <!-- Search form -->
+    <form id="searchForm" style="margin-bottom: 20px;">
+        <label for="searchField">Search by:</label>
+        <select id="searchField">
+            <option value="brand">Brand</option>
+            <option value="model">Model</option>
+            <option value="color">Color</option>
+            <option value="transmission">Transmission</option>
+            <option value="status">Status</option>
+            <option value="fuelLevel">Fuel Level</option>
+            <option value="mileage">Mileage</option>
+            <option value="manufacturingYear">Manufacturing Year</option>
+            <option value="insuranceId">Insurance ID</option>
+        </select>
+        <input type="text" id="searchValue" placeholder="Enter value..." required />
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Add vehicle form -->
+    <form th:action="@{/admin/vehicles/add}" method="post">
+        <div class="table-scroll-container">
+            <table class="vehicle-form-table">
+                <tr>
+                    <td><input type="text" name="brand" placeholder="Brand" required></td>
+                    <td><input type="text" name="model" placeholder="Model" required></td>
+                    <td><input type="text" name="color" placeholder="Color" required></td>
+                    <td><input type="number" step="0.1" min="0" name="fuelLevel" placeholder="Fuel Level" required></td>
+                    <td><input type="text" name="transmission" placeholder="Transmission" required></td>
+                    <td><input type="text" name="status" placeholder="Status" required></td>
+                    <td><input type="number" step="0.1" min="0" name="mileage" placeholder="Mileage" required></td>
+                    <td><input type="number" min="1960" name="manufacturingYear" placeholder="Year" required></td>
+                    <td><input type="number" name="insuranceId" placeholder="Insurance ID" required></td>
+                    <td><button type="submit">Add Vehicle</button></td>
+                </tr>
+            </table>
+        </div>
+    </form>
+
+    <!-- Table -->
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Color</th>
+            <th>Fuel Level</th>
+            <th>Transmission</th>
+            <th>Status</th>
+            <th>Mileage</th>
+            <th>Year</th>
+            <th>Insurance ID</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody id="vehicleTableBody"></tbody>
+    </table>
+</div>
+
+<script>
+    const renderVehicles = (vehicles) => {
+        const tableBody = document.getElementById("vehicleTableBody");
+        tableBody.innerHTML = '';
+        vehicles.forEach(vehicle => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${vehicle.id}</td>
+                <td>${vehicle.brand}</td>
+                <td>${vehicle.model}</td>
+                <td>${vehicle.color}</td>
+                <td>${vehicle.fuelLevel}</td>
+                <td>${vehicle.transmission}</td>
+                <td>${vehicle.status}</td>
+                <td>${vehicle.mileage}</td>
+                <td>${vehicle.manufacturingYear}</td>
+                <td>${vehicle.insuranceId ? vehicle.insuranceId : 'N/A'}</td>
+                <td><a href="/admin/vehicles/edit/${vehicle.id}" class="action-btn edit-btn">Edit</a></td>
+                <td><form action="/admin/vehicles/delete/${vehicle.id}" method="post" style="display:inline;">
+                        <button type="submit" class="action-btn delete-btn"
+                            onclick="return confirm('Are you sure you want to delete this vehicle?')">Delete</button>
+                    </form>
+                </td>`;
+            tableBody.appendChild(row);
+        });
+    };
+
+    document.getElementById('searchForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const field = document.getElementById('searchField').value;
+    const value = document.getElementById('searchValue').value;
+    const response = await fetch(`/api/cars/search?field=${field}&value=${encodeURIComponent(value)}`);
+    const data = await response.json();
+    renderVehicles(data);
+    });
+
+    window.addEventListener('DOMContentLoaded', async () => {
+    const response = await fetch('/api/cars');
+    const data = await response.json();
+    renderVehicles(data);
+    });
+</script>
+</body>
 </html>
