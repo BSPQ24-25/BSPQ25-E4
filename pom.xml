@@ -146,10 +146,11 @@
     <!-- JUnitPerf -->
     <dependency>
       <groupId>com.github.noconnor</groupId>
-      <artifactId>junitperf</artifactId>
-      <version>1.9.0</version>
+      <artifactId>junitperf-junit5</artifactId>
+      <version>1.37.0</version>
       <scope>test</scope>
     </dependency>
+
   </dependencies>
 
   <build>
