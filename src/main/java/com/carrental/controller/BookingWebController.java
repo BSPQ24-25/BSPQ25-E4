@@ -40,7 +40,7 @@ public class BookingWebController {
     public String createBooking(@RequestParam Long carId,
                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-                                @RequestParam double dailyPrice,@RequestParam int rating, @RequestParam String paymentMethod,
+                                @RequestParam double dailyPrice,@RequestParam int rating, @RequestParam String paymentMethod, @RequestParam String review,
                                 Authentication authentication) {
 
         String email = authentication.getName();
@@ -61,6 +61,7 @@ public class BookingWebController {
         booking.setDailyPrice(dailyPrice);
         booking.setSecurityDeposit(200.0);
         booking.setRating(rating);
+        booking.setReview(review);
         bookingService.createBooking(booking);
         return "redirect:/user/dashboard";
     }
