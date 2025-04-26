@@ -12,6 +12,7 @@ com\carrental\controller\UserRestController.class
 com\carrental\models\User.class
 com\carrental\repository\UserRepository.class
 com\carrental\database\DatabaseConnection.class
+com\carrental\controller\InsuranceRestController.class
 com\carrental\models\Car.class
 com\carrental\repository\CarRepository.class
 com\carrental\config\SecurityConfig.class

@@ -1,6 +1,7 @@
+// 📁 src/test/java/com/carrental/performance/InsurancePerformanceTest.java
 package com.carrental.performance;
 
-import com.carrental.service.BookingService;
+import com.carrental.service.InsuranceService;
 import com.github.noconnor.junitperf.JUnitPerfTest;
 import com.github.noconnor.junitperf.JUnitPerfTestActiveConfig;
 import com.github.noconnor.junitperf.JUnitPerfTestRequirement;
@@ -14,34 +15,20 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
 @ExtendWith(JUnitPerfInterceptor.class)
-public class BookingPerformanceTest {
+public class InsurancePerformanceTest {
 
     @Autowired
-    private BookingService bookingService;
+    private InsuranceService insuranceService;
 
     @JUnitPerfTestActiveConfig
     private static final JUnitPerfReportingConfig PERF_CONFIG = JUnitPerfReportingConfig.builder()
-        .reportGenerator(new HtmlReportGenerator(System.getProperty("user.dir") + "/target/reports/booking-perf-report.html"))
+        .reportGenerator(new HtmlReportGenerator(System.getProperty("user.dir") + "/target/reports/insurance-perf-report.html"))
         .build();
 
     @Test
     @JUnitPerfTest(threads = 5, durationMs = 5000, warmUpMs = 1000)
     @JUnitPerfTestRequirement(executionsPerSec = 1, allowedErrorPercentage = 100)
-    public void testGetAllBookingsPerformance() {
-        bookingService.getAllBookings();
-    }
-
-    @Test
-    @JUnitPerfTest(threads = 5, durationMs = 5000, warmUpMs = 1000)
-    @JUnitPerfTestRequirement(executionsPerSec = 1, allowedErrorPercentage = 100)
-    public void testGetPendingBookingsPerformance() {
-        bookingService.getPendingBookings();
-    }
-
-    @Test
-    @JUnitPerfTest(threads = 5, durationMs = 5000, warmUpMs = 1000)
-    @JUnitPerfTestRequirement(executionsPerSec = 1, allowedErrorPercentage = 100)
-    public void testGetHistoryBookingsPerformance() {
-        bookingService.getHistoryBookings();
+    public void testGetAllInsurancesPerformance() {
+        insuranceService.getAllInsurances();
     }
 }

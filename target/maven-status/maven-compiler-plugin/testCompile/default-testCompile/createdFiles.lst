@@ -1,3 +1,4 @@
+com\carrental\performance\InsurancePerformanceTest.class
 com\carrental\AppTest.class
 com\carrental\CarServiceTest.class
 com\carrental\config\TestSecurityConfig.class
@@ -7,3 +8,4 @@ com\carrental\integration\UserIntegrationTest.class
 com\carrental\performance\CarPerformanceTest.class
 com\carrental\integration\BookingIntegrationTest.class
 com\carrental\integration\CarIntegrationTest.class
+com\carrental\integration\InsuranceIntegrationTest.class
