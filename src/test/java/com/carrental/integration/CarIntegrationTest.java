@@ -1,3 +1,4 @@
+// 📁 src/test/java/com/carrental/integration/CarIntegrationTest.java
 package com.carrental.integration;
 
 import com.carrental.config.TestSecurityConfig;
@@ -12,32 +13,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestSecurityConfig.class)
-public class UserIntegrationTest {
+public class CarIntegrationTest {
 
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
-    public void testCreateUser() {
-        // Generar un email único para evitar conflictos por duplicados
-        String uniqueEmail = "john" + System.currentTimeMillis() + "@example.com";
-
-        String userJson = String.format("""
+    public void testCreateCar() {
+        String carDetails = """
         {
-            "name": "John Tester",
-            "phone": "123456789",
-            "email": "%s",
-            "password": "secure123",
-            "address": "123 Main St",
-            "isAdmin": false
+            "brand": "Ford",
+            "model": "Fiesta",
+            "color": "Blue",
+            "fuelLevel": 85.5,
+            "transmission": "Manual",
+            "status": "AVAILABLE",
+            "mileage": 40000,
+            "manufacturingYear": 2020
         }
-        """, uniqueEmail);
+        """;
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<String> request = new HttpEntity<>(userJson, headers);
+        HttpEntity<String> request = new HttpEntity<>(carDetails, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/users", request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/cars", request, String.class);
         assertEquals(200, response.getStatusCodeValue());
     }
 }
