@@ -4,7 +4,10 @@ com\carrental\controller\CarController.class
 com\carrental\controller\RentalHistoryController.class
 com\carrental\controller\UserController.class
 com\carrental\controller\AdminDashboardController.class
+com\carrental\dto\CarDTO.class
 com\carrental\controller\AuthController.class
+com\carrental\controller\CarApiController.class
+com\carrental\controller\UserRestController.class
 com\carrental\models\User.class
 com\carrental\repository\UserRepository.class
 com\carrental\database\DatabaseConnection.class

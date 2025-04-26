@@ -1,5 +1,7 @@
+com\carrental\AppTest.class
 com\carrental\CarServiceTest.class
 com\carrental\config\TestSecurityConfig.class
 com\carrental\performance\BookingPerformanceTest.class
-com\carrental\AppTest.class
+com\carrental\performance\UserPerformanceTest.class
+com\carrental\integration\UserIntegrationTest.class
 com\carrental\integration\BookingIntegrationTest.class
