@@ -98,7 +98,7 @@
                 <tr th:each="booking : ${pendingBookings}">
                     <td th:text="${booking.bookingId}"></td>
                     <td th:text="${booking.user.id}"></td>
-                    <td th:text="${booking.car.vehicleId}"></td>
+                    <td th:text="${booking.car.id}"></td>
                     <td th:text="${booking.startDate}"></td>
                     <td th:text="${booking.endDate}"></td>
                     <td th:text="${booking.dailyPrice}"></td>
