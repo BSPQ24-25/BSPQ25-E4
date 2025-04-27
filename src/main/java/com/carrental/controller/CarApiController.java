@@ -12,13 +12,27 @@ import com.carrental.dto.CarDTO;
 import com.carrental.models.Car;
 import com.carrental.service.CarService;
 
+/**
+ * @brief REST API Controller for handling car-related operations.
+ * 
+ * This controller provides endpoints to fetch all cars
+ * and to search cars based on one or two filter criteria.
+ */
 @RestController
 @RequestMapping("/api/cars")
 public class CarApiController {
 
+    /**
+     * Service for managing car entities.
+     */
     @Autowired
     private CarService carService;
 
+    /**
+     * @brief Retrieves all cars.
+     * 
+     * @return List of all cars mapped to CarDTO objects.
+     */
     // Get all cars (for table load)
     @GetMapping
     public List<CarDTO> getAllCars() {
@@ -28,6 +42,15 @@ public class CarApiController {
                 .toList();
     }
 
+    /**
+     * @brief Searches cars based on one or two fields.
+     * 
+     * @param field The primary field to search by (e.g., brand, model).
+     * @param value The value to match in the primary field.
+     * @param field2 (Optional) A second field to search by.
+     * @param value2 (Optional) The value to match in the second field.
+     * @return List of cars matching the given search criteria, mapped to CarDTO.
+     */
     @GetMapping("/search")
     public List<CarDTO> searchCarsByFields( 
         @RequestParam String field,
@@ -59,7 +82,12 @@ public class CarApiController {
     }
       
 
-
+    /**
+     * @brief Maps a Car entity to a CarDTO object.
+     * 
+     * @param car The Car entity to map.
+     * @return The corresponding CarDTO.
+     */
     // Utility method: Car ➔ CarDTO
     private CarDTO mapToDTO(Car car) {
         CarDTO dto = new CarDTO();

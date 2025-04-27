@@ -10,7 +10,7 @@
 
 # Maven target directory
 /target/
-
+/docs/
 # Eclipse specific files
 .classpath
 .project

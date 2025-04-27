@@ -268,8 +268,8 @@
                 <td>${vehicle.mileage}</td>
                 <td>${vehicle.manufacturingYear}</td>
                 <td>${vehicle.insuranceId ? vehicle.insuranceId : 'N/A'}</td>
-            <td><a href="/admin/vehicles/edit/${vehicle.id}" class="action-btn edit-btn">Edit</a></td>
-            <td>
+                <td><a href="/admin/vehicles/edit/${vehicle.id}" class="action-btn edit-btn">Edit</a></td>
+                <td>
                 <form action="/admin/vehicles/delete/${vehicle.id}" method="post" style="display:inline;">
                     <button type="submit" class="action-btn delete-btn"
                         onclick="return confirm('Are you sure you want to delete this vehicle?')">Delete</button>
