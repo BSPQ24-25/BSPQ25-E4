@@ -84,7 +84,7 @@
 <div class="container">
     <h1>Edit Vehicle</h1>
     <form th:action="@{'/admin/vehicles/edit'}" th:object="${car}" method="post">
-        <input type="hidden" th:field="*{vehicleId}" />
+        <input type="hidden" th:field="*{id}" />
 
         <label>Brand:</label>
         <input type="text" th:field="*{brand}" required />
