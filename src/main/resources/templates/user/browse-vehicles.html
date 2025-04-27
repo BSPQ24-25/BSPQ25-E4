@@ -127,25 +127,44 @@
     <div class="container">
         <h1>Available vehicles</h1>
 
-        <!-- Search form -->
         <form id="searchForm" style="margin-bottom: 20px;">
-            <label for="searchField">Search by:</label>
-            <select id="searchField">
-                <option value="brand">Brand</option>
-                <option value="model">Model</option>
-                <option value="color">Color</option>
-                <option value="transmission">Transmission</option>
-                <option value="status">Status</option>
-                <option value="fuelLevel">Fuel Level</option>
-                <option value="mileage">Mileage</option>
-                <option value="manufacturingYear">Manufacturing Year</option>
-                <option value="insuranceId">Insurance ID</option>
-            </select>
-            <input type="text" id="searchValue" class="input-field" placeholder="Enter value..." required />
+            <div class="filter-group">
+                <label for="searchField1">Search by:</label>
+                <select id="searchField1" class="input-field">
+                    <option value="brand">Brand</option>
+                    <option value="model">Model</option>
+                    <option value="color">Color</option>
+                    <option value="transmission">Transmission</option>
+                    <option value="status">Status</option>
+                    <option value="fuelLevel">Fuel Level</option>
+                    <option value="mileage">Mileage</option>
+                    <option value="manufacturingYear">Manufacturing Year</option>
+                    <option value="insuranceId">Insurance ID</option>
+                </select>
+                <input type="text" id="searchValue1" class="input-field" placeholder="Enter value..." />
+            </div>
+
+            <div class="filter-group">
+                <label for="searchField2">And by:</label>
+                <select id="searchField2" class="input-field">
+                    <option value="">(none)</option> <!-- optional second filter -->
+                    <option value="brand">Brand</option>
+                    <option value="model">Model</option>
+                    <option value="color">Color</option>
+                    <option value="transmission">Transmission</option>
+                    <option value="status">Status</option>
+                    <option value="fuelLevel">Fuel Level</option>
+                    <option value="mileage">Mileage</option>
+                    <option value="manufacturingYear">Manufacturing Year</option>
+                    <option value="insuranceId">Insurance ID</option>
+                </select>
+                <input type="text" id="searchValue2" class="input-field" placeholder="Enter value..." />
+            </div>
+
             <button type="submit" class="action-btn search-btn">Search</button>
             <button type="button" id="clearButton" class="action-btn clear-btn">Clear</button>
-
         </form>
+
 
 
 
@@ -169,7 +188,7 @@
             </thead>
             <tbody id="vehicleTableBody"></tbody>
         </table>
-        <a href="/admin/dashboard" class="btn-back">Back</a>
+        <a href="/user/dashboard" class="btn-back">Back</a>
     </div>
 
 
@@ -203,9 +222,19 @@
 
         document.getElementById('searchForm').addEventListener('submit', async function (e) {
             e.preventDefault();
-            const field = document.getElementById('searchField').value;
-            const value = document.getElementById('searchValue').value;
-            const response = await fetch(`/api/cars/search?field=${field}&value=${encodeURIComponent(value)}`);
+
+            const field1 = document.getElementById('searchField1').value;
+            const value1 = document.getElementById('searchValue1').value.trim();
+            const field2 = document.getElementById('searchField2').value;
+            const value2 = document.getElementById('searchValue2').value.trim();
+
+            let url = `/api/cars/search?field=${field1}&value=${encodeURIComponent(value1)}`;
+
+            if (field2 && value2) {
+                url += `&field2=${field2}&value2=${encodeURIComponent(value2)}`;
+            }
+
+            const response = await fetch(url);
             const data = await response.json();
             renderVehicles(data);
         });
@@ -217,10 +246,18 @@
         });
 
         document.getElementById('clearButton').addEventListener('click', async function () {
-            document.getElementById('searchValue').value = ''; // Clear input
-            const response = await fetch('/api/cars'); // Get all vehicles again
+            // Clear both input fields
+            document.getElementById('searchValue1').value = '';
+            document.getElementById('searchValue2').value = '';
+
+            // Reset both selects (optional, depends if you want)
+            document.getElementById('searchField1').selectedIndex = 0;
+            document.getElementById('searchField2').selectedIndex = 0;
+
+            // Reload all vehicles
+            const response = await fetch('/api/cars');
             const data = await response.json();
-            renderVehicles(data); // Re-render table
+            renderVehicles(data);
         });
 
     </script>
