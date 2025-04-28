@@ -88,6 +88,19 @@
         .btn-back:hover {
             background-color: darkred;
         }
+
+        /* Language selection style */
+        .lang-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .lang-selector select {
+            padding: 5px;
+            font-size: 14px;
+        }
     </style>
 </head>
 
@@ -116,13 +129,85 @@
                     <td th:text="${vehicle.status}"></td>
                     <td th:text="${vehicle.mileage}"></td>
                     <td th:text="${vehicle.manufacturingYear}"></td>
-					<td th:text="${vehicle.fuelLevel}"></td>
-                    
+                    <td th:text="${vehicle.fuelLevel}"></td>
                 </tr>
             </tbody>
         </table>
         <a href="/user/dashboard" class="btn-back">Back</a>
     </div>
+
+    <!-- Language Selector -->
+    <div class="lang-selector">
+        <select id="langSelect">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const langSelect = document.getElementById('langSelect');
+
+            const translations = {
+                en: {
+                    title: "Available vehicles",
+                    brand: "Brand",
+                    model: "Model",
+                    color: "Color",
+                    transmission: "Transmission",
+                    status: "Status",
+                    mileage: "Mileage",
+                    manufacturingYear: "Manufacturing Year",
+                    fuelLevel: "Fuel level",
+                    back: "Back"
+                },
+                fr: {
+                    title: "Véhicules Disponibles",
+                    brand: "Marque",
+                    model: "Modèle",
+                    color: "Couleur",
+                    transmission: "Transmission",
+                    status: "Statut",
+                    mileage: "Kilométrage",
+                    manufacturingYear: "Année de Fabrication",
+                    fuelLevel: "Niveau de Carburant",
+                    back: "Retour"
+                },
+                es: {
+                    title: "Vehículos Disponibles",
+                    brand: "Marca",
+                    model: "Modelo",
+                    color: "Color",
+                    transmission: "Transmisión",
+                    status: "Estado",
+                    mileage: "Kilometraje",
+                    manufacturingYear: "Año de Fabricación",
+                    fuelLevel: "Nivel de Combustible",
+                    back: "Volver"
+                }
+            };
+
+            langSelect.addEventListener('change', function() {
+                updateTexts(this.value);
+            });
+
+            function updateTexts(lang) {
+                const t = translations[lang];
+                document.querySelector('h1').textContent = t.title;
+                document.querySelector('th:nth-child(1)').textContent = t.brand;
+                document.querySelector('th:nth-child(2)').textContent = t.model;
+                document.querySelector('th:nth-child(3)').textContent = t.color;
+                document.querySelector('th:nth-child(4)').textContent = t.transmission;
+                document.querySelector('th:nth-child(5)').textContent = t.status;
+                document.querySelector('th:nth-child(6)').textContent = t.mileage;
+                document.querySelector('th:nth-child(7)').textContent = t.manufacturingYear;
+                document.querySelector('th:nth-child(8)').textContent = t.fuelLevel;
+                document.querySelector('.btn-back').textContent = t.back;
+            }
+        });
+    </script>
+
 </body>
 
 </html>

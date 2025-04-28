@@ -40,26 +40,92 @@
             text-align: right;
             margin-bottom: 20px;
         }
+        #langSelect {
+            width: 150px;
+            display: inline-block;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <div class="container py-5">
+        <!-- Language Selector -->
+        <div style="text-align: right;">
+            <select id="langSelect" class="form-select">
+                <option value="en" selected>English</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+            </select>
+        </div>
+
         <div class="user-info">
-            <p>Welcome, <span th:text="${userName}"></span></p>
+            <p id="welcomeMessage">Welcome, <span th:text="${userName}"></span></p>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-outline-danger">Log out</button>
+                <button type="submit" class="btn btn-outline-danger" id="logoutButton">Log out</button>
             </form>
         </div>
         
-        <h1 class="mb-4">User Dashboard</h1>
+        <h1 class="mb-4" id="dashboardTitle">User Dashboard</h1>
         <div class="list-group">
-            <a th:href="@{/user/profile}" class="list-group-item list-group-item-action">Profile 🧑</a>
-            <a th:href="@{/user/vehicles}" class="list-group-item list-group-item-action">Browse Vehicles 🚗</a>
-			<a th:href="@{/user/bookings/form}" class="list-group-item list-group-item-action">Make a Booking 📝</a>
-            <a th:href="@{/user/history}" class="list-group-item list-group-item-action">Rental History 📊</a>
-			<a th:href="@{/user/insurances}" class="list-group-item list-group-item-action">Available Insurances 🛡️</a>
-
+            <a th:href="@{/user/profile}" class="list-group-item list-group-item-action" id="profileLink">Profile 🧑</a>
+            <a th:href="@{/user/vehicles}" class="list-group-item list-group-item-action" id="vehiclesLink">Browse Vehicles 🚗</a>
+            <a th:href="@{/user/bookings/form}" class="list-group-item list-group-item-action" id="bookingsLink">Make a Booking 📝</a>
+            <a th:href="@{/user/history}" class="list-group-item list-group-item-action" id="historyLink">Rental History 📊</a>
+            <a th:href="@{/user/insurances}" class="list-group-item list-group-item-action" id="insurancesLink">Available Insurances 🛡️</a>
         </div>
     </div>
+
+    <script>
+        const langSelect = document.getElementById('langSelect');
+        const translations = {
+            en: {
+                welcomeMessage: "Welcome, ",
+                logoutButton: "Log out",
+                dashboardTitle: "User Dashboard",
+                profileLink: "Profile 🧑",
+                vehiclesLink: "Browse Vehicles 🚗",
+                bookingsLink: "Make a Booking 📝",
+                historyLink: "Rental History 📊",
+                insurancesLink: "Available Insurances 🛡️"
+            },
+            fr: {
+                welcomeMessage: "Bienvenue, ",
+                logoutButton: "Se déconnecter",
+                dashboardTitle: "Tableau de bord de l'utilisateur",
+                profileLink: "Profil 🧑",
+                vehiclesLink: "Explorer les véhicules 🚗",
+                bookingsLink: "Faire une réservation 📝",
+                historyLink: "Historique de location 📊",
+                insurancesLink: "Assurances disponibles 🛡️"
+            },
+            es: {
+                welcomeMessage: "Bienvenido, ",
+                logoutButton: "Cerrar sesión",
+                dashboardTitle: "Panel de usuario",
+                profileLink: "Perfil 🧑",
+                vehiclesLink: "Explorar vehículos 🚗",
+                bookingsLink: "Hacer una reserva 📝",
+                historyLink: "Historial de alquiler 📊",
+                insurancesLink: "Seguros disponibles 🛡️"
+            }
+        };
+
+        langSelect.addEventListener('change', function() {
+            const selectedLang = this.value;
+            updateTexts(selectedLang);
+        });
+
+        function updateTexts(lang) {
+            const t = translations[lang];
+            document.getElementById('welcomeMessage').textContent = t.welcomeMessage;
+            document.getElementById('logoutButton').textContent = t.logoutButton;
+            document.getElementById('dashboardTitle').textContent = t.dashboardTitle;
+            document.getElementById('profileLink').textContent = t.profileLink;
+            document.getElementById('vehiclesLink').textContent = t.vehiclesLink;
+            document.getElementById('bookingsLink').textContent = t.bookingsLink;
+            document.getElementById('historyLink').textContent = t.historyLink;
+            document.getElementById('insurancesLink').textContent = t.insurancesLink;
+        }
+    </script>
 </body>
 </html>
