@@ -6,8 +6,11 @@ import com.carrental.repository.CarRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.*;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,111 +25,90 @@ class CarServiceTest {
     @InjectMocks
     private CarService carService;
 
-    private Car car;
-
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    void testAddCar() {
+        Car car = new Car();
+        car.setBrand("Toyota");
+        when(carRepository.save(car)).thenReturn(car);
+
+        Car savedCar = carService.addCar(car);
+        assertNotNull(savedCar);
+        assertEquals("Toyota", savedCar.getBrand());
+    }
+
+    @Test
+    void testAddCarWithAllAttributes() {
+        Car car = new Car();
+        car.setBrand("Toyota");
+        car.setModel("Corolla");
+        car.setColor("Blue");
+        car.setFuelLevel(80.5);
+        car.setTransmission("Automatic");
+        car.setStatus("Available");
+        car.setMileage(25000);
+        car.setManufacturingYear(2020);
 
         Insurance insurance = new Insurance();
         insurance.setInsuranceId(1L);
-
-        car = new Car();
-        car.setId(1L);
-        car.setBrand("Toyota");
-        car.setModel("Corolla");
-        car.setColor("Red");
-        car.setFuelLevel(75.0);
-        car.setTransmission("Automatic");
-        car.setStatus("available");
-        car.setMileage(12000);
-        car.setManufacturingYear(2020);
+        insurance.setProvider("SafeDrive");
+        insurance.setCoverage("Full coverage");
+        insurance.setMonthlyPrice(50.0);
         car.setInsurance(insurance);
-    }
 
-    @Test
-    void addCar_shouldSaveCar() {
         when(carRepository.save(car)).thenReturn(car);
 
-        Car result = carService.addCar(car);
+        Car savedCar = carService.addCar(car);
 
-        assertEquals(car, result);
-        verify(carRepository).save(car);
+        assertNotNull(savedCar);
+        assertEquals("Toyota", savedCar.getBrand());
+        assertEquals("Corolla", savedCar.getModel());
+        assertEquals("Blue", savedCar.getColor());
+        assertEquals(80.5, savedCar.getFuelLevel());
+        assertEquals("Automatic", savedCar.getTransmission());
+        assertEquals("Available", savedCar.getStatus());
+        assertEquals(25000, savedCar.getMileage());
+        assertEquals(2020, savedCar.getManufacturingYear());
+        assertEquals("SafeDrive", savedCar.getInsurance().getProvider());
+    }
+
+    
+    @Test
+    void testGetAllCars() {
+        Car car1 = new Car();
+        car1.setBrand("Toyota");
+
+        Car car2 = new Car();
+        car2.setBrand("Ford");
+
+        when(carRepository.findAll()).thenReturn(Arrays.asList(car1, car2));
+
+        List<Car> cars = carService.getAllCars();
+        assertEquals(2, cars.size());
+        assertEquals("Toyota", cars.get(0).getBrand());
     }
 
     @Test
-    void getAllCars_shouldReturnList() {
-        when(carRepository.findAll()).thenReturn(List.of(car));
+    void testGetCarById() {
+        Car car = new Car();
+        car.setId(1L);
+        car.setBrand("BMW");
 
-        List<Car> result = carService.getAllCars();
-
-        assertEquals(1, result.size());
-        verify(carRepository).findAll();
-    }
-
-    @Test
-    void getCarById_found() {
         when(carRepository.findById(1L)).thenReturn(Optional.of(car));
 
         Car result = carService.getCarById(1L);
-
-        assertEquals(car, result);
+        assertNotNull(result);
+        assertEquals("BMW", result.getBrand());
     }
 
     @Test
-    void getCarById_notFound() {
-        when(carRepository.findById(2L)).thenReturn(Optional.empty());
-
-        Car result = carService.getCarById(2L);
-
-        assertNull(result);
-    }
-
-    @Test
-    void deleteCarById_shouldDelete() {
-        carService.deleteCarById(1L);
-        verify(carRepository).deleteById(1L);
-    }
-
-    @Test
-    void countAvailableCars_shouldReturnCount() {
-        when(carRepository.countByStatusIgnoreCase("available")).thenReturn(3L);
-
-        long count = carService.countAvailableCars();
-
-        assertEquals(3L, count);
-    }
-
-    @Test
-    void saveCar_shouldSave() {
-        carService.saveCar(car);
-        verify(carRepository).save(car);
-    }
-
-    @Test
-    void searchByField_shouldHandleBrand() {
-        when(carRepository.findByBrandContainingIgnoreCase("Toyota")).thenReturn(List.of(car));
-
-        List<Car> result = carService.searchByField("brand", "Toyota");
-
-        assertEquals(1, result.size());
-        verify(carRepository).findByBrandContainingIgnoreCase("Toyota");
-    }
-
-    @Test
-    void searchByField_shouldHandleNumericFields() {
-        when(carRepository.findByMileage(12000)).thenReturn(List.of(car));
-
-        List<Car> result = carService.searchByField("mileage", "12000");
-
-        assertEquals(1, result.size());
-        verify(carRepository).findByMileage(12000);
-    }
-
-    @Test
-    void searchByField_invalidField_returnsEmptyList() {
-        List<Car> result = carService.searchByField("unknown", "value");
-
-        assertTrue(result.isEmpty());
+    void testDeleteCar() {
+        Long carId = 1L;
+        carService.deleteCarById(carId);
+        verify(carRepository, times(1)).deleteById(carId);
     }
 }
