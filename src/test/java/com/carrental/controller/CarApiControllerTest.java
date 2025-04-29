@@ -1,0 +1,97 @@
+package com.carrental.controller;
+
+import com.carrental.models.Car;
+import com.carrental.models.Insurance;
+import com.carrental.service.CarService;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
+import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.List;
+
+import static org.mockito.Mockito.when;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+@WebMvcTest(CarApiController.class)
+class CarApiControllerTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @MockBean
+    private CarService carService;
+
+    private Car testCar;
+
+    @BeforeEach
+    void setUp() {
+        testCar = new Car();
+        testCar.setId(1L);
+        testCar.setBrand("Toyota");
+        testCar.setModel("Camry");
+        testCar.setColor("Blue");
+        testCar.setFuelLevel(75.0);
+        testCar.setTransmission("Automatic");
+        testCar.setStatus("Available");
+        testCar.setMileage(10000);
+        testCar.setManufacturingYear(2020);
+        testCar.setInsurance(new Insurance());
+        testCar.getInsurance().setInsuranceId(123L);
+    }
+
+    @Test
+    void getAllCars_shouldReturnListOfCarDTOs() throws Exception {
+        when(carService.getAllCars()).thenReturn(List.of(testCar));
+
+        mockMvc.perform(get("/api/cars"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].brand").value("Toyota"))
+                .andExpect(jsonPath("$[0].insuranceId").value(123));
+    }
+
+    @Test
+    void searchCarsByOneField_shouldReturnMatchingCars() throws Exception {
+        when(carService.searchByField("brand", "Toyota")).thenReturn(List.of(testCar));
+
+        mockMvc.perform(get("/api/cars/search")
+                        .param("field", "brand")
+                        .param("value", "Toyota"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].model").value("Camry"));
+    }
+
+    @Test
+    void searchCarsByTwoFields_shouldReturnFilteredCars() throws Exception {
+        when(carService.searchByField("brand", "Toyota")).thenReturn(List.of(testCar));
+
+        mockMvc.perform(get("/api/cars/search")
+                        .param("field", "brand")
+                        .param("value", "Toyota")
+                        .param("field2", "model")
+                        .param("value2", "Camry"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].color").value("Blue"));
+    }
+
+    @Test
+    void searchCarsByTwoFields_withNoMatch_shouldReturnEmptyList() throws Exception {
+        when(carService.searchByField("brand", "Toyota")).thenReturn(List.of(testCar));
+
+        mockMvc.perform(get("/api/cars/search")
+                        .param("field", "brand")
+                        .param("value", "Toyota")
+                        .param("field2", "model")
+                        .param("value2", "Civic"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(0));
+    }
+}

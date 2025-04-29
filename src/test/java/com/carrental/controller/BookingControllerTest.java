@@ -1,0 +1,129 @@
+package com.carrental.controller;
+
+import com.carrental.models.Booking;
+import com.carrental.service.BookingService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.util.Collections;
+import java.util.Optional;
+
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
+class BookingControllerTest {
+
+    private MockMvc mockMvc;
+
+    @Mock
+    private BookingService bookingService;
+
+    @InjectMocks
+    private BookingController bookingController;
+
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(bookingController).build();
+    }
+
+    @Test
+    void testGetAllBookings() throws Exception {
+        Booking booking = new Booking();
+        booking.setBookingId(1L);
+        booking.setDailyPrice(100.0);
+
+        when(bookingService.getAllBookings()).thenReturn(Collections.singletonList(booking));
+
+        mockMvc.perform(get("/api/bookings"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].bookingId").value(1))
+                .andExpect(jsonPath("$[0].dailyPrice").value(100.0));
+
+        verify(bookingService, times(1)).getAllBookings();
+    }
+
+    @Test
+    void testGetBookingById() throws Exception {
+        Booking booking = new Booking();
+        booking.setBookingId(1L);
+        booking.setDailyPrice(100.0);
+
+        when(bookingService.getBookingById(1L)).thenReturn(Optional.of(booking));
+
+        mockMvc.perform(get("/api/bookings/1"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.bookingId").value(1))
+                .andExpect(jsonPath("$.dailyPrice").value(100.0));
+
+        verify(bookingService, times(1)).getBookingById(1L);
+    }
+
+    @Test
+    void testCreateBooking() throws Exception {
+        Booking booking = new Booking();
+        booking.setBookingId(1L);
+        booking.setDailyPrice(100.0);
+
+        when(bookingService.createBooking(any(Booking.class))).thenReturn(booking);
+
+        mockMvc.perform(post("/api/bookings")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"dailyPrice\":100.0}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.bookingId").value(1))
+                .andExpect(jsonPath("$.dailyPrice").value(100.0));
+
+        verify(bookingService, times(1)).createBooking(any(Booking.class));
+    }
+
+    @Test
+    void testUpdateBooking() throws Exception {
+        Booking booking = new Booking();
+        booking.setBookingId(1L);
+        booking.setDailyPrice(100.0);
+
+        when(bookingService.updateBooking(eq(1L), any(Booking.class))).thenReturn(booking);
+
+        mockMvc.perform(put("/api/bookings/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"dailyPrice\":120.0}"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.bookingId").value(1))
+                .andExpect(jsonPath("$.dailyPrice").value(120.0));
+
+        verify(bookingService, times(1)).updateBooking(eq(1L), any(Booking.class));
+    }
+
+    @Test
+    void testDeleteBooking() throws Exception {
+        Booking booking = new Booking();
+        booking.setBookingId(1L);
+
+        when(bookingService.getBookingById(1L)).thenReturn(Optional.of(booking));
+
+        mockMvc.perform(delete("/api/bookings/1"))
+                .andExpect(status().isNoContent());
+
+        verify(bookingService, times(1)).deleteBooking(1L);
+    }
+
+    @Test
+    void testConfirmBooking() throws Exception {
+        doNothing().when(bookingService).confirmBooking(1L);
+
+        mockMvc.perform(post("/api/bookings/admin/bookings/confirm")
+                        .param("bookingId", "1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/admin/bookings/pending"));
+
+        verify(bookingService, times(1)).confirmBooking(1L);
+    }
+}
