@@ -70,4 +70,8 @@ public class Insurance {
     public void setCar(List<Car> cars) {
         this.cars = cars;
     }
+
+    public String getFormattedPrice() {
+        return String.format("%.2f€", this.monthlyPrice);
+    }
 }
