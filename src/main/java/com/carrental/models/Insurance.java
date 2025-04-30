@@ -12,6 +12,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 
 @JsonIgnoreProperties({"cars"})
@@ -24,8 +26,13 @@ public class Insurance {
 	@Column(name = "id")
 	private Long id;
 
+    @NotBlank(message = "Provider is required")
     private String provider;
+
+    @NotBlank(message = "Coverage is required")
     private String coverage;
+
+    @Positive(message = "Monthly price must be positive")
     private double monthlyPrice;
 
     @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)

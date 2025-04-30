@@ -3,6 +3,7 @@ package com.carrental.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.carrental.models.Insurance;
 import com.carrental.service.InsuranceService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class InsuranceController {
@@ -42,7 +45,10 @@ public class InsuranceController {
     }
 
     @PostMapping("/admin/insurances/save")
-    public String saveInsurance(@ModelAttribute("insurance") Insurance insurance) {
+    public String saveInsurance(@ModelAttribute("insurance") @Valid Insurance insurance, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "admin/insurance-form";
+        }
         insuranceService.saveInsurance(insurance);
         return "redirect:/admin/insurances";
     }
