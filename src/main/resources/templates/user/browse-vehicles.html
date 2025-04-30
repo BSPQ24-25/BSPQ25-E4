@@ -107,17 +107,64 @@
 <body>
     <div class="container">
         <h1>Available vehicles</h1>
+
+        <form id="searchForm" style="margin-bottom: 20px;">
+            <div class="filter-group">
+                <label for="searchField1">Search by:</label>
+                <select id="searchField1" class="input-field">
+                    <option value="brand">Brand</option>
+                    <option value="model">Model</option>
+                    <option value="color">Color</option>
+                    <option value="transmission">Transmission</option>
+                    <option value="status">Status</option>
+                    <option value="fuelLevel">Fuel Level</option>
+                    <option value="mileage">Mileage</option>
+                    <option value="manufacturingYear">Manufacturing Year</option>
+                    <option value="insuranceId">Insurance ID</option>
+                </select>
+                <input type="text" id="searchValue1" class="input-field" placeholder="Enter value..." />
+            </div>
+
+            <div class="filter-group">
+                <label for="searchField2">And by:</label>
+                <select id="searchField2" class="input-field">
+                    <option value="">(none)</option> <!-- optional second filter -->
+                    <option value="brand">Brand</option>
+                    <option value="model">Model</option>
+                    <option value="color">Color</option>
+                    <option value="transmission">Transmission</option>
+                    <option value="status">Status</option>
+                    <option value="fuelLevel">Fuel Level</option>
+                    <option value="mileage">Mileage</option>
+                    <option value="manufacturingYear">Manufacturing Year</option>
+                    <option value="insuranceId">Insurance ID</option>
+                </select>
+                <input type="text" id="searchValue2" class="input-field" placeholder="Enter value..." />
+            </div>
+
+            <button type="submit" class="action-btn search-btn">Search</button>
+            <button type="button" id="clearButton" class="action-btn clear-btn">Clear</button>
+        </form>
+
+
+
+
+        <!-- Table -->
         <table>
             <thead>
                 <tr>
+                    <th>ID</th>
                     <th>Brand</th>
                     <th>Model</th>
                     <th>Color</th>
+                    <th>Fuel Level</th>
                     <th>Transmission</th>
                     <th>Status</th>
                     <th>Mileage</th>
-                    <th>Manufacturing Year</th>
-                    <th>Fuel level</th>
+                    <th>Year</th>
+                    <th>Insurance ID</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -135,7 +182,7 @@
         </table>
         <a href="/user/dashboard" class="btn-back">Back</a>
     </div>
-
+  
     <!-- Language Selector -->
     <div class="lang-selector">
         <select id="langSelect">
@@ -207,7 +254,6 @@
             }
         });
     </script>
-
 </body>
 
 </html>

@@ -1,4 +1,3 @@
-// 📁 src/main/java/com/carrental/controller/CarRestController.java
 package com.carrental.controller;
 
 import com.carrental.models.Car;

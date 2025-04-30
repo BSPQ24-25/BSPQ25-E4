@@ -21,6 +21,7 @@ public class InsuranceController {
         model.addAttribute("insurances", insuranceService.getAllInsurances());
         return "admin/insurance-management"; 
     }
+    
     @GetMapping("/admin/insurances/edit/{id}")
     public String editInsurance(@PathVariable Long id, Model model) {
         Insurance insurance = insuranceService.getInsuranceById(id);

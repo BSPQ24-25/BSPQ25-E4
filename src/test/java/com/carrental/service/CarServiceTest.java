@@ -1,9 +1,8 @@
-package com.carrental;
+package com.carrental.service;
 
 import com.carrental.models.Car;
 import com.carrental.models.Insurance;
 import com.carrental.repository.CarRepository;
-import com.carrental.service.CarService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -54,7 +53,6 @@ class CarServiceTest {
         car.setMileage(25000);
         car.setManufacturingYear(2020);
 
-        // Create an Insurance object (optional if relationship testing)
         Insurance insurance = new Insurance();
         insurance.setInsuranceId(1L);
         insurance.setProvider("SafeDrive");
