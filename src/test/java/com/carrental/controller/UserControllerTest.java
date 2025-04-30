@@ -89,7 +89,6 @@ class UserControllerTest {
 
         List<Booking> bookings = Arrays.asList(booking1, booking2);
 
-        when(userService.findByEmail("john@example.com")).thenReturn(user);
         when(bookingService.getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"))).thenReturn(bookings);
 
         mockMvc.perform(get("/history")
@@ -98,9 +97,9 @@ class UserControllerTest {
                 .andExpect(view().name("user/rental-history"))
                 .andExpect(model().attribute("historyBookings", bookings));
 
-        verify(userService, times(1)).findByEmail("john@example.com");
         verify(bookingService, times(1)).getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"));
     }
+
 
     @Test
     void userDashboardTest() throws Exception {
