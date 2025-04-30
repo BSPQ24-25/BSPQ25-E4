@@ -12,8 +12,9 @@ import static org.mockito.Mockito.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -45,10 +46,12 @@ class InsuranceRestControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {"ADMIN"})
     void testCreateInsurance() throws Exception {
         doNothing().when(insuranceService).saveInsurance(any(Insurance.class));
 
         mockMvc.perform(post("/api/v1/insurances")
+                        .with(SecurityMockMvcRequestPostProcessors.csrf())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(insurance)))
                 .andExpect(status().isOk())
@@ -60,6 +63,7 @@ class InsuranceRestControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {"USER", "ADMIN"})
     void testGetAllInsurances() throws Exception {
         when(insuranceService.getAllInsurances()).thenReturn(List.of(insurance));
 
@@ -69,6 +73,7 @@ class InsuranceRestControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {"USER", "ADMIN"})
     void testGetInsuranceById_Found() throws Exception {
         when(insuranceService.getInsuranceById(1L)).thenReturn(insurance);
 
@@ -78,6 +83,7 @@ class InsuranceRestControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {"USER", "ADMIN"})
     void testGetInsuranceById_NotFound() throws Exception {
         when(insuranceService.getInsuranceById(2L)).thenReturn(null);
 
@@ -86,10 +92,12 @@ class InsuranceRestControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {"ADMIN"})
     void testDeleteInsurance() throws Exception {
         doNothing().when(insuranceService).deleteInsurance(1L);
 
-        mockMvc.perform(delete("/api/v1/insurances/1"))
+        mockMvc.perform(delete("/api/v1/insurances/1")
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isNoContent());
 
         verify(insuranceService, times(1)).deleteInsurance(1L);

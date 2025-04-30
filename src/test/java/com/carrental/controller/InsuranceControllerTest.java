@@ -7,8 +7,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
@@ -17,7 +20,8 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(InsuranceController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 class InsuranceControllerTest {
 
     @Autowired
@@ -38,6 +42,7 @@ class InsuranceControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testListAdminInsurances() throws Exception {
         when(insuranceService.getAllInsurances()).thenReturn(List.of(insurance));
 
@@ -48,6 +53,7 @@ class InsuranceControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testEditInsurance_found() throws Exception {
         when(insuranceService.getInsuranceById(1L)).thenReturn(insurance);
 
@@ -58,6 +64,7 @@ class InsuranceControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testEditInsurance_notFound() throws Exception {
         when(insuranceService.getInsuranceById(999L)).thenReturn(null);
 
@@ -66,8 +73,10 @@ class InsuranceControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testDeleteInsurance_success() throws Exception {
-        mockMvc.perform(post("/admin/insurances/delete/1"))
+        mockMvc.perform(post("/admin/insurances/delete/1")
+                .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/insurances"));
 
@@ -75,14 +84,17 @@ class InsuranceControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testDeleteInsurance_notFound() throws Exception {
         doThrow(new IllegalArgumentException("Not found")).when(insuranceService).deleteInsurance(999L);
 
-        mockMvc.perform(post("/admin/insurances/delete/999"))
+        mockMvc.perform(post("/admin/insurances/delete/999")
+                .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isNotFound());
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testCreateInsuranceForm() throws Exception {
         mockMvc.perform(get("/admin/insurances/new"))
                 .andExpect(status().isOk())
@@ -91,9 +103,11 @@ class InsuranceControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testSaveInsurance_valid() throws Exception {
         mockMvc.perform(post("/admin/insurances/save")
-                        .flashAttr("insurance", insurance))
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .flashAttr("insurance", insurance))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/insurances"));
 
@@ -101,16 +115,19 @@ class InsuranceControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testSaveInsurance_withValidationErrors() throws Exception {
         Insurance invalidInsurance = new Insurance();
 
         mockMvc.perform(post("/admin/insurances/save")
-                        .flashAttr("insurance", invalidInsurance))
+                .with(SecurityMockMvcRequestPostProcessors.csrf())
+                .flashAttr("insurance", invalidInsurance))
                 .andExpect(status().isOk())
                 .andExpect(view().name("admin/insurance-form"));
     }
 
     @Test
+    @WithMockUser(username = "user", roles = {"USER"})
     void testListUserInsurances() throws Exception {
         when(insuranceService.getAllInsurances()).thenReturn(List.of(insurance));
 

@@ -8,12 +8,16 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Collections;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -137,14 +141,23 @@ class BookingControllerTest {
     }
 
     @Test
-    void testConfirmBooking() throws Exception {
-        doNothing().when(bookingService).confirmBooking(1L);
+    @WithMockUser(roles = {"ADMIN"})
+    void testConfirmBooking_Admin() throws Exception {
+        Long bookingId = 1L;
+
+        Booking booking = new Booking();
+        booking.setBookingId(bookingId);
+        booking.setBookingStatus("PENDING");
+
+        when(bookingService.getBookingById(bookingId)).thenReturn(Optional.of(booking));
+        doNothing().when(bookingService).confirmBooking(bookingId);
 
         mockMvc.perform(post("/api/bookings/admin/bookings/confirm")
-                        .param("bookingId", "1"))
+                        .param("bookingId", String.valueOf(bookingId))
+                        .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/admin/bookings/pending"));
+                .andExpect(redirectedUrl("/admin/bookings/pending"));
 
-        verify(bookingService, times(1)).confirmBooking(1L);
+        verify(bookingService).confirmBooking(bookingId);
     }
 }

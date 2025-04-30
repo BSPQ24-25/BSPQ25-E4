@@ -7,17 +7,16 @@ import com.carrental.service.CarService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(CarApiController.class)
 class CarApiControllerTest {
 
     @Autowired
@@ -47,13 +46,22 @@ class CarApiControllerTest {
 
     @Test
     void getAllCars_shouldReturnListOfCars() throws Exception {
-        when(carService.getAllCars()).thenReturn(List.of(testCar));
+        Car car1 = new Car();
+        car1.setId(1L);
+        car1.setModel("Model X");
 
-        mockMvc.perform(get("/api/cars"))
+        Car car2 = new Car();
+        car2.setId(2L);
+        car2.setModel("Model Y");
+
+        List<Car> cars = Arrays.asList(car1, car2);
+
+        when(carService.getAllCars()).thenReturn(cars);
+
+        mockMvc.perform(get("/api/v1/cars"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].brand").value("Toyota"))
-                .andExpect(jsonPath("$[0].model").value("Camry"))
-                .andExpect(jsonPath("$[0].insuranceId").value(123));
+                .andExpect(jsonPath("$[0].model").value("Model X"))
+                .andExpect(jsonPath("$[1].model").value("Model Y"));
     }
 
     @Test

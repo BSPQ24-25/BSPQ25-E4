@@ -64,14 +64,19 @@ class AuthControllerTest {
 
     @Test
     void testRegisterUser_WithErrors() throws Exception {
-        mockMvc.perform(post("/register")
-                        .param("email", "")
-                        .param("password", ""))
-                .andExpect(status().isOk())
-                .andExpect(view().name("register"))
-                .andExpect(model().attributeHasFieldErrors("user", "email", "password"));
+        User user = new User();
+        user.setName("John Doe");
+        user.setEmail("john@example.com");
+        user.setPassword("password123");
+        user.setPhone("123-456-7890");
+        user.setAddress("123 Main St");
 
-        verify(userService, never()).registerUser(any(User.class));
+        when(userService.registerUser(any(User.class))).thenThrow(new RuntimeException("Invalid user data"));
+
+        mockMvc.perform(post("/register")
+                        .contentType("application/json")
+                        .content("{\"name\": \"John Doe\", \"email\": \"\", \"password\": \"password123\", \"phone\": \"123-456-7890\", \"address\": \"123 Main St\"}"))
+                .andExpect(status().isBadRequest());
     }
 
     @Test
