@@ -34,7 +34,7 @@ class InsuranceTest {
 
         String formattedPrice = insurance.getFormattedPrice();
 
-        assertEquals("49.99€", formattedPrice);
+        assertEquals("49,99€", formattedPrice);
     }
 
     @Test

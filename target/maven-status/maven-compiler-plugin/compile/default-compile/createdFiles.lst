@@ -2,7 +2,6 @@ com\carrental\controller\InsuranceController.class
 com\carrental\service\UserService.class
 com\carrental\controller\CarController.class
 com\carrental\controller\RentalHistoryController.class
-com\carrental\controller\CarRestController.class
 com\carrental\controller\UserController.class
 com\carrental\controller\AdminDashboardController.class
 com\carrental\dto\CarDTO.class

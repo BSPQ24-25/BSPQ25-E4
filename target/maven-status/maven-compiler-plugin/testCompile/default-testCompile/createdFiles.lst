@@ -27,7 +27,6 @@ com\carrental\controller\RentalHistoryControllerTest.class
 com\carrental\models\InsuranceTest.class
 com\carrental\models\BookingTest.class
 com\carrental\repository\UserRepositoryTest.class
-com\carrental\controller\CarRestControllerTest.class
 com\carrental\repository\InsuranceRepositoryTest.class
 com\carrental\controller\CarApiControllerTest.class
 com\carrental\models\CarTest.class
