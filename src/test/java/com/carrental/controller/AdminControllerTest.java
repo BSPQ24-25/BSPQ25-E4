@@ -6,19 +6,19 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 import java.util.Arrays;
 
+import com.carrental.models.Booking;
+import com.carrental.models.User;
+import com.carrental.service.BookingService;
+import com.carrental.service.UserService;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.Authentication;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import com.carrental.models.Booking;
-import com.carrental.models.User;
-import com.carrental.service.BookingService;
-import com.carrental.service.UserService;
 
 public class AdminControllerTest {
 
@@ -30,9 +30,6 @@ public class AdminControllerTest {
     @Mock
     private BookingService bookingService;
 
-    @Mock
-    private Authentication authentication;
-
     @InjectMocks
     private AdminController adminController;
 
@@ -43,36 +40,37 @@ public class AdminControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "admin@example.com", roles = {"ADMIN"})
     public void testShowAdminDashboard_AdminUser() throws Exception {
         User admin = new User();
         admin.setEmail("admin@example.com");
         admin.setIsAdmin(true);
         admin.setName("Admin");
 
-        when(authentication.getName()).thenReturn("admin@example.com");
         when(userService.findByEmail("admin@example.com")).thenReturn(admin);
 
-        mockMvc.perform(get("/admin/dashboard").principal(authentication))
+        mockMvc.perform(get("/admin/dashboard"))
                .andExpect(status().isOk())
                .andExpect(view().name("admin_dashboard"))
                .andExpect(model().attribute("adminName", "Admin"));
     }
 
     @Test
+    @WithMockUser(username = "user@example.com", roles = {"USER"})
     public void testShowAdminDashboard_NonAdminUser() throws Exception {
         User user = new User();
         user.setEmail("user@example.com");
         user.setIsAdmin(false);
 
-        when(authentication.getName()).thenReturn("user@example.com");
         when(userService.findByEmail("user@example.com")).thenReturn(user);
 
-        mockMvc.perform(get("/admin/dashboard").principal(authentication))
+        mockMvc.perform(get("/admin/dashboard"))
                .andExpect(status().is3xxRedirection())
                .andExpect(redirectedUrl("/access-denied"));
     }
 
     @Test
+    @WithMockUser(roles = {"ADMIN"})
     public void testUserManagement() throws Exception {
         when(userService.getAllUsers()).thenReturn(Arrays.asList(new User(), new User()));
 
@@ -83,6 +81,7 @@ public class AdminControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {"ADMIN"})
     public void testPendingReservations() throws Exception {
         when(bookingService.getPendingBookings()).thenReturn(Arrays.asList(new Booking()));
 
@@ -93,6 +92,7 @@ public class AdminControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = {"ADMIN"})
     public void testConfirmBooking() throws Exception {
         mockMvc.perform(post("/admin/reservations/confirm")
                .param("bookingId", "1"))

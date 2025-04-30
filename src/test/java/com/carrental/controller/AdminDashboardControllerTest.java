@@ -4,7 +4,6 @@ import com.carrental.models.Car;
 import com.carrental.models.Insurance;
 import com.carrental.service.BookingService;
 import com.carrental.service.CarService;
-import com.carrental.repository.CarRepository;
 import com.carrental.repository.InsuranceRepository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -13,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -34,9 +34,6 @@ public class AdminDashboardControllerTest {
     private BookingService bookingService;
 
     @Mock
-    private CarRepository carRepository;
-
-    @Mock
     private InsuranceRepository insuranceRepository;
 
     @InjectMocks
@@ -49,6 +46,7 @@ public class AdminDashboardControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testDashboardStats() throws Exception {
         when(carService.countAvailableCars()).thenReturn(5L);
         when(bookingService.countActiveBookings()).thenReturn(3L);
@@ -63,6 +61,7 @@ public class AdminDashboardControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testShowVehicleList() throws Exception {
         when(carService.getAllCars()).thenReturn(Arrays.asList(new Car(), new Car()));
 
@@ -73,6 +72,7 @@ public class AdminDashboardControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testAddVehicleWithInsurance() throws Exception {
         Long insuranceId = 1L;
         Insurance insurance = new Insurance();
@@ -86,10 +86,11 @@ public class AdminDashboardControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/admin/vehicles"));
 
-        verify(carRepository).save(car);
+        verify(carService).saveCar(car);
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testDeleteVehicle() throws Exception {
         mockMvc.perform(post("/admin/vehicles/delete/1"))
                 .andExpect(status().is3xxRedirection())
@@ -99,6 +100,7 @@ public class AdminDashboardControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testShowEditForm() throws Exception {
         Car car = new Car();
         when(carService.getCarById(1L)).thenReturn(car);
@@ -112,6 +114,7 @@ public class AdminDashboardControllerTest {
     }
 
     @Test
+    @WithMockUser(roles = "ADMIN")
     public void testUpdateVehicleWithInsurance() throws Exception {
         Car car = new Car();
         Insurance insurance = new Insurance();

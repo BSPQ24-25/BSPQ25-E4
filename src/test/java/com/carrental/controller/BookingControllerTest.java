@@ -67,6 +67,16 @@ class BookingControllerTest {
     }
 
     @Test
+    void testGetBookingById_NotFound() throws Exception {
+        when(bookingService.getBookingById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/api/bookings/1"))
+                .andExpect(status().isNotFound());
+
+        verify(bookingService, times(1)).getBookingById(1L);
+    }
+
+    @Test
     void testCreateBooking() throws Exception {
         Booking booking = new Booking();
         booking.setBookingId(1L);
@@ -86,11 +96,11 @@ class BookingControllerTest {
 
     @Test
     void testUpdateBooking() throws Exception {
-        Booking booking = new Booking();
-        booking.setBookingId(1L);
-        booking.setDailyPrice(100.0);
+        Booking updatedBooking = new Booking();
+        updatedBooking.setBookingId(1L);
+        updatedBooking.setDailyPrice(120.0);
 
-        when(bookingService.updateBooking(eq(1L), any(Booking.class))).thenReturn(booking);
+        when(bookingService.updateBooking(eq(1L), any(Booking.class))).thenReturn(updatedBooking);
 
         mockMvc.perform(put("/api/bookings/1")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -108,11 +118,22 @@ class BookingControllerTest {
         booking.setBookingId(1L);
 
         when(bookingService.getBookingById(1L)).thenReturn(Optional.of(booking));
+        doNothing().when(bookingService).deleteBooking(1L);
 
         mockMvc.perform(delete("/api/bookings/1"))
                 .andExpect(status().isNoContent());
 
         verify(bookingService, times(1)).deleteBooking(1L);
+    }
+
+    @Test
+    void testDeleteBooking_NotFound() throws Exception {
+        when(bookingService.getBookingById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(delete("/api/bookings/1"))
+                .andExpect(status().isNotFound());
+
+        verify(bookingService, never()).deleteBooking(1L);
     }
 
     @Test
