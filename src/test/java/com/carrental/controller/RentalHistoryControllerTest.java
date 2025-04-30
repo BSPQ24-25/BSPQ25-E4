@@ -54,9 +54,11 @@ class RentalHistoryControllerTest {
 
         List<Booking> bookings = Arrays.asList(booking1, booking2);
 
+
         when(userRepository.findByEmail("john@example.com")).thenReturn(Optional.of(user));
 
-        when(bookingService.getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"))).thenReturn(bookings);
+        when(bookingService.getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled")))
+            .thenReturn(bookings);
 
         Authentication authentication = mock(Authentication.class);
         when(authentication.getName()).thenReturn("john@example.com");
