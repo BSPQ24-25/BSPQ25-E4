@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.carrental.models.Car;
 import com.carrental.models.Insurance;
-import com.carrental.repository.CarRepository;
 import com.carrental.repository.InsuranceRepository;
 import com.carrental.service.BookingService;
 
@@ -22,9 +21,6 @@ public class AdminDashboardController {
 
 	@Autowired
 	private InsuranceRepository insuranceRepository;
-
-	@Autowired
-	private CarRepository carRepository;
 	
     @Autowired
     private CarService carService;
@@ -57,17 +53,15 @@ public class AdminDashboardController {
             Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);
             car.setInsurance(insurance);
         }
-        carRepository.save(car);
+        carService.saveCar(car);
         return "redirect:/admin/vehicles";
     }
-
-   
     
     @GetMapping("/admin/vehicles/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
         Car car = carService.getCarById(id);
         model.addAttribute("car", car);
-        model.addAttribute("insurances", insuranceRepository.findAll()); // Por si necesitas mostrar opciones de seguro
+        model.addAttribute("insurances", insuranceRepository.findAll());
         return "admin/edit-vehicle";
     }
     
