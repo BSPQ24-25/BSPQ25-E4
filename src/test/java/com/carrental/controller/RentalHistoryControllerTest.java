@@ -56,7 +56,7 @@ class RentalHistoryControllerTest {
 
         when(userRepository.findByEmail("john@example.com")).thenReturn(Optional.of(user));
 
-        when(bookingService.getUserRentalHistory("John Doe", Arrays.asList("confirmed", "completed", "cancelled"))).thenReturn(bookings);
+        when(bookingService.getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"))).thenReturn(bookings);
 
         Authentication authentication = mock(Authentication.class);
         when(authentication.getName()).thenReturn("john@example.com");
@@ -68,6 +68,6 @@ class RentalHistoryControllerTest {
                 .andExpect(model().attribute("historyBookings", bookings));
 
         verify(userRepository, times(1)).findByEmail("john@example.com");
-        verify(bookingService, times(1)).getUserRentalHistory("John Doe", Arrays.asList("confirmed", "completed", "cancelled"));
+        verify(bookingService, times(1)).getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"));
     }
 }

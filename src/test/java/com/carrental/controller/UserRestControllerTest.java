@@ -51,6 +51,8 @@ class UserRestControllerTest {
                 .andExpect(jsonPath("$.phone").value("123-456-7890"))
                 .andExpect(jsonPath("$.address").value("123 Main St"))
                 .andExpect(jsonPath("$.isAdmin").value(false));
+
+        verify(userService, times(1)).registerUser(any(User.class));
     }
 
     @Test
@@ -63,12 +65,14 @@ class UserRestControllerTest {
         user.setAddress("123 Main St");
         user.setIsAdmin(false);
 
-        when(userService.registerUser(any(User.class))).thenThrow(new RuntimeException("Invalid user data"));
+        when(userService.registerUser(any(User.class))).thenThrow(new IllegalArgumentException("Invalid user data"));
 
         mockMvc.perform(post("/api/v1/users")
                         .contentType("application/json")
                         .content("{\"name\": \"John Doe\", \"email\": \"\", \"password\": \"password123\", \"phone\": \"123-456-7890\", \"address\": \"123 Main St\", \"isAdmin\": false}"))
                 .andExpect(status().isBadRequest());
+
+        verify(userService, times(1)).registerUser(any(User.class));
     }
 
     @Test
@@ -91,6 +95,8 @@ class UserRestControllerTest {
                 .andExpect(jsonPath("$.phone").value("123-456-7890"))
                 .andExpect(jsonPath("$.address").value("123 Main St"))
                 .andExpect(jsonPath("$.isAdmin").value(false));
+
+        verify(userService, times(1)).getUserById(1L);
     }
 
     @Test
@@ -99,5 +105,7 @@ class UserRestControllerTest {
 
         mockMvc.perform(get("/api/v1/users/999"))
                 .andExpect(status().isNotFound());
+
+        verify(userService, times(1)).getUserById(999L);
     }
 }

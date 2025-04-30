@@ -6,19 +6,15 @@ import com.carrental.service.CarService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
 import static org.mockito.Mockito.when;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CarApiController.class)
@@ -44,28 +40,31 @@ class CarApiControllerTest {
         testCar.setStatus("Available");
         testCar.setMileage(10000);
         testCar.setManufacturingYear(2020);
-        testCar.setInsurance(new Insurance());
-        testCar.getInsurance().setInsuranceId(123L);
+        Insurance insurance = new Insurance();
+        insurance.setInsuranceId(123L);
+        testCar.setInsurance(insurance);
     }
 
     @Test
-    void getAllCars_shouldReturnListOfCarDTOs() throws Exception {
+    void getAllCars_shouldReturnListOfCars() throws Exception {
         when(carService.getAllCars()).thenReturn(List.of(testCar));
 
         mockMvc.perform(get("/api/cars"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].brand").value("Toyota"))
+                .andExpect(jsonPath("$[0].model").value("Camry"))
                 .andExpect(jsonPath("$[0].insuranceId").value(123));
     }
 
     @Test
-    void searchCarsByOneField_shouldReturnMatchingCars() throws Exception {
+    void searchCarsByField_shouldReturnMatchingCars() throws Exception {
         when(carService.searchByField("brand", "Toyota")).thenReturn(List.of(testCar));
 
         mockMvc.perform(get("/api/cars/search")
                         .param("field", "brand")
                         .param("value", "Toyota"))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].brand").value("Toyota"))
                 .andExpect(jsonPath("$[0].model").value("Camry"));
     }
 
@@ -79,7 +78,7 @@ class CarApiControllerTest {
                         .param("field2", "model")
                         .param("value2", "Camry"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].color").value("Blue"));
+                .andExpect(jsonPath("$[0].model").value("Camry"));
     }
 
     @Test
@@ -90,8 +89,23 @@ class CarApiControllerTest {
                         .param("field", "brand")
                         .param("value", "Toyota")
                         .param("field2", "model")
-                        .param("value2", "Civic"))
+                        .param("value2", "Civic"))  // No coincide con testCar
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(0));
+    }
+
+    @Test
+    void searchCars_withMissingField_shouldReturnBadRequest() throws Exception {
+        mockMvc.perform(get("/api/cars/search")
+                        .param("value", "Toyota"))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void getAllCars_whenServiceFails_shouldReturnServerError() throws Exception {
+        when(carService.getAllCars()).thenThrow(new RuntimeException("Database down"));
+
+        mockMvc.perform(get("/api/cars"))
+                .andExpect(status().isInternalServerError());
     }
 }

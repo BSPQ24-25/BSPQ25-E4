@@ -55,6 +55,8 @@ class InsuranceRestControllerTest {
                 .andExpect(jsonPath("$.provider").value("Test Provider"))
                 .andExpect(jsonPath("$.coverage").value("Full"))
                 .andExpect(jsonPath("$.monthlyPrice").value(120.50));
+
+        verify(insuranceService, times(1)).saveInsurance(any(Insurance.class));
     }
 
     @Test

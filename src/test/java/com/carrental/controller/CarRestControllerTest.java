@@ -3,6 +3,7 @@ package com.carrental.controller;
 import com.carrental.models.Car;
 import com.carrental.service.CarService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -14,11 +15,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
-
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CarRestController.class)
@@ -60,7 +61,7 @@ class CarRestControllerTest {
         mockMvc.perform(post("/api/v1/cars")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(testCar)))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())  // 201 Created
                 .andExpect(jsonPath("$.id").value(testCar.getId()))
                 .andExpect(jsonPath("$.model").value("Camry"));
     }
@@ -76,7 +77,7 @@ class CarRestControllerTest {
 
     @Test
     void getCarById_notFound_shouldReturn404() throws Exception {
-        when(carService.getCarById(1L)).thenReturn(null);
+        when(carService.getCarById(1L)).thenThrow(new NoSuchElementException("Car not found"));
 
         mockMvc.perform(get("/api/v1/cars/1"))
                 .andExpect(status().isNotFound());
@@ -88,5 +89,13 @@ class CarRestControllerTest {
 
         mockMvc.perform(delete("/api/v1/cars/1"))
                 .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void deleteCarById_notFound_shouldReturn404() throws Exception {
+        doThrow(new NoSuchElementException("Car not found")).when(carService).deleteCarById(999L);
+
+        mockMvc.perform(delete("/api/v1/cars/999"))
+                .andExpect(status().isNotFound());
     }
 }

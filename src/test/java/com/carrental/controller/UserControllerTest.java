@@ -32,11 +32,15 @@ class UserControllerTest {
     private UserController userController;
 
     private MockMvc mockMvc;
+    private Authentication authentication;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
+        
+        authentication = mock(Authentication.class);
+        when(authentication.getName()).thenReturn("john@example.com");
     }
 
     @Test
@@ -48,14 +52,13 @@ class UserControllerTest {
 
         when(userService.findByEmail("john@example.com")).thenReturn(user);
 
-        Authentication authentication = mock(Authentication.class);
-        when(authentication.getName()).thenReturn("john@example.com");
-
         mockMvc.perform(get("/user/profile")
                         .principal(authentication))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/profile"))
                 .andExpect(model().attribute("user", user));
+
+        verify(userService, times(1)).findByEmail("john@example.com");
     }
 
     @Test
@@ -89,14 +92,14 @@ class UserControllerTest {
         when(userService.findByEmail("john@example.com")).thenReturn(user);
         when(bookingService.getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"))).thenReturn(bookings);
 
-        Authentication authentication = mock(Authentication.class);
-        when(authentication.getName()).thenReturn("john@example.com");
-
         mockMvc.perform(get("/history")
                         .principal(authentication))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/rental-history"))
                 .andExpect(model().attribute("historyBookings", bookings));
+
+        verify(userService, times(1)).findByEmail("john@example.com");
+        verify(bookingService, times(1)).getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"));
     }
 
     @Test
@@ -108,14 +111,13 @@ class UserControllerTest {
 
         when(userService.findByEmail("john@example.com")).thenReturn(user);
 
-        Authentication authentication = mock(Authentication.class);
-        when(authentication.getName()).thenReturn("john@example.com");
-
         mockMvc.perform(get("/user/dashboard")
                         .principal(authentication))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user-dashboard"))
                 .andExpect(model().attribute("userName", "John Doe"));
+
+        verify(userService, times(1)).findByEmail("john@example.com");
     }
 
     @Test
