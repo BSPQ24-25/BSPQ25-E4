@@ -145,18 +145,12 @@ class BookingControllerTest {
     void testConfirmBooking_Admin() throws Exception {
         Long bookingId = 1L;
 
-        Booking booking = new Booking();
-        booking.setBookingId(bookingId);
-        booking.setBookingStatus("PENDING");
-
-        when(bookingService.getBookingById(bookingId)).thenReturn(Optional.of(booking));
         doNothing().when(bookingService).confirmBooking(bookingId);
 
         mockMvc.perform(post("/api/bookings/admin/bookings/confirm")
                         .param("bookingId", String.valueOf(bookingId))
                         .with(SecurityMockMvcRequestPostProcessors.csrf()))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/admin/bookings/pending"));
+                .andExpect(status().isOk());
 
         verify(bookingService).confirmBooking(bookingId);
     }

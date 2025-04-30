@@ -13,13 +13,13 @@ C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrenta
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\service\InsuranceService.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\models\Booking.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\repository\UserRepository.java
-C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\controller\BookingRestController.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\repository\BookingRepository.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\controller\BookingWebController.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\controller\UserRestController.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\controller\CarRestController.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\App.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\repository\InsuranceRepository.java
+C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\controller\BookingController.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\database\DatabaseConnection.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\dto\CarDTO.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\main\java\com\carrental\models\Insurance.java

@@ -1,4 +1,3 @@
-com\carrental\controller\BookingRestController.class
 com\carrental\controller\InsuranceController.class
 com\carrental\service\UserService.class
 com\carrental\controller\CarController.class
@@ -27,4 +26,5 @@ com\carrental\service\BookingService.class
 com\carrental\controller\BookingWebController.class
 com\carrental\controller\AdminController.class
 com\carrental\App.class
+com\carrental\controller\BookingController.class
 com\carrental\repository\InsuranceRepository.class

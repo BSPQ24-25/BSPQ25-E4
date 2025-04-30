@@ -3,6 +3,7 @@ com\carrental\repository\CarRepositoryTest.class
 com\carrental\controller\UserControllerTest.class
 com\carrental\controller\AuthControllerTest.class
 com\carrental\service\CarServiceTest.class
+com\carrental\controller\BookingControllerTest.class
 com\carrental\controller\UserRestControllerTest.class
 com\carrental\models\UserTest.class
 com\carrental\performance\UserPerformanceTest.class

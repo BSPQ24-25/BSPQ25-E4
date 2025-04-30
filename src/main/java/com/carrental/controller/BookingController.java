@@ -71,12 +71,12 @@ public class BookingController {
     }
 
     @PostMapping("/admin/bookings/confirm")
-    public String confirmBooking(@RequestParam("bookingId") Long bookingId) {
+    public ResponseEntity<Void> confirmBooking(@RequestParam("bookingId") Long bookingId) {
         try {
             bookingService.confirmBooking(bookingId);
-            return "redirect:/admin/bookings/pending";
+            return ResponseEntity.ok().build(); 
         } catch (Exception e) {
-            return "error";
+            return ResponseEntity.badRequest().build();
         }
     }
 }
