@@ -43,25 +43,35 @@
 </head>
 <body>
     <div class="container text-center">
-        <h2 class="mb-4">🚗 Leave a review</h2>
+        <h2 class="mb-4" id="reviewTitle">🚗 Leave a review</h2>
         <form id="reviewForm">
             <div class="mb-3 rating-select">
-                <label for="rating" class="form-label">Rate Your Experience</label>
+                <label for="rating" class="form-label" id="rateLabel">Rate Your Experience</label>
                 <select id="rating" class="form-control">
-                    <option value="5">⭐⭐⭐⭐⭐ (Amazing!)</option>
-                    <option value="4">⭐⭐⭐⭐ (Great)</option>
-                    <option value="3">⭐⭐⭐ (Good)</option>
-                    <option value="2">⭐⭐ (Meh)</option>
-                    <option value="1">⭐ (Terrible)</option>
+                    <option value="5" id="rate5">⭐⭐⭐⭐⭐ (Amazing!)</option>
+                    <option value="4" id="rate4">⭐⭐⭐⭐ (Great)</option>
+                    <option value="3" id="rate3">⭐⭐⭐ (Good)</option>
+                    <option value="2" id="rate2">⭐⭐ (Meh)</option>
+                    <option value="1" id="rate1">⭐ (Terrible)</option>
                 </select>
             </div>
             <div class="mb-3">
-                <label for="review" class="form-label">Your Thoughts</label>
+                <label for="review" class="form-label" id="reviewLabel">Your Thoughts</label>
                 <textarea class="form-control" id="review" rows="4" required placeholder="Tell us about your ride! 🚘"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Submit Review 🎯</button>
+            <button type="submit" class="btn btn-primary w-100" id="submitReviewButton">Submit Review 🎯</button>
         </form>
     </div>
+
+    <!-- Language Selector -->
+    <div style="text-align: right; margin-top: 20px;">
+        <select id="langSelect" class="form-select" style="width: 150px; display: inline-block;">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
     <script>
         document.getElementById("reviewForm").addEventListener("submit", function(event) {
             event.preventDefault();
@@ -77,6 +87,62 @@
             .then(response => response.ok ? alert("🎉 Review submitted successfully! 🎊") : alert("❌ Failed to submit review. Try again!"))
             .catch(error => console.error("Error:", error));
         });
+
+        // Language change handler
+        const langSelect = document.getElementById('langSelect');
+        const translations = {
+            en: {
+                reviewTitle: "🚗 Leave a review",
+                rateLabel: "Rate Your Experience",
+                rate5: "⭐⭐⭐⭐⭐ (Amazing!)",
+                rate4: "⭐⭐⭐⭐ (Great)",
+                rate3: "⭐⭐⭐ (Good)",
+                rate2: "⭐⭐ (Meh)",
+                rate1: "⭐ (Terrible)",
+                reviewLabel: "Your Thoughts",
+                submitReviewButton: "Submit Review 🎯"
+            },
+            fr: {
+                reviewTitle: "🚗 Laisser un avis",
+                rateLabel: "Évaluez votre expérience",
+                rate5: "⭐⭐⭐⭐⭐ (Incroyable!)",
+                rate4: "⭐⭐⭐⭐ (Super)",
+                rate3: "⭐⭐⭐ (Bien)",
+                rate2: "⭐⭐ (Bof)",
+                rate1: "⭐ (Terrible)",
+                reviewLabel: "Vos impressions",
+                submitReviewButton: "Soumettre l'avis 🎯"
+            },
+            es: {
+                reviewTitle: "🚗 Deja una reseña",
+                rateLabel: "Califica tu experiencia",
+                rate5: "⭐⭐⭐⭐⭐ (¡Increíble!)",
+                rate4: "⭐⭐⭐⭐ (Genial)",
+                rate3: "⭐⭐⭐ (Bueno)",
+                rate2: "⭐⭐ (Así así)",
+                rate1: "⭐ (Terrible)",
+                reviewLabel: "Tus pensamientos",
+                submitReviewButton: "Enviar reseña 🎯"
+            }
+        };
+
+        langSelect.addEventListener('change', function() {
+            const selectedLang = this.value;
+            updateTexts(selectedLang);
+        });
+
+        function updateTexts(lang) {
+            const t = translations[lang];
+            document.getElementById('reviewTitle').textContent = t.reviewTitle;
+            document.getElementById('rateLabel').textContent = t.rateLabel;
+            document.getElementById('rate5').textContent = t.rate5;
+            document.getElementById('rate4').textContent = t.rate4;
+            document.getElementById('rate3').textContent = t.rate3;
+            document.getElementById('rate2').textContent = t.rate2;
+            document.getElementById('rate1').textContent = t.rate1;
+            document.getElementById('reviewLabel').textContent = t.reviewLabel;
+            document.getElementById('submitReviewButton').textContent = t.submitReviewButton;
+        }
     </script>
 </body>
 </html>

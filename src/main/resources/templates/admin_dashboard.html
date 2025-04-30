@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" 
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Admin Dashboard</title>
@@ -40,6 +39,19 @@
         .user-info {
             text-align: right;
             margin-bottom: 20px;
+        }
+
+        /* Language selection style */
+        .lang-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .lang-selector select {
+            padding: 5px;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -86,9 +98,84 @@
             <a th:href="@{/admin/vehicles}" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
             <a th:href="@{/admin/reservations}" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
             <a th:href="@{/admin/history}" class="list-group-item list-group-item-action">Rental History 📊</a>
-			<a th:href="@{/admin/insurances}" class="list-group-item list-group-item-action">Insurance Management 🛡️</a>
-
+            <a th:href="@{/admin/insurances}" class="list-group-item list-group-item-action">Insurance Management 🛡️</a>
         </div>
     </div>
+
+    <!-- Language Selector -->
+    <div class="lang-selector">
+        <select id="langSelect">
+            <option value="en" selected>English</option>
+            <option value="es">Español</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const langSelect = document.getElementById('langSelect');
+
+            const translations = {
+                en: {
+                    title: "Admin Dashboard",
+                    welcome: "Welcome, ",
+                    logout: "Log out",
+                    availableCars: "Available Cars",
+                    activeRentals: "Active Rentals",
+                    totalRevenue: "Total Revenue",
+                    userManagement: "User Management 👥",
+                    vehicleManagement: "Vehicle Management 🚗",
+                    pendingReservations: "Pending Reservations ⏳",
+                    rentalHistory: "Rental History 📊",
+                    insuranceManagement: "Insurance Management 🛡️"
+                },
+                fr: {
+                    title: "Tableau de Bord Administrateur",
+                    welcome: "Bienvenue, ",
+                    logout: "Se déconnecter",
+                    availableCars: "Voitures Disponibles",
+                    activeRentals: "Locations Actives",
+                    totalRevenue: "Revenu Total",
+                    userManagement: "Gestion des Utilisateurs 👥",
+                    vehicleManagement: "Gestion des Véhicules 🚗",
+                    pendingReservations: "Réservations en Attente ⏳",
+                    rentalHistory: "Historique des Locations 📊",
+                    insuranceManagement: "Gestion des Assurances 🛡️"
+                },
+                es: {
+                    title: "Panel de Administración",
+                    welcome: "Bienvenido, ",
+                    logout: "Cerrar sesión",
+                    availableCars: "Coches Disponibles",
+                    activeRentals: "Alquileres Activos",
+                    totalRevenue: "Ingresos Totales",
+                    userManagement: "Gestión de Usuarios 👥",
+                    vehicleManagement: "Gestión de Vehículos 🚗",
+                    pendingReservations: "Reservas Pendientes ⏳",
+                    rentalHistory: "Historial de Alquileres 📊",
+                    insuranceManagement: "Gestión de Seguros 🛡️"
+                }
+            };
+
+            langSelect.addEventListener('change', function() {
+                updateTexts(this.value);
+            });
+
+            function updateTexts(lang) {
+                const t = translations[lang];
+                document.querySelector('h1').textContent = t.title;
+                document.querySelector('.user-info p').textContent = t.welcome;
+                document.querySelector('.btn-outline-danger').textContent = t.logout;
+                document.querySelectorAll('.card-title')[0].textContent = t.availableCars;
+                document.querySelectorAll('.card-title')[1].textContent = t.activeRentals;
+                document.querySelectorAll('.card-title')[2].textContent = t.totalRevenue;
+                document.querySelectorAll('.list-group-item')[0].textContent = t.userManagement;
+                document.querySelectorAll('.list-group-item')[1].textContent = t.vehicleManagement;
+                document.querySelectorAll('.list-group-item')[2].textContent = t.pendingReservations;
+                document.querySelectorAll('.list-group-item')[3].textContent = t.rentalHistory;
+                document.querySelectorAll('.list-group-item')[4].textContent = t.insuranceManagement;
+            }
+        });
+    </script>
 </body>
 </html>

@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>User Management</title>
+    <meta charset="UTF-8">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -71,7 +72,6 @@
             color: white;
         }
 
-        /* Estilo para el botón rojo */
         .btn-back {
             background-color: red;
             color: white;
@@ -87,21 +87,36 @@
         .btn-back:hover {
             background-color: darkred;
         }
+
+        #langSelect {
+            width: 150px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
 <div class="container">
-    <h1>User Management</h1>
+    <!-- Language Selector -->
+    <div style="text-align: right;">
+        <select id="langSelect" class="form-select">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
+    <h1 id="userManagementTitle">User Management</h1>
     <table>
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Phone</th>
-            <th>Address</th>
-            <th>Is Admin</th>
-            <th>Actions</th>
+            <th id="idHeader">ID</th>
+            <th id="nameHeader">Name</th>
+            <th id="emailHeader">Email</th>
+            <th id="phoneHeader">Phone</th>
+            <th id="addressHeader">Address</th>
+            <th id="adminHeader">Is Admin</th>
+            <th id="actionsHeader">Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -113,13 +128,81 @@
             <td th:text="${user.address}"></td>
             <td th:text="${user.isAdmin}"></td>
             <td>
-                <a th:href="@{'/admin/users/edit/' + ${user.id}}" class="action-btn edit-btn">Edit</a>
-                <a th:href="@{'/admin/users/delete/' + ${user.id}}" class="action-btn delete-btn" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
+                <a th:href="@{'/admin/users/edit/' + ${user.id}}" class="action-btn edit-btn" id="editButton">Edit</a>
+                <a th:href="@{'/admin/users/delete/' + ${user.id}}" class="action-btn delete-btn" id="deleteButton" onclick="return confirm('Are you sure you want to delete this user?')">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="/admin/dashboard" class="btn-back">Back</a>
+    <a href="/admin/dashboard" class="btn-back" id="backLink">Back</a>
 </div>
+
+<script>
+    const langSelect = document.getElementById('langSelect');
+    const translations = {
+        en: {
+            userManagementTitle: "User Management",
+            idHeader: "ID",
+            nameHeader: "Name",
+            emailHeader: "Email",
+            phoneHeader: "Phone",
+            addressHeader: "Address",
+            adminHeader: "Is Admin",
+            actionsHeader: "Actions",
+            editButton: "Edit",
+            deleteButton: "Delete",
+            backLink: "Back"
+        },
+        fr: {
+            userManagementTitle: "Gestion des utilisateurs",
+            idHeader: "ID",
+            nameHeader: "Nom",
+            emailHeader: "Email",
+            phoneHeader: "Téléphone",
+            addressHeader: "Adresse",
+            adminHeader: "Administrateur",
+            actionsHeader: "Actions",
+            editButton: "Modifier",
+            deleteButton: "Supprimer",
+            backLink: "Retour"
+        },
+        es: {
+            userManagementTitle: "Gestión de usuarios",
+            idHeader: "ID",
+            nameHeader: "Nombre",
+            emailHeader: "Correo",
+            phoneHeader: "Teléfono",
+            addressHeader: "Dirección",
+            adminHeader: "Administrador",
+            actionsHeader: "Acciones",
+            editButton: "Editar",
+            deleteButton: "Eliminar",
+            backLink: "Atrás"
+        }
+    };
+
+    langSelect.addEventListener('change', function() {
+        const selectedLang = this.value;
+        updateTexts(selectedLang);
+    });
+
+    function updateTexts(lang) {
+        const t = translations[lang];
+        document.getElementById('userManagementTitle').textContent = t.userManagementTitle;
+        document.getElementById('idHeader').textContent = t.idHeader;
+        document.getElementById('nameHeader').textContent = t.nameHeader;
+        document.getElementById('emailHeader').textContent = t.emailHeader;
+        document.getElementById('phoneHeader').textContent = t.phoneHeader;
+        document.getElementById('addressHeader').textContent = t.addressHeader;
+        document.getElementById('adminHeader').textContent = t.adminHeader;
+        document.getElementById('actionsHeader').textContent = t.actionsHeader;
+        
+        // Attention : les boutons "Edit" et "Delete" sont multipliés dans chaque ligne
+        document.querySelectorAll('.edit-btn').forEach(btn => btn.textContent = t.editButton);
+        document.querySelectorAll('.delete-btn').forEach(btn => btn.textContent = t.deleteButton);
+        
+        document.getElementById('backLink').textContent = t.backLink;
+    }
+</script>
 </body>
 </html>
