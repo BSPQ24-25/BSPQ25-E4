@@ -160,6 +160,9 @@
             background-color: #d32f2f;
         }
     </style>
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 
 <body>
@@ -269,11 +272,10 @@
                 <td>${vehicle.insuranceId ? vehicle.insuranceId : 'N/A'}</td>
                 <td><a href="/admin/vehicles/edit/${vehicle.id}" class="action-btn edit-btn">Edit</a></td>
                 <td>
-                <form action="/admin/vehicles/delete/${vehicle.id}" method="post" style="display:inline;">
-                    <button type="submit" class="action-btn delete-btn"
-                        onclick="return confirm('Are you sure you want to delete this vehicle?')">Delete</button>
-                </form>
-                </td>`;
+  <button onclick="deleteVehicle(${vehicle.id})" class="action-btn delete-btn">
+    Delete
+  </button>
+</td>`;
                 tableBody.appendChild(row);
             });
         };
@@ -317,6 +319,29 @@
             const data = await response.json();
             renderVehicles(data);
         });
+
+        async function deleteVehicle(id) {
+    if (!confirm("Are you sure you want to delete this vehicle?")) return;
+
+    const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+    const csrfHeader = document.querySelector('meta[name="_csrf_header"]').getAttribute('content');
+            
+    const response = await fetch(`/api/cars/${id}`, {
+        method: "DELETE",
+        headers: {
+            [csrfHeader]: csrfToken
+        }
+    });
+
+    if (response.ok) {
+        const updated = await fetch("/api/cars").then(res => res.json());
+        renderVehicles(updated);
+    } else {
+        alert("Failed to delete vehicle");
+    }
+}
+
+
 
     </script>
 </body>

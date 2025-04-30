@@ -89,15 +89,7 @@ public class AdminDashboardControllerTest {
         verify(carService).saveCar(car);
     }
 
-    @Test
-    @WithMockUser(roles = "ADMIN")
-    public void testDeleteVehicle() throws Exception {
-        mockMvc.perform(post("/admin/vehicles/delete/1"))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/admin/vehicles"));
-
-        verify(carService).deleteCarById(1L);
-    }
+    
 
     @Test
     @WithMockUser(roles = "ADMIN")

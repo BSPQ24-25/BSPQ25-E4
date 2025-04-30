@@ -61,11 +61,7 @@ public class AdminDashboardController {
         return "redirect:/admin/vehicles";
     }
 
-    @PostMapping("/admin/vehicles/delete/{id}")
-    public String deleteVehicle(@PathVariable Long id) {
-        carService.deleteCarById(id);
-        return "redirect:/admin/vehicles";
-    }
+   
     
     @GetMapping("/admin/vehicles/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {

@@ -3,9 +3,14 @@ package com.carrental.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carrental.dto.CarDTO;
@@ -35,11 +40,16 @@ public class CarApiController {
      */
     // Get all cars (for table load)
     @GetMapping
-    public List<CarDTO> getAllCars() {
-        return carService.getAllCars()
+    public ResponseEntity<List<CarDTO>> getAllCars() {
+        try {
+            List<CarDTO> cars = carService.getAllCars()
                 .stream()
-                .map(car -> mapToDTO(car))
+                .map(this::mapToDTO)
                 .toList();
+            return ResponseEntity.ok(cars);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).build();
+        }
     }
 
     /**
@@ -103,4 +113,26 @@ public class CarApiController {
         dto.setInsuranceId(car.getInsurance() != null ? car.getInsurance().getInsuranceId() : null);
         return dto;
     }
+    
+    @PostMapping("/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deleteCar(@PathVariable Long id, @RequestParam(required = false) Boolean admin) {
+        if (admin == null) {
+            return ResponseEntity.badRequest().body("Missing 'admin' parameter.");
+        }
+        if (!admin) {
+            return ResponseEntity.status(500).body("Only admins can delete cars.");
+        }
+        carService.deleteCarById(id);
+        return ResponseEntity.ok().build();
+    }
+    
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
+        carService.deleteCarById(id);
+        return ResponseEntity.ok().build();
+    }
+
+
+    
 }
