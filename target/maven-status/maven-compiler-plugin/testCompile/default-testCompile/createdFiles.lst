@@ -3,7 +3,6 @@ com\carrental\repository\CarRepositoryTest.class
 com\carrental\controller\UserControllerTest.class
 com\carrental\controller\AuthControllerTest.class
 com\carrental\service\CarServiceTest.class
-com\carrental\controller\BookingControllerTest.class
 com\carrental\controller\UserRestControllerTest.class
 com\carrental\models\UserTest.class
 com\carrental\performance\UserPerformanceTest.class
@@ -25,10 +24,8 @@ com\carrental\controller\CarControllerTest.class
 com\carrental\controller\InsuranceControllerTest.class
 com\carrental\controller\RentalHistoryControllerTest.class
 com\carrental\models\InsuranceTest.class
-com\carrental\controller\AuthControllerTest$2.class
 com\carrental\models\BookingTest.class
 com\carrental\repository\UserRepositoryTest.class
-com\carrental\controller\AuthControllerTest$1.class
 com\carrental\controller\CarRestControllerTest.class
 com\carrental\repository\InsuranceRepositoryTest.class
 com\carrental\controller\CarApiControllerTest.class
