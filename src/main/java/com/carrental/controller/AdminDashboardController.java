@@ -1,6 +1,9 @@
 package com.carrental.controller;
 
 import com.carrental.service.CarService;
+
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -59,7 +62,11 @@ public class AdminDashboardController {
     
     @GetMapping("/admin/vehicles/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
-        Car car = carService.getCarById(id);
+        Optional<Car> carOpt = carService.getCarById(id);
+        if (carOpt.isEmpty()) {
+            return "redirect:/admin/vehicles?error=car-not-found";
+        }
+        Car car = carOpt.get();
         model.addAttribute("car", car);
         model.addAttribute("insurances", insuranceRepository.findAll());
         return "admin/edit-vehicle";

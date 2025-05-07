@@ -2,23 +2,19 @@ package com.carrental.controller;
 
 import com.carrental.models.Car;
 import com.carrental.service.CarService;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
-import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -48,9 +44,6 @@ class CarControllerTest {
         testCar.setBrand("Toyota");
         testCar.setModel("Corolla");
     }
-
-    // ... Tus tests permanecen igual ...
-
 
     @Test
     void addCar_asAdmin_shouldReturnCar() throws Exception {
@@ -94,7 +87,7 @@ class CarControllerTest {
 
     @Test
     void getCarById_shouldReturnCar() throws Exception {
-        when(carService.getCarById(1L)).thenReturn(testCar);
+        when(carService.getCarById(1L)).thenReturn(Optional.of(testCar));
 
         mockMvc.perform(get("/cars/1"))
                 .andExpect(status().isOk())
@@ -103,17 +96,16 @@ class CarControllerTest {
 
     @Test
     void getCarById_whenNotFound_shouldReturnNotFound() throws Exception {
-        when(carService.getCarById(99L)).thenThrow(new NoSuchElementException("Car not found"));
+        when(carService.getCarById(99L)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/cars/99"))
                 .andExpect(status().isNotFound());
     }
 
-    
-
     @Test
     void deleteCar_asUser_shouldReturnInternalServerError() throws Exception {
-        mockMvc.perform(delete("/cars/1").param("admin", "false"))
+        mockMvc.perform(delete("/cars/1")
+                .param("admin", "false"))
                 .andExpect(status().isInternalServerError());
     }
 

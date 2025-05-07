@@ -2,10 +2,14 @@ package com.carrental.service;
 
 import com.carrental.models.Car;
 import com.carrental.repository.CarRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CarService {
@@ -21,11 +25,14 @@ public class CarService {
         return carRepository.findAll();
     }
 
-    public Car getCarById(Long id) {
-        return carRepository.findById(id).orElse(null);
+    public Optional<Car> getCarById(Long id) {
+        return carRepository.findById(id);
     }
 
     public void deleteCarById(Long id) {
+        if (!carRepository.existsById(id)) {
+            throw new EntityNotFoundException("Car not found with id: " + id);
+        }
         carRepository.deleteById(id);
     }
     
@@ -48,7 +55,7 @@ public class CarService {
             case "mileage": return carRepository.findByMileage(Integer.parseInt(value));
             case "manufacturingyear": return carRepository.findByManufacturingYear(Integer.parseInt(value));
             case "insuranceid": return carRepository.findByInsurance_Id(Long.parseLong(value));
-            default: return List.of(); // Lista vacía si no se reconoce el campo
+            default: return List.of();
         }
     }
 }

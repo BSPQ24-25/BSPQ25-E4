@@ -3,7 +3,7 @@ package com.carrental.service;
 import com.carrental.models.Car;
 import com.carrental.models.Insurance;
 import com.carrental.repository.CarRepository;
-
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -76,7 +76,6 @@ class CarServiceTest {
         assertEquals("SafeDrive", savedCar.getInsurance().getProvider());
     }
 
-    
     @Test
     void testGetAllCars() {
         Car car1 = new Car();
@@ -100,15 +99,32 @@ class CarServiceTest {
 
         when(carRepository.findById(1L)).thenReturn(Optional.of(car));
 
-        Car result = carService.getCarById(1L);
+        Car result = carService.getCarById(1L).orElseThrow();
         assertNotNull(result);
         assertEquals("BMW", result.getBrand());
     }
 
     @Test
+    void testGetCarById_CarNotFound() {
+        when(carRepository.findById(1L)).thenReturn(Optional.empty());
+
+        assertThrows(EntityNotFoundException.class, () -> carService.getCarById(1L).orElseThrow(EntityNotFoundException::new));
+    }
+
+    @Test
     void testDeleteCar() {
         Long carId = 1L;
+        when(carRepository.existsById(carId)).thenReturn(true);
+
         carService.deleteCarById(carId);
         verify(carRepository, times(1)).deleteById(carId);
+    }
+
+    @Test
+    void testDeleteCar_CarNotFound() {
+        Long carId = 1L;
+        when(carRepository.existsById(carId)).thenReturn(false);
+
+        assertThrows(EntityNotFoundException.class, () -> carService.deleteCarById(carId));
     }
 }

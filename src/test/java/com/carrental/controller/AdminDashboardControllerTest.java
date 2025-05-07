@@ -89,13 +89,11 @@ public class AdminDashboardControllerTest {
         verify(carService).saveCar(car);
     }
 
-    
-
     @Test
     @WithMockUser(roles = "ADMIN")
     public void testShowEditForm() throws Exception {
         Car car = new Car();
-        when(carService.getCarById(1L)).thenReturn(car);
+        when(carService.getCarById(1L)).thenReturn(Optional.of(car));
         when(insuranceRepository.findAll()).thenReturn(Arrays.asList(new Insurance()));
 
         mockMvc.perform(get("/admin/vehicles/edit/1"))
@@ -103,6 +101,16 @@ public class AdminDashboardControllerTest {
                 .andExpect(view().name("admin/edit-vehicle"))
                 .andExpect(model().attribute("car", car))
                 .andExpect(model().attributeExists("insurances"));
+    }
+
+    @Test
+    @WithMockUser(roles = "ADMIN")
+    public void testShowEditFormCarNotFound() throws Exception {
+        when(carService.getCarById(1L)).thenReturn(Optional.empty());
+
+        mockMvc.perform(get("/admin/vehicles/edit/1"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/admin/vehicles?error=car-not-found"));
     }
 
     @Test

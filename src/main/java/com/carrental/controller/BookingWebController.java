@@ -40,7 +40,8 @@ public class BookingWebController {
     public String createBooking(@RequestParam Long carId,
                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
-                                @RequestParam double dailyPrice,@RequestParam int rating, @RequestParam String paymentMethod, @RequestParam String review,
+                                @RequestParam double dailyPrice, @RequestParam int rating,
+                                @RequestParam String paymentMethod, @RequestParam String review,
                                 Authentication authentication) {
 
         String email = authentication.getName();
@@ -49,7 +50,12 @@ public class BookingWebController {
             return "redirect:/login?error=user-not-found";
         }
         User user = optionalUser.get();
-        Car car = carService.getCarById(carId);
+        
+        Optional<Car> optionalCar = carService.getCarById(carId);
+        if (optionalCar.isEmpty()) {
+            return "redirect:/user/bookings/form?error=car-not-found";
+        }
+        Car car = optionalCar.get();
 
         Booking booking = new Booking();
         booking.setCar(car);

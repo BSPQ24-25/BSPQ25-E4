@@ -45,9 +45,8 @@ public class BookingService {
     public Booking createBooking(Booking booking) {
         Booking saved = bookingRepository.save(booking);
         
-        // Simular pago si es necesario
         String result = paymentGatewayService.processPayment(saved);
-        System.out.println(result); // Puedes registrar el resultado
+        System.out.println(result);
 
         return saved;
     }
@@ -127,14 +126,11 @@ public class BookingService {
                 gateway = new PayPalGateway();
                 break;
             case "cash":
-                return true; // Sin procesamiento
+                return true;
             default:
                 throw new IllegalArgumentException("Unsupported payment method: " + method);
         }
 
         return gateway.processPayment(booking.getTotalPrice(), booking.getUser().getEmail());
-    }
-    
-    
-    
+    }    
 }
