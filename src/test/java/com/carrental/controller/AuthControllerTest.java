@@ -11,6 +11,7 @@ import org.springframework.security.authentication.TestingAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 import java.util.List;
 
@@ -32,7 +33,14 @@ class AuthControllerTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(authController).build();
+
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/views/");
+        viewResolver.setSuffix(".jsp");
+
+        mockMvc = MockMvcBuilders.standaloneSetup(authController)
+                .setViewResolvers(viewResolver)
+                .build();
     }
 
     @Test
@@ -48,11 +56,17 @@ class AuthControllerTest {
         User user = new User();
         user.setEmail("test@example.com");
         user.setPassword("password");
+        user.setName("John Doe");
+        user.setPhone("123456789");
+        user.setAddress("123 Main St");
         user.setIsAdmin(false);
 
         when(userService.registerUser(any(User.class))).thenReturn(user);
 
         mockMvc.perform(post("/register")
+                        .param("name", "John Doe")
+                        .param("phone", "123456789")
+                        .param("address", "123 Main St")
                         .param("email", "test@example.com")
                         .param("password", "password")
                         .param("isAdmin", "false"))
@@ -64,20 +78,14 @@ class AuthControllerTest {
 
     @Test
     void testRegisterUser_WithErrors() throws Exception {
-        User user = new User();
-        user.setName("John Doe");
-        user.setEmail("john@example.com");
-        user.setPassword("password123");
-        user.setPhone("123-456-7890");
-        user.setAddress("123 Main St");
-
-        when(userService.registerUser(any(User.class))).thenThrow(new RuntimeException("Invalid user data"));
-
         mockMvc.perform(post("/register")
-                        .contentType("application/json")
-                        .content("{\"name\": \"John Doe\", \"email\": \"\", \"password\": \"password123\", \"phone\": \"123-456-7890\", \"address\": \"123 Main St\"}"))
-                .andExpect(status().isBadRequest());
+                        .param("email", "") 
+                        .param("password", "password123"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("register"))
+                .andExpect(model().attributeHasFieldErrors("user", "email"));
     }
+
 
     @Test
     void testShowLoginForm() throws Exception {
