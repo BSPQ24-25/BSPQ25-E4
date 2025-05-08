@@ -118,6 +118,18 @@
       <scope>test</scope>
     </dependency>
 
+	<!-- Log4j -->
+	<dependency>
+    	<groupId>org.apache.logging.log4j</groupId>
+    	<artifactId>log4j-api</artifactId>
+    	<version>2.20.0</version>
+	</dependency>
+	<dependency>
+    	<groupId>org.apache.logging.log4j</groupId>
+    	<artifactId>log4j-core</artifactId>
+    	<version>2.20.0</version>
+	</dependency>
+	
     <!-- Spring Boot Test (sin JUnit4, sin logback conflictivo) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
