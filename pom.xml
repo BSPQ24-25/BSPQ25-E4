@@ -27,6 +27,8 @@
     <mockito.version>5.3.1</mockito.version>
     <mysql.version>8.0.33</mysql.version>
     <logback.version>1.4.14</logback.version>
+    <h2.version>2.2.224</h2.version>
+    <log4j.version>2.20.0</log4j.version>
   </properties>
 
   <dependencies>
@@ -118,18 +120,18 @@
       <scope>test</scope>
     </dependency>
 
-	<!-- Log4j -->
-	<dependency>
-    	<groupId>org.apache.logging.log4j</groupId>
-    	<artifactId>log4j-api</artifactId>
-    	<version>2.20.0</version>
-	</dependency>
-	<dependency>
-    	<groupId>org.apache.logging.log4j</groupId>
-    	<artifactId>log4j-core</artifactId>
-    	<version>2.20.0</version>
-	</dependency>
-	
+    <!-- Log4j -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.20.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.20.0</version>
+    </dependency>
+
     <!-- Spring Boot Test (sin JUnit4, sin logback conflictivo) -->
     <dependency>
       <groupId>org.springframework.boot</groupId>
@@ -166,6 +168,7 @@
     <dependency>
       <groupId>org.springframework.security</groupId>
       <artifactId>spring-security-test</artifactId>
+      <version>6.0.0</version>
       <scope>test</scope>
     </dependency>
 
@@ -175,7 +178,6 @@
       <version>${h2.version}</version>
       <scope>test</scope>
     </dependency>
-
 
   </dependencies>
 
