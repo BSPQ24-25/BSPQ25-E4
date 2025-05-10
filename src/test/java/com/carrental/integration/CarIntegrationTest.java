@@ -10,16 +10,18 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestSecurityConfig.class)
 public class CarIntegrationTest {
-
+	private static final Logger logger = LogManager.getLogger(CarIntegrationTest.class);
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
     public void testCreateCar() {
+    	logger.info("Starting testCreateCar...");
         String carDetails = """
         {
             "brand": "Ford",
@@ -39,5 +41,6 @@ public class CarIntegrationTest {
 
         ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/cars", request, String.class);
         assertEquals(200, response.getStatusCodeValue());
+        logger.info("Car created correctly: " + response.getBody());
     }
 }

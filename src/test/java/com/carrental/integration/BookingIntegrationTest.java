@@ -9,16 +9,18 @@ import org.springframework.context.annotation.Import;
 import org.springframework.http.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestSecurityConfig.class)
 public class BookingIntegrationTest {
-
+	private static final Logger logger = LogManager.getLogger(BookingIntegrationTest.class);
     @Autowired
     private TestRestTemplate restTemplate;
 
     @Test
     public void testCreateBooking() {
+    	logger.info("Starting testCreateBooking...");
         String bookingDetails = """
         {
             "car": { "id": 1 },
@@ -40,5 +42,6 @@ public class BookingIntegrationTest {
 
         ResponseEntity<String> response = restTemplate.postForEntity("/api/bookings", request, String.class);
         assertEquals(200, response.getStatusCodeValue());
+        logger.info("Booking created correctly: " + response.getBody());
     }
 }
