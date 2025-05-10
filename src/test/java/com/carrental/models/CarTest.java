@@ -5,11 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 class CarTest {
-
+	private static final Logger logger = LogManager.getLogger(CarTest.class);
     @Test
     void testCarSettersAndGetters() {
+    	logger.info("Testing Car getters and setters");
         Car car = new Car();
         Insurance insurance = new Insurance();
         insurance.setProvider("XYZ Insurance");
@@ -43,10 +45,12 @@ class CarTest {
         assertEquals("XYZ Insurance", car.getInsurance().getProvider());
         assertNotNull(car.getBookings());
         assertTrue(car.getBookings().isEmpty());
+        logger.info("Car getters and setters tested successfully");
     }
 
     @Test
     void testCarInsuranceRelationship() {
+    	logger.info("Testing Car insurance relationship");
         Car car = new Car();
         Insurance insurance = new Insurance();
         insurance.setProvider("XYZ Insurance");
@@ -55,10 +59,12 @@ class CarTest {
         
         assertNotNull(car.getInsurance());
         assertEquals("XYZ Insurance", car.getInsurance().getProvider());
+        logger.info("Car insurance relationship tested successfully");
     }
 
     @Test
     void testCarBookingsRelationship() {
+    	logger.info("Testing Car bookings relationship");
         Car car = new Car();
         Booking booking1 = new Booking();
         Booking booking2 = new Booking(); 
@@ -73,10 +79,12 @@ class CarTest {
         assertEquals(2, carBookings.size());
         assertTrue(carBookings.contains(booking1));
         assertTrue(carBookings.contains(booking2));
+        logger.info("Car bookings relationship tested successfully");
     }
 
     @Test
     void testCarSetterAndGetter() {
+    	logger.info("Testing Car setter and getter");
         Car car = new Car();
         
         car.setBrand("Honda");
@@ -96,5 +104,6 @@ class CarTest {
         assertEquals("Rented", car.getStatus());
         assertEquals(35000, car.getMileage());
         assertEquals(2020, car.getManufacturingYear());
+        logger.info("Car setter and getter tested successfully");
     }
 }
