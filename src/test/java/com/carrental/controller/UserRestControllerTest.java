@@ -1,5 +1,6 @@
 package com.carrental.controller;
 
+
 import com.carrental.models.User;
 import com.carrental.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,9 +14,10 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 class UserRestControllerTest {
-
+	private static final Logger logger = LogManager.getLogger(UserRestControllerTest.class);
     @Mock
     private UserService userService;
 
@@ -26,12 +28,15 @@ class UserRestControllerTest {
 
     @BeforeEach
     void setUp() {
+    	        logger.info("Setting up UserRestControllerTest");
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(userRestController).build();
+        logger.info("MockMvc setup complete");
     }
 
     @Test
     void createUserTest() throws Exception {
+    	logger.info("Running createUserTest");
         User user = new User();
         user.setName("John Doe");
         user.setEmail("john@example.com");
@@ -53,10 +58,12 @@ class UserRestControllerTest {
                 .andExpect(jsonPath("$.isAdmin").value(false));
 
         verify(userService, times(1)).registerUser(any(User.class));
+        logger.info("User created successfully");
     }
 
     @Test
     void createUserTestBadRequest() throws Exception {
+    	logger.info("Running createUserTestBadRequest");
         User user = new User();
         user.setName("John Doe");
         user.setEmail("");
@@ -73,10 +80,12 @@ class UserRestControllerTest {
                 .andExpect(status().isBadRequest());
 
         verify(userService, times(1)).registerUser(any(User.class));
+        logger.info("Bad request for user creation");
     }
 
     @Test
     void getUserTest() throws Exception {
+    	logger.info("Running getUserTest");
         User user = new User();
         user.setId(1L);
         user.setName("John Doe");
@@ -97,15 +106,18 @@ class UserRestControllerTest {
                 .andExpect(jsonPath("$.isAdmin").value(false));
 
         verify(userService, times(1)).getUserById(1L);
+        logger.info("User retrieved successfully");
     }
 
     @Test
     void getUserTestNotFound() throws Exception {
+    	logger.info("Running getUserTestNotFound");
         when(userService.getUserById(999L)).thenThrow(new RuntimeException("User not found"));
 
         mockMvc.perform(get("/api/v1/users/999"))
                 .andExpect(status().isNotFound());
 
         verify(userService, times(1)).getUserById(999L);
+        logger.info("User not found");
     }
 }

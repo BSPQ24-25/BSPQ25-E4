@@ -23,10 +23,11 @@ import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 @WebMvcTest(BookingWebController.class) // Esto indica que solo probaremos el controlador
 public class BookingWebControllerTest {
-
+	private static final Logger logger = LogManager.getLogger(BookingWebControllerTest.class);
     @Autowired
     private MockMvc mockMvc;
 
@@ -44,6 +45,7 @@ public class BookingWebControllerTest {
 
     @BeforeEach
     public void setUp() {
+    	logger.info("Setting up BookingWebControllerTest");
         // Preparar datos mockeados para las pruebas
         mockUser = new User();
         mockUser.setEmail("user@example.com");
@@ -56,10 +58,12 @@ public class BookingWebControllerTest {
         mockCar.setBrand("Test Brand");
         mockCar.setModel("Test Model");
         mockCar.setColor("Red");
+        logger.info("Mock user and car created");
     }
 
     @Test
     public void testCreateBooking_UserNotFound() throws Exception {
+    	logger.info("Running testCreateBooking_UserNotFound");
         // Simulamos que el usuario no existe
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
 
@@ -75,11 +79,13 @@ public class BookingWebControllerTest {
                 .with(csrf())) // Simula que el usuario está autenticado
             .andExpect(status().is3xxRedirection()) // Espera una redirección (3xx)
             .andExpect(redirectedUrl("/login?error=user-not-found")); // Verifica que redirige al login con el mensaje de error
+        logger.info("User not found, redirection to login with error message");
     }
 
     @Test
     @WithMockUser(username = "user@example.com", roles = {"USER"})
     public void testCreateBooking_SuccessfulBooking() throws Exception {
+    	logger.info("Running testCreateBooking_SuccessfulBooking");
         // Simulamos que el usuario existe
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
@@ -100,11 +106,13 @@ public class BookingWebControllerTest {
                 .with(csrf())) // Necesario si CSRF está habilitado
             .andExpect(status().is3xxRedirection()) // Espera una redirección (3xx)
             .andExpect(redirectedUrl("/user/dashboard")); // Verifica que redirige al dashboard
+        logger.info("Booking created successfully, redirection to dashboard");
     }
 
     @Test
     @WithMockUser(username = "admin@example.com", roles = {"ADMIN"})
     public void testCreateBooking_Admin() throws Exception {
+    	logger.info("Running testCreateBooking_Admin");
         // Simulamos que el usuario es admin y existe
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
@@ -125,5 +133,6 @@ public class BookingWebControllerTest {
                 .with(csrf())) // Necesario si CSRF está habilitado
             .andExpect(status().is3xxRedirection()) // Espera una redirección (3xx)
             .andExpect(redirectedUrl("/user/dashboard")); // Verifica que redirige al dashboard
+        logger.info("Admin booking created successfully, redirection to dashboard");
     }
 }

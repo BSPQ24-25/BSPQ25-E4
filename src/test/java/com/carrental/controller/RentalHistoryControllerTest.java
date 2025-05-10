@@ -20,9 +20,10 @@ import java.util.Optional;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 class RentalHistoryControllerTest {
-
+	private static final Logger logger = LogManager.getLogger(RentalHistoryControllerTest.class);
     @Mock
     private BookingService bookingService;
 
@@ -36,12 +37,15 @@ class RentalHistoryControllerTest {
 
     @BeforeEach
     void setUp() {
+    	logger.info("Setting up RentalHistoryControllerTest");
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(rentalHistoryController).build();
+        logger.info("MockMvc setup complete");
     }
 
     @Test
     void showRentalHistoryTest() throws Exception {
+    	logger.info("Running showRentalHistoryTest");
         User user = new User();
         user.setId(1L);
         user.setName("John Doe");
@@ -71,5 +75,6 @@ class RentalHistoryControllerTest {
 
         verify(userRepository, times(1)).findByEmail("john@example.com");
         verify(bookingService, times(1)).getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"));
+        logger.info("Rental history retrieved successfully");
     }
 }

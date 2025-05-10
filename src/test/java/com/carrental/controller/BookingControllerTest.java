@@ -26,9 +26,10 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 class BookingControllerTest {
-
+	private static final Logger logger = LogManager.getLogger(BookingControllerTest.class);
     private MockMvc mockMvc;
 
     @Mock
@@ -39,11 +40,14 @@ class BookingControllerTest {
 
     @BeforeEach
     void setUp() {
+    	logger.info("Setting up BookingControllerTest");
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(bookingController).build();
+        logger.info("MockMvc setup complete");
     }
 
     private Booking createBooking() {
+    	logger.info("Creating a booking object");
         Booking booking = new Booking();
         booking.setBookingId(1L);
         booking.setDailyPrice(100.0);
@@ -60,12 +64,14 @@ class BookingControllerTest {
         User user = new User();
         user.setId(1L);
         booking.setUser(user);
-
+        logger.info("Booking object created with ID: " + booking.getBookingId());
         return booking;
+        
     }
 
     @Test
     void testGetAllBookings() throws Exception {
+    	logger.info("Running testGetAllBookings");
         Booking booking = createBooking();
 
         when(bookingService.getAllBookings()).thenReturn(Collections.singletonList(booking));
@@ -76,10 +82,12 @@ class BookingControllerTest {
                 .andExpect(jsonPath("$[0].dailyPrice").value(100.0));
 
         verify(bookingService, times(1)).getAllBookings();
+        logger.info("All bookings retrieved successfully");
     }
 
     @Test
     void testGetBookingById() throws Exception {
+    	logger.info("Running testGetBookingById");
         Booking booking = createBooking();
 
         when(bookingService.getBookingById(1L)).thenReturn(Optional.of(booking));
@@ -90,20 +98,25 @@ class BookingControllerTest {
                 .andExpect(jsonPath("$.dailyPrice").value(100.0));
 
         verify(bookingService, times(1)).getBookingById(1L);
+        logger.info("Booking retrieved successfully with ID: " + booking.getBookingId());
     }
 
     @Test
     void testGetBookingById_NotFound() throws Exception {
+		logger.info("Running testGetBookingById_NotFound");
+		
         when(bookingService.getBookingById(1L)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/api/bookings/1"))
                 .andExpect(status().isNotFound());
 
         verify(bookingService, times(1)).getBookingById(1L);
+        logger.info("Booking with ID 1 not found");
     }
 
     @Test
     void testCreateBooking() throws Exception {
+    	logger.info("Running testCreateBooking");
         Booking booking = createBooking();
 
         when(bookingService.createBooking(any(Booking.class))).thenReturn(booking);
@@ -129,10 +142,12 @@ class BookingControllerTest {
                 .andExpect(jsonPath("$.dailyPrice").value(100.0));
 
         verify(bookingService, times(1)).createBooking(any(Booking.class));
+        logger.info("Booking created successfully with ID: " + booking.getBookingId());
     }
 
     @Test
     void testUpdateBooking() throws Exception {
+    	logger.info("Running testUpdateBooking");
         Booking updatedBooking = createBooking();
         updatedBooking.setDailyPrice(120.0);
 
@@ -159,10 +174,12 @@ class BookingControllerTest {
                 .andExpect(jsonPath("$.dailyPrice").value(120.0));
 
         verify(bookingService, times(1)).updateBooking(eq(1L), any(Booking.class));
+        logger.info("Booking updated successfully with ID: " + updatedBooking.getBookingId());
     }
 
     @Test
     void testDeleteBooking() throws Exception {
+    	logger.info("Running testDeleteBooking");
         Booking booking = createBooking();
 
         when(bookingService.getBookingById(1L)).thenReturn(Optional.of(booking));
@@ -172,21 +189,26 @@ class BookingControllerTest {
                 .andExpect(status().isNoContent());
 
         verify(bookingService, times(1)).deleteBooking(1L);
+        logger.info("Booking deleted successfully with ID: " + booking.getBookingId());
     }
 
     @Test
     void testDeleteBooking_NotFound() throws Exception {
+		logger.info("Running testDeleteBooking_NotFound");
+		
         when(bookingService.getBookingById(1L)).thenReturn(Optional.empty());
 
         mockMvc.perform(delete("/api/bookings/1"))
                 .andExpect(status().isNotFound());
 
         verify(bookingService, never()).deleteBooking(1L);
+        logger.info("Booking with ID 1 not found for deletion");
     }
 
     @Test
     @WithMockUser(roles = {"ADMIN"})
     void testConfirmBooking_Admin() throws Exception {
+    	logger.info("Running testConfirmBooking_Admin");
         Long bookingId = 1L;
 
         doNothing().when(bookingService).confirmBooking(bookingId);
@@ -197,5 +219,6 @@ class BookingControllerTest {
                 .andExpect(status().isOk());
 
         verify(bookingService).confirmBooking(bookingId);
+        logger.info("Booking confirmed successfully by admin with ID: " + bookingId);
     }
 }

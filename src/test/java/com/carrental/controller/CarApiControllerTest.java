@@ -17,9 +17,10 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 public class CarApiControllerTest {
-
+	private static final Logger logger = LogManager.getLogger(CarApiControllerTest.class);
     private MockMvc mockMvc;
     private CarService carService;
     private CarApiController controller;
@@ -28,6 +29,7 @@ public class CarApiControllerTest {
 
     @BeforeEach
     void setUp() {
+    	logger.info("Setting up CarApiControllerTest");
         carService = Mockito.mock(CarService.class);
 
         controller = new CarApiController();
@@ -48,10 +50,12 @@ public class CarApiControllerTest {
         Insurance insurance = new Insurance();
         insurance.setInsuranceId(123L);
         testCar.setInsurance(insurance);
+        logger.info("Test car created with ID: " + testCar.getId());
     }
 
     @Test
     void getAllCars_shouldReturnListOfCars() throws Exception {
+    	logger.info("Running getAllCars_shouldReturnListOfCars test");
         Car car1 = new Car(); car1.setId(1L); car1.setModel("Model X");
         Car car2 = new Car(); car2.setId(2L); car2.setModel("Model Y");
 
@@ -62,10 +66,13 @@ public class CarApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].model").value("Model X"))
                 .andExpect(jsonPath("$[1].model").value("Model Y"));
+        logger.info("All cars retrieved successfully");
     }
 
     @Test
     void searchCarsByField_shouldReturnMatchingCars() throws Exception {
+		logger.info("Running searchCarsByField_shouldReturnMatchingCars test");
+		
         when(carService.searchByField("brand", "Toyota")).thenReturn(List.of(testCar));
 
         mockMvc.perform(get("/api/cars/search")
@@ -74,10 +81,12 @@ public class CarApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].brand").value("Toyota"))
                 .andExpect(jsonPath("$[0].model").value("Camry"));
+        logger.info("Cars filtered by brand successfully");
     }
 
     @Test
     void searchCarsByTwoFields_shouldReturnFilteredCars() throws Exception {
+    	logger.info("Running searchCarsByTwoFields_shouldReturnFilteredCars test");
         when(carService.searchByField("brand", "Toyota")).thenReturn(List.of(testCar));
 
         mockMvc.perform(get("/api/cars/search")
@@ -87,10 +96,12 @@ public class CarApiControllerTest {
                         .param("value2", "Camry"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].model").value("Camry"));
+        logger.info("Cars filtered by brand and model successfully");
     }
 
     @Test
     void searchCarsByTwoFields_withNoMatch_shouldReturnEmptyList() throws Exception {
+    	logger.info("Running searchCarsByTwoFields_withNoMatch_shouldReturnEmptyList test");
         when(carService.searchByField("brand", "Toyota")).thenReturn(List.of(testCar));
 
         mockMvc.perform(get("/api/cars/search")
@@ -100,20 +111,25 @@ public class CarApiControllerTest {
                         .param("value2", "Civic"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.length()").value(0));
+        logger.info("No cars found matching the criteria");
     }
 
     @Test
     void searchCars_withMissingField_shouldReturnBadRequest() throws Exception {
+    	logger.info("Running searchCars_withMissingField_shouldReturnBadRequest test");
         mockMvc.perform(get("/api/cars/search")
                         .param("value", "Toyota"))
                 .andExpect(status().isBadRequest());
+        logger.info("Bad request due to missing field parameter");
     }
 
     @Test
     void getAllCars_whenServiceFails_shouldReturnServerError() throws Exception {
+    	logger.info("Running getAllCars_whenServiceFails_shouldReturnServerError test");
         when(carService.getAllCars()).thenThrow(new RuntimeException("Database down"));
 
         mockMvc.perform(get("/api/cars"))
                 .andExpect(status().isInternalServerError());
+        logger.info("Server error occurred while retrieving cars");
     }
 }
