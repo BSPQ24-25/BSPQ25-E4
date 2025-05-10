@@ -25,7 +25,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-@WebMvcTest(BookingWebController.class) // Esto indica que solo probaremos el controlador
+
+@WebMvcTest(BookingWebController.class)
 public class BookingWebControllerTest {
 	private static final Logger logger = LogManager.getLogger(BookingWebControllerTest.class);
     @Autowired
@@ -46,7 +47,6 @@ public class BookingWebControllerTest {
     @BeforeEach
     public void setUp() {
     	logger.info("Setting up BookingWebControllerTest");
-        // Preparar datos mockeados para las pruebas
         mockUser = new User();
         mockUser.setEmail("user@example.com");
         mockUser.setPassword("password123");
@@ -62,12 +62,11 @@ public class BookingWebControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "user@example.com")
     public void testCreateBooking_UserNotFound() throws Exception {
     	logger.info("Running testCreateBooking_UserNotFound");
-        // Simulamos que el usuario no existe
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
 
-        // Intentamos realizar la reserva con el usuario no encontrado
         mockMvc.perform(post("/user/bookings/create")
                 .param("carId", "1")
                 .param("startDate", "2025-05-10")
@@ -76,9 +75,9 @@ public class BookingWebControllerTest {
                 .param("rating", "4")
                 .param("paymentMethod", "Credit Card")
                 .param("review", "Good car")
-                .with(csrf())) // Simula que el usuario está autenticado
-            .andExpect(status().is3xxRedirection()) // Espera una redirección (3xx)
-            .andExpect(redirectedUrl("/login?error=user-not-found")); // Verifica que redirige al login con el mensaje de error
+                .with(csrf()))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/login?error=user-not-found"));
         logger.info("User not found, redirection to login with error message");
     }
 
@@ -86,13 +85,10 @@ public class BookingWebControllerTest {
     @WithMockUser(username = "user@example.com", roles = {"USER"})
     public void testCreateBooking_SuccessfulBooking() throws Exception {
     	logger.info("Running testCreateBooking_SuccessfulBooking");
-        // Simulamos que el usuario existe
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
-        // Simulamos que el coche existe
         when(carService.getCarById(anyLong())).thenReturn(Optional.of(mockCar));
 
-        // Simulamos la creación del booking
         when(bookingService.createBooking(any(Booking.class))).thenReturn(new Booking());
 
         mockMvc.perform(post("/user/bookings/create")
@@ -103,9 +99,9 @@ public class BookingWebControllerTest {
                 .param("rating", "4")
                 .param("paymentMethod", "Credit Card")
                 .param("review", "Good car")
-                .with(csrf())) // Necesario si CSRF está habilitado
-            .andExpect(status().is3xxRedirection()) // Espera una redirección (3xx)
-            .andExpect(redirectedUrl("/user/dashboard")); // Verifica que redirige al dashboard
+                .with(csrf()))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/user/dashboard"));
         logger.info("Booking created successfully, redirection to dashboard");
     }
 
@@ -113,13 +109,10 @@ public class BookingWebControllerTest {
     @WithMockUser(username = "admin@example.com", roles = {"ADMIN"})
     public void testCreateBooking_Admin() throws Exception {
     	logger.info("Running testCreateBooking_Admin");
-        // Simulamos que el usuario es admin y existe
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
-        // Simulamos que el coche existe
         when(carService.getCarById(anyLong())).thenReturn(Optional.of(mockCar));
 
-        // Simulamos la creación del booking
         when(bookingService.createBooking(any(Booking.class))).thenReturn(new Booking());
 
         mockMvc.perform(post("/user/bookings/create")
@@ -130,9 +123,9 @@ public class BookingWebControllerTest {
                 .param("rating", "5")
                 .param("paymentMethod", "PayPal")
                 .param("review", "Excellent car")
-                .with(csrf())) // Necesario si CSRF está habilitado
-            .andExpect(status().is3xxRedirection()) // Espera una redirección (3xx)
-            .andExpect(redirectedUrl("/user/dashboard")); // Verifica que redirige al dashboard
+                .with(csrf()))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/user/dashboard"));
         logger.info("Admin booking created successfully, redirection to dashboard");
     }
 }

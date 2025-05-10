@@ -1,6 +1,7 @@
 package com.carrental.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.carrental.models.Insurance;
 import com.carrental.service.InsuranceService;
@@ -28,13 +30,20 @@ public class InsuranceController {
     @GetMapping("/admin/insurances/edit/{id}")
     public String editInsurance(@PathVariable Long id, Model model) {
         Insurance insurance = insuranceService.getInsuranceById(id);
+        if (insurance == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Insurance not found");
+        }
         model.addAttribute("insurance", insurance);
         return "admin/insurance-form";
     }
 
     @PostMapping("/admin/insurances/delete/{id}")
     public String deleteInsurance(@PathVariable Long id) {
-        insuranceService.deleteInsurance(id);
+        try {
+            insuranceService.deleteInsurance(id);
+        } catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Insurance not found", e);
+        }
         return "redirect:/admin/insurances";
     }
 

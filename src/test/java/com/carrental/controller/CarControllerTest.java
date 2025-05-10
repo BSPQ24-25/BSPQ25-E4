@@ -16,11 +16,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import java.util.List;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 @ExtendWith(MockitoExtension.class)
 class CarControllerTest {
 	private static final Logger logger = LogManager.getLogger(CarControllerTest.class);
@@ -111,13 +113,14 @@ class CarControllerTest {
 
     @Test
     void getCarById_whenNotFound_shouldReturnNotFound() throws Exception {
-		logger.info("Running getCarById_whenNotFound_shouldReturnNotFound test");
-		
+        logger.info("Running getCarById_whenNotFound_shouldReturnNotFound test");
+        
         when(carService.getCarById(99L)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/cars/99"))
                 .andExpect(status().isNotFound());
-        logger.info("Car with ID 99 not found");
+        
+        logger.info("Test ahora verifica correctamente el caso de auto no encontrado");
     }
 
     @Test

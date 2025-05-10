@@ -16,11 +16,14 @@ import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 class InsuranceControllerTest {
@@ -74,12 +77,14 @@ class InsuranceControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testEditInsurance_notFound() throws Exception {
-    	logger.info("Running testEditInsurance_notFound");
+        logger.info("Running testEditInsurance_notFound");
+        
         when(insuranceService.getInsuranceById(999L)).thenReturn(null);
 
         mockMvc.perform(get("/admin/insurances/edit/999"))
                 .andExpect(status().isNotFound());
-        logger.info("Insurance not found for edit");
+        
+        logger.info("Insurance not found for edit - handled correctly");
     }
 
     @Test
@@ -98,13 +103,16 @@ class InsuranceControllerTest {
     @Test
     @WithMockUser(username = "admin", roles = {"ADMIN"})
     void testDeleteInsurance_notFound() throws Exception {
-    	logger.info("Running testDeleteInsurance_notFound");
-        doThrow(new IllegalArgumentException("Not found")).when(insuranceService).deleteInsurance(999L);
+        logger.info("Running testDeleteInsurance_notFound");
+        
+        doThrow(new IllegalArgumentException("Not found"))
+            .when(insuranceService).deleteInsurance(999L);
 
         mockMvc.perform(post("/admin/insurances/delete/999")
-                .with(SecurityMockMvcRequestPostProcessors.csrf()))
+                .with(csrf()))
                 .andExpect(status().isNotFound());
-        logger.info("Insurance not found for deletion");
+        
+        logger.info("Insurance not found for deletion - handled correctly");
     }
 
     @Test

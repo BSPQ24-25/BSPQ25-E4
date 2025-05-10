@@ -9,9 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 
-@Controller // <- CAMBIADO AQUÍ
+@Controller
 @RequestMapping("/cars")
 public class CarController {
 
@@ -39,11 +38,9 @@ public class CarController {
     @GetMapping("/{id}")
     @ResponseBody
     public ResponseEntity<?> getCarById(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(carService.getCarById(id));
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.status(404).body("Car not found");
-        }
+        return carService.getCarById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
 
