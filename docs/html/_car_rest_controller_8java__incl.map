@@ -1,0 +1,15 @@
+<map id="CarRestController.java" name="CarRestController.java">
+<area shape="rect" id="Node000001" title=" " alt="" coords="591,5,746,32"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,88,177,115"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="591,31,408,52,190,83,164,87,163,82,189,77,407,46,590,25"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="201,80,373,123"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="609,35,388,81,387,76,608,30"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="397,80,686,123"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="650,35,588,74,585,69,647,30"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="710,80,880,123"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="690,30,751,69,748,74,687,35"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="904,88,1172,115"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="727,30,965,82,964,87,726,35"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="1196,88,1287,115"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="746,21,946,38,1066,55,1185,77,1196,80,1195,86,1184,83,1065,60,946,44,746,26"/>
+</map>

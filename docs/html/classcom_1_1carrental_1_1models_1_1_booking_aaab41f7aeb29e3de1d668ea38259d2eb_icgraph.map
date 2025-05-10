@@ -1,0 +1,11 @@
+<map id="com.carrental.models.Booking.setBookingStatus" name="com.carrental.models.Booking.setBookingStatus">
+<area shape="rect" id="Node000001" title=" " alt="" coords="251,105,470,148"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1service_1_1_booking_service.html#a624e4de3a77840c9e6416435257fd17f" title=" " alt="" coords="5,5,203,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="295,101,202,62,171,51,172,46,204,58,297,96"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1carrental_1_1service_1_1_booking_service.html#aa46fae945ff3c876b9f307d3fb771d4f" title=" " alt="" coords="5,72,203,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="235,113,203,109,203,104,235,108"/>
+<area shape="rect" id="Node000004" href="$classcom_1_1carrental_1_1service_1_1_booking_service.html#a0c9d5c82bbc5cb4056bfa64a527cd796" title=" " alt="" coords="5,139,203,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="235,146,203,150,203,145,235,140"/>
+<area shape="rect" id="Node000005" href="$classcom_1_1carrental_1_1service_1_1_booking_service.html#a05a0275b62fb8e90f2d58e7ea103e9c9" title=" " alt="" coords="5,205,203,248"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="297,157,204,196,172,207,171,202,202,191,295,152"/>
+</map>

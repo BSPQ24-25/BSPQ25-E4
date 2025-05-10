@@ -1,0 +1,37 @@
+\chapter{🚗 Car\+Rental\+System}
+\hypertarget{md__r_e_a_d_m_e}{}\label{md__r_e_a_d_m_e}\index{🚗 CarRentalSystem@{🚗 CarRentalSystem}}
+\label{md__r_e_a_d_m_e_autotoc_md0}%
+\Hypertarget{md__r_e_a_d_m_e_autotoc_md0}%
+\hypertarget{md__r_e_a_d_m_e_autotoc_md1}{}\doxysection{\texorpdfstring{BSPQ25-\/\+E4}{BSPQ25-\/\+E4}}\label{md__r_e_a_d_m_e_autotoc_md1}
+Java-\/based car rental management system developed as part of a university project. ~\newline
+ Includes database integration, unit testing, and code coverage.
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md3}{}\doxysubsection{\texorpdfstring{📦 Technologies Used}{📦 Technologies Used}}\label{md__r_e_a_d_m_e_autotoc_md3}
+
+\begin{DoxyItemize}
+\item {\bfseries{Java 17}}
+\item {\bfseries{Maven}}
+\item {\bfseries{My\+SQL}} (via JDBC)
+\item {\bfseries{JUnit 5}} (unit testing)
+\item {\bfseries{Mockito}} (mocking framework)
+\item {\bfseries{Ja\+Co\+Co}} (code coverage)
+\item {\bfseries{Git}} (version control)
+\end{DoxyItemize}
+
+\DoxyHorRuler{0}
+\hypertarget{md__r_e_a_d_m_e_autotoc_md5}{}\doxysubsection{\texorpdfstring{⚙️ Project Setup}{⚙️ Project Setup}}\label{md__r_e_a_d_m_e_autotoc_md5}
+To set up the database, import db/carrental.\+sql into My\+SQL. Configure your src/main/resources/config.\+properties (DO NOT PUSH YOURS)
+
+To run the tests go to the projects directory and {\bfseries{mvn test}}, and to generate coverage report with Ja\+Co\+Co\+: {\bfseries{mvn jacoco\+:report}}. Output\+: target/site/jacoco/index.\+html
+
+To run the project\+:
+
+
+\begin{DoxyEnumerate}
+\item mvn clean compile
+\item mvn package (optional)
+\item mvn spring-\/boot\+:run
+\item Go to \href{http://localhost:port}{\texttt{ http\+://localhost\+:port}} on browser
+\end{DoxyEnumerate}\hypertarget{md__r_e_a_d_m_e_autotoc_md6}{}\doxysubsubsection{\texorpdfstring{1️⃣ Clone the repository\+:}{1️⃣ Clone the repository\+:}}\label{md__r_e_a_d_m_e_autotoc_md6}
+\`{}\`{}\`{}bash git clone \href{https://github.com/BSPQ24-25/BSPQ25-E4.git}{\texttt{ https\+://github.\+com/\+BSPQ24-\/25/\+BSPQ25-\/\+E4.\+git}} cd BSPQ25-\/\+E4 

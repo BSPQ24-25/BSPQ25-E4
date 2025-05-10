@@ -1,0 +1,11 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" title=" " alt="" coords="5,113,111,140"/>
+<area shape="rect" id="Node000001" href="$interfacecom_1_1carrental_1_1repository_1_1_booking_repository.html" title=" " alt="" coords="159,5,323,48"/>
+<area shape="poly" id="edge3_Node000000_Node000001" title=" " alt="" coords="88,102,157,58,181,46,183,51,160,62,91,106"/>
+<area shape="rect" id="Node000002" href="$interfacecom_1_1carrental_1_1repository_1_1_car_repository.html" title=" " alt="" coords="159,72,323,115"/>
+<area shape="poly" id="edge4_Node000000_Node000002" title=" " alt="" coords="125,112,158,106,159,111,126,117"/>
+<area shape="rect" id="Node000003" href="$interfacecom_1_1carrental_1_1repository_1_1_insurance_repository.html" title=" " alt="" coords="159,139,323,181"/>
+<area shape="poly" id="edge5_Node000000_Node000003" title=" " alt="" coords="126,136,159,142,158,148,125,142"/>
+<area shape="rect" id="Node000004" href="$interfacecom_1_1carrental_1_1repository_1_1_user_repository.html" title=" " alt="" coords="159,205,323,248"/>
+<area shape="poly" id="edge6_Node000000_Node000004" title=" " alt="" coords="91,147,160,191,183,202,181,207,157,196,88,152"/>
+</map>

@@ -1,0 +1,25 @@
+<map id="com.carrental.service.UserService.updateUser" name="com.carrental.service.UserService.updateUser">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,323,184,365"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1models_1_1_user.html#adddff10ef8ba12362dc2f81274c305ff" title=" " alt="" coords="249,5,450,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="97,321,111,268,136,197,153,159,175,122,200,88,230,58,235,54,238,58,233,62,204,91,179,125,158,162,141,199,116,270,102,323"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1carrental_1_1models_1_1_user.html#a09efbe2fe59416dbb78fa9278e599659" title=" " alt="" coords="249,72,450,115"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="101,321,118,279,145,226,182,171,205,146,230,125,236,120,239,124,233,129,209,150,187,175,150,229,123,281,106,323"/>
+<area shape="rect" id="Node000004" href="$classcom_1_1carrental_1_1models_1_1_user.html#a55b223b41fffa31ad301afde0be5809f" title=" " alt="" coords="249,139,450,181"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="108,320,156,256,191,221,230,191,239,186,242,191,233,196,195,225,161,260,112,324"/>
+<area shape="rect" id="Node000005" href="$classcom_1_1carrental_1_1models_1_1_user.html#a6f87819566942e9fbdceec29f1164a3e" title=" " alt="" coords="232,205,467,232"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="117,320,167,280,198,259,231,242,249,235,250,239,233,246,201,264,170,284,121,324"/>
+<area shape="rect" id="Node000006" href="$classcom_1_1carrental_1_1models_1_1_user.html#a0aaaece4763b9007e0b384ac5764f7ac" title=" " alt="" coords="249,256,450,299"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="178,320,250,301,251,306,179,325"/>
+<area shape="rect" id="Node000007" href="$classcom_1_1carrental_1_1service_1_1_user_service.html#acc42f5154ed5af9d95ca709836cd2dbb" title=" " alt="" coords="260,323,438,365"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="184,341,245,341,245,347,184,347"/>
+<area shape="rect" id="Node000008" href="$classcom_1_1carrental_1_1models_1_1_user.html#ae2c1c1038ee42c00e0dd6a1b43c7a52e" title=" " alt="" coords="249,389,450,432"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="179,363,251,382,250,387,178,368"/>
+<area shape="rect" id="Node000009" href="$classcom_1_1carrental_1_1models_1_1_user.html#acb16e633c918e5ddb99d7a3338612b05" title=" " alt="" coords="249,456,450,499"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="121,364,171,403,233,442,246,448,244,452,230,446,168,408,118,368"/>
+<area shape="rect" id="Node000010" href="$classcom_1_1carrental_1_1models_1_1_user.html#a25499b36bdf334fc3acd307cc81c0eae" title=" " alt="" coords="249,523,450,565"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="110,365,158,436,193,475,233,508,241,513,238,518,230,513,189,479,154,439,106,367"/>
+<area shape="rect" id="Node000011" href="$classcom_1_1carrental_1_1models_1_1_user.html#ad0bd62e8912ff946b12ab863dc448e64" title=" " alt="" coords="232,589,467,616"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="104,365,120,410,146,467,184,526,207,553,233,575,241,580,238,584,230,579,203,556,180,529,142,470,115,412,99,367"/>
+<area shape="rect" id="Node000012" href="$classcom_1_1carrental_1_1models_1_1_user.html#ac184a662ca326508af2bdb0dae16236a" title=" " alt="" coords="249,640,450,683"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="102,365,116,418,141,489,158,526,179,563,204,597,233,626,238,630,235,634,230,630,200,600,175,566,153,529,136,491,111,420,97,367"/>
+</map>

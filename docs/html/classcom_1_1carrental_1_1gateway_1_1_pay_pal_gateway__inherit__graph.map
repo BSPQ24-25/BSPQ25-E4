@@ -1,0 +1,5 @@
+<map id="com.carrental.gateway.PayPalGateway" name="com.carrental.gateway.PayPalGateway">
+<area shape="rect" id="Node000001" title=" " alt="" coords="20,96,199,139"/>
+<area shape="rect" id="Node000002" href="$interfacecom_1_1carrental_1_1gateway_1_1_payment_gateway.html" title=" " alt="" coords="5,5,214,48"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="112,64,112,96,107,96,107,64"/>
+</map>

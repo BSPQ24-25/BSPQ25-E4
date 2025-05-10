@@ -1,0 +1,7 @@
+<map id="com.carrental.gateway.PaymentGateway" name="com.carrental.gateway.PaymentGateway">
+<area shape="rect" id="Node000001" title=" " alt="" coords="101,5,309,48"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1gateway_1_1_credit_card_gateway.html" title=" " alt="" coords="5,96,197,139"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="171,60,127,97,124,93,168,56"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1carrental_1_1gateway_1_1_pay_pal_gateway.html" title=" " alt="" coords="221,96,400,139"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="243,56,287,93,284,97,239,60"/>
+</map>
