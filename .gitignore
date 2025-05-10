@@ -9,7 +9,13 @@
 *.log
 
 # Maven target directory
-/target/
+target/*
+
+!target/site/
+!target/site/**
+!target/reports/
+!target/reports/**
+
 # Eclipse specific files
 .classpath
 .project
