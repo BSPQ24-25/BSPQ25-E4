@@ -13,6 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 class UserServiceTest {
 	private static final Logger logger = LogManager.getLogger(UserServiceTest.class);
     @Mock
