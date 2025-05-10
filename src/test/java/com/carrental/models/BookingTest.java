@@ -1,11 +1,13 @@
 package com.carrental.models;
 
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 class BookingTest {
 	private static final Logger logger = LogManager.getLogger(BookingTest.class);
     @Test
