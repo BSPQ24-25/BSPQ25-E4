@@ -21,8 +21,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 class UserControllerTest {
+
 	private static final Logger logger = LogManager.getLogger(UserControllerTest.class);
+
     @Mock
     private UserService userService;
 
@@ -110,7 +113,6 @@ class UserControllerTest {
         verify(bookingService, times(1)).getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled"));
         logger.info("User rental history retrieved successfully");
     }
-
 
     @Test
     void userDashboardTest() throws Exception {

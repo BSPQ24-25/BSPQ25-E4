@@ -23,9 +23,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 @WebMvcTest(InsuranceRestController.class)
 class InsuranceRestControllerTest {
+    
 	private static final Logger logger = LogManager.getLogger(InsuranceRestControllerTest.class);
+
     @Autowired
     private MockMvc mockMvc;
 

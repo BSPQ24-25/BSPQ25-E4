@@ -14,6 +14,7 @@ import com.carrental.service.BookingService;
 import com.carrental.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 public class AdminControllerTest {
 	private static final Logger logger = LogManager.getLogger(AdminControllerTest.class);
     private UserService userService;
@@ -47,7 +48,6 @@ public class AdminControllerTest {
             System.err.println("Error setting up mocks: " + e.getMessage());
         }
         
-        // Setup test data
         adminUser = new User();
         adminUser.setId(1L);
         adminUser.setName("Admin User");

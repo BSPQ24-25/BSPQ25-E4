@@ -27,7 +27,9 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 @SpringBootTest
 @AutoConfigureMockMvc
 class InsuranceControllerTest {
+    
 	private static final Logger logger = LogManager.getLogger(InsuranceControllerTest.class);
+
     @Autowired
     private MockMvc mockMvc;
 

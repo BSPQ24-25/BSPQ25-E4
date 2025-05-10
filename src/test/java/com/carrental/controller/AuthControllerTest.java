@@ -21,6 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 class AuthControllerTest {
 	private static final Logger logger = LogManager.getLogger(AuthControllerTest.class);
     private MockMvc mockMvc;
@@ -94,7 +95,6 @@ class AuthControllerTest {
                 .andExpect(model().attributeHasFieldErrors("user", "email"));
         logger.info("testRegisterUser_WithErrors completed successfully");
     }
-
 
     @Test
     void testShowLoginForm() throws Exception {

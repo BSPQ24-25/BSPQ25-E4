@@ -28,6 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 class BookingControllerTest {
 	private static final Logger logger = LogManager.getLogger(BookingControllerTest.class);
     private MockMvc mockMvc;
@@ -66,7 +67,6 @@ class BookingControllerTest {
         booking.setUser(user);
         logger.info("Booking object created with ID: " + booking.getBookingId());
         return booking;
-        
     }
 
     @Test

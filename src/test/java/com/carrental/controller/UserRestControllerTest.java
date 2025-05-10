@@ -1,6 +1,5 @@
 package com.carrental.controller;
 
-
 import com.carrental.models.User;
 import com.carrental.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,8 +15,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 class UserRestControllerTest {
+
 	private static final Logger logger = LogManager.getLogger(UserRestControllerTest.class);
+    
     @Mock
     private UserService userService;
 

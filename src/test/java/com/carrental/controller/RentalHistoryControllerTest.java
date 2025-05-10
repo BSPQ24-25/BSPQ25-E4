@@ -22,8 +22,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 class RentalHistoryControllerTest {
+
 	private static final Logger logger = LogManager.getLogger(RentalHistoryControllerTest.class);
+
     @Mock
     private BookingService bookingService;
 
@@ -57,7 +60,6 @@ class RentalHistoryControllerTest {
         booking2.setBookingId(2L);
 
         List<Booking> bookings = Arrays.asList(booking1, booking2);
-
 
         when(userRepository.findByEmail("john@example.com")).thenReturn(Optional.of(user));
 
