@@ -2,13 +2,14 @@ package com.carrental.dto;
 
 import org.junit.jupiter.api.Test;
 
-
-
 import static org.junit.jupiter.api.Assertions.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 class CarDTOTest {
+
 	private static final Logger logger = LogManager.getLogger(CarDTOTest.class);
+
     @Test
     void testCarDTOSettersAndGetters() {
     	        logger.info("Starting testCarDTOSettersAndGetters...");
@@ -24,7 +25,6 @@ class CarDTOTest {
         carDTO.setMileage(15000);
         carDTO.setManufacturingYear(2020);
         carDTO.setInsuranceId(101L);
-
 
         assertEquals(1L, carDTO.getId());
         assertEquals("Toyota", carDTO.getBrand());
