@@ -3,6 +3,8 @@ package com.carrental.repository;
 import com.carrental.models.Booking;
 import com.carrental.models.Car;
 import com.carrental.models.User;
+
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -11,10 +13,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.util.List;
-
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 @DataJpaTest
 class BookingRepositoryTest {
-
+	private static final Logger logger = LogManager.getLogger(BookingRepositoryTest.class);
     @Autowired
     private BookingRepository bookingRepository;
 
@@ -26,6 +29,7 @@ class BookingRepositoryTest {
 
     @Test
     void saveAndFindBookingById() {
+    	logger.info("Testing saveAndFindBookingById method");
         User user = new User();
         user.setName("John Doe");
         user.setEmail("john.doe@example.com");
@@ -60,10 +64,12 @@ class BookingRepositoryTest {
         assertEquals("John Doe", foundBooking.getUser().getName());
         assertEquals("Toyota", foundBooking.getCar().getBrand());
         assertEquals("pending", foundBooking.getBookingStatus());
+        logger.info("Booking found: {}", foundBooking.getUser().getName());
     }
 
     @Test
     void findByBookingStatus() {
+    	logger.info("Testing findByBookingStatus method");
         Booking booking1 = new Booking();
         booking1.setBookingStatus("confirmed");
         bookingRepository.save(booking1);
@@ -76,10 +82,12 @@ class BookingRepositoryTest {
 
         assertEquals(1, confirmedBookings.size());
         assertEquals("confirmed", confirmedBookings.get(0).getBookingStatus());
+        logger.info("Confirmed booking found: {}", confirmedBookings.get(0).getBookingStatus());
     }
 
     @Test
     void findByBookingStatusIn() {
+    	logger.info("Testing findByBookingStatusIn method");
         Booking booking1 = new Booking();
         booking1.setBookingStatus("confirmed");
         bookingRepository.save(booking1);
@@ -91,10 +99,12 @@ class BookingRepositoryTest {
         List<Booking> bookings = bookingRepository.findByBookingStatusIn(List.of("confirmed", "pending"));
 
         assertEquals(2, bookings.size());
+        logger.info("Bookings found: {}", bookings.size());
     }
 
     @Test
     void findByUserNameAndBookingStatusIn() {
+    	logger.info("Testing findByUserNameAndBookingStatusIn method");
         User user = new User();
         user.setName("Alice");
         user.setEmail("alice@example.com");
@@ -114,10 +124,12 @@ class BookingRepositoryTest {
         List<Booking> bookings = bookingRepository.findByUserNameAndBookingStatusIn("Alice", List.of("confirmed", "pending"));
 
         assertEquals(2, bookings.size());
+        logger.info("Bookings found for user: {}", bookings.size());
     }
 
     @Test
     void countByBookingStatus() {
+    	logger.info("Testing countByBookingStatus method");
         Booking booking1 = new Booking();
         booking1.setBookingStatus("confirmed");
         bookingRepository.save(booking1);
@@ -129,10 +141,12 @@ class BookingRepositoryTest {
         long count = bookingRepository.countByBookingStatus("confirmed");
 
         assertEquals(2, count);
+        logger.info("Count of confirmed bookings: {}", count);
     }
 
     @Test
     void sumDailyPriceByBookingStatus() {
+    	logger.info("Testing sumDailyPriceByBookingStatus method");
         Booking booking1 = new Booking();
         booking1.setBookingStatus("completed");
         booking1.setDailyPrice(100.0);
@@ -147,10 +161,12 @@ class BookingRepositoryTest {
 
         assertNotNull(total);
         assertEquals(250.0, total);
+        logger.info("Total daily price for completed bookings: {}", total);
     }
 
     @Test
     void findByUser() {
+    	logger.info("Testing findByUser method");
         User user = new User();
         user.setName("Bob");
         user.setEmail("bob@example.com");
@@ -166,5 +182,6 @@ class BookingRepositoryTest {
 
         assertEquals(1, bookings.size());
         assertEquals("Bob", bookings.get(0).getUser().getName());
+        logger.info("Bookings found for user: {}", bookings.get(0).getUser().getName());
     }
 }

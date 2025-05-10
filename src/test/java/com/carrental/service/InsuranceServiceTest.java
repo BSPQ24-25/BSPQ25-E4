@@ -13,7 +13,7 @@ import static org.mockito.Mockito.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 class InsuranceServiceTest {
-	private static final Logger logger = LogManager.getLogger(BookingServiceTest.class);
+	private static final Logger logger = LogManager.getLogger(InsuranceServiceTest.class);
     @Mock
     private InsuranceRepository insuranceRepository;
 
