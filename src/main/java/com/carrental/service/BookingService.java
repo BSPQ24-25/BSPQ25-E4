@@ -9,18 +9,16 @@ import org.springframework.stereotype.Service;
 import com.carrental.models.Booking;
 import com.carrental.repository.BookingRepository;
 
-import com.carrental.gateway.CreditCardGateway;
-import com.carrental.gateway.PayPalGateway;
-import com.carrental.gateway.PaymentGateway;
-
 @Service
 public class BookingService {
 
     private final BookingRepository bookingRepository;
+    private final PaymentGatewayService paymentGatewayService;
 
     @Autowired
-    public BookingService(BookingRepository bookingRepository) {
+    public BookingService(BookingRepository bookingRepository, PaymentGatewayService paymentGatewayService) {
         this.bookingRepository = bookingRepository;
+        this.paymentGatewayService = paymentGatewayService;
     }
 
     public List<Booking> getAllBookings() {
@@ -39,9 +37,6 @@ public class BookingService {
         return bookingRepository.findById(id);
     }
 
-    @Autowired
-    private PaymentGatewayService paymentGatewayService;
-
     public Booking createBooking(Booking booking) {
         Booking saved = bookingRepository.save(booking);
         
@@ -50,7 +45,6 @@ public class BookingService {
 
         return saved;
     }
-
 
     public List<Booking> getUserRentalHistory(String userName, List<String> statuses) {
         return bookingRepository.findByUserNameAndBookingStatusIn(userName, statuses);
@@ -113,24 +107,4 @@ public class BookingService {
         booking.setBookingStatus("Completed");
         bookingRepository.save(booking);
     }
-    
-    public boolean processPayment(Booking booking) {
-        String method = booking.getPaymentMethod().toLowerCase();
-        PaymentGateway gateway;
-
-        switch (method) {
-            case "credit card":
-                gateway = new CreditCardGateway();
-                break;
-            case "paypal":
-                gateway = new PayPalGateway();
-                break;
-            case "cash":
-                return true;
-            default:
-                throw new IllegalArgumentException("Unsupported payment method: " + method);
-        }
-
-        return gateway.processPayment(booking.getTotalPrice(), booking.getUser().getEmail());
-    }    
 }

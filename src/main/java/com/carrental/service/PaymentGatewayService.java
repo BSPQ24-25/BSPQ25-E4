@@ -1,6 +1,8 @@
 package com.carrental.service;
+
 import com.carrental.models.Booking;
 import org.springframework.stereotype.Service;
+
 @Service
 public class PaymentGatewayService {
 
