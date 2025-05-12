@@ -79,6 +79,7 @@ public class Insurance {
     }
 
     public String getFormattedPrice() {
-        return String.format("%.2f€", this.monthlyPrice);
+        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("es", "ES"));
+        return format.format(price); // `price` est ton champ double ou BigDecimal
     }
 }
