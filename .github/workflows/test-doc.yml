@@ -28,14 +28,14 @@ jobs:
 
     - name: Archive Surefire Reports
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: surefire-reports
         path: target/surefire-reports/
 
     - name: Archive Cobertura Report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: cobertura-report
         path: target/site/cobertura/
@@ -48,14 +48,14 @@ jobs:
 
     - name: Archive Doxygen Docs
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: doxygen-docs
         path: docs/html/
 
     - name: Archive Performance Reports
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: performance-reports
         path: performance-reports/
