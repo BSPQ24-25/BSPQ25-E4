@@ -1,0 +1,61 @@
+name: Test and Documentation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Set up Maven
+      run: mvn --version
+
+    - name: Run Tests & Generate Reports
+      run: mvn clean verify cobertura:cobertura
+
+    - name: Archive Surefire Reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: surefire-reports
+        path: target/surefire-reports/
+
+    - name: Archive Cobertura Report
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: cobertura-report
+        path: target/site/cobertura/
+
+    - name: Generate Doxygen Docs
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y doxygen graphviz
+        doxygen Doxyfile
+
+    - name: Archive Doxygen Docs
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: doxygen-docs
+        path: docs/html/
+
+    - name: Archive Performance Reports
+      if: always()
+      uses: actions/upload-artifact@v3
+      with:
+        name: performance-reports
+        path: performance-reports/
