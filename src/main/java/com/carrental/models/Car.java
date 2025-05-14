@@ -134,7 +134,7 @@ public class Car {
         this.pricePerDay = pricePerDay;
     }
 
-    public void getPricePerDay() {
+    public double getPricePerDay() {
         return pricePerDay;
     }
 
