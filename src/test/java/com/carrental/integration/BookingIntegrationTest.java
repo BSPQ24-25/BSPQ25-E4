@@ -46,6 +46,8 @@ public class BookingIntegrationTest {
         user.setName("Test User");
         user.setEmail("test@example.com");
         user.setPassword("password");
+        user.setAddress("123 Main St");
+        user.setPhone("0612345678");
         user = userRepository.save(user);
         testUserId = user.getId();
 
