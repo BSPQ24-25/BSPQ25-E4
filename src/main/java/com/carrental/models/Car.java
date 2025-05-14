@@ -33,6 +33,7 @@ public class Car {
     private String status;
     private int mileage;
     private int manufacturingYear;
+    private double pricePerDay;
 
     @ManyToOne
     @JoinColumn(name = "insurance_id")
