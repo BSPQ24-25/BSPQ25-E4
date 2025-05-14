@@ -1,14 +1,13 @@
+package com.carrental.integration;
+
 import com.carrental.models.Booking;
 import com.carrental.models.Car;
 import com.carrental.models.User;
 import com.carrental.repository.CarRepository;
 import com.carrental.repository.UserRepository;
 
-import org.junit.jupiter.api.BeforeEach;
-
-package com.carrental.integration;
-
 import com.carrental.config.TestSecurityConfig;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -20,37 +19,36 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Autowired
-private UserRepository userRepository;
-
-@Autowired
-private CarRepository carRepository;
-
-private Long testUserId;
-private Long testCarId;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestSecurityConfig.class)
 public class BookingIntegrationTest {
-	private static final Logger logger = LogManager.getLogger(BookingIntegrationTest.class);
+
+    private static final Logger logger = LogManager.getLogger(BookingIntegrationTest.class);
+
     @Autowired
     private TestRestTemplate restTemplate;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CarRepository carRepository;
+
+    private Long testUserId;
+    private Long testCarId;
+
     @BeforeEach
     public void setUp() {
-        // Cleaning (optional)
         userRepository.deleteAll();
         carRepository.deleteAll();
 
-        // Creating a user
         User user = new User();
         user.setName("Test User");
         user.setEmail("test@example.com");
-        user.setPassword("password"); // Si requis
+        user.setPassword("password");
         user = userRepository.save(user);
         testUserId = user.getId();
 
-        // Creating a car
         Car car = new Car();
         car.setBrand("TestBrand");
         car.setModel("TestModel");
@@ -87,5 +85,4 @@ public class BookingIntegrationTest {
         assertEquals(200, response.getStatusCodeValue());
         logger.info("Booking created correctly: " + response.getBody());
     }
-
 }
