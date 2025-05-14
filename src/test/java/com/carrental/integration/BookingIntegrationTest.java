@@ -52,7 +52,7 @@ public class BookingIntegrationTest {
         Car car = new Car();
         car.setBrand("TestBrand");
         car.setModel("TestModel");
-        car.setYear(2022);
+        car.setManufacturingYear(2022);
         car.setPricePerDay(50.0);
         car = carRepository.save(car);
         testCarId = car.getId();
