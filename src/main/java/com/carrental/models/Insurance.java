@@ -4,6 +4,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import java.text.NumberFormat;
+import java.util.Locale;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -79,7 +82,6 @@ public class Insurance {
     }
 
     public String getFormattedPrice() {
-        NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("es", "ES"));
-        return format.format(price); // `price` est ton champ double ou BigDecimal
+        return String.format("%.2f€", this.monthlyPrice);
     }
 }
