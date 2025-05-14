@@ -2,11 +2,10 @@ name: Test and Documentation
 
 on:
   push:
-    branches: [main]
+    branches: ["*"] # ou simplement ne pas spécifier 'branches' pour toutes les branches
   pull_request:
-    branches: [main]
-  on:
-    workflow_dispatch:
+    branches: ["*"]
+  workflow_dispatch: # attention à l'indentation : il ne faut pas "on:" devant ici
 
 jobs:
   build-and-test:
