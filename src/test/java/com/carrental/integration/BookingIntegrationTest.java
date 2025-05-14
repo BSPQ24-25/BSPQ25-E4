@@ -6,15 +6,6 @@ import com.carrental.repository.UserRepository;
 
 import org.junit.jupiter.api.BeforeEach;
 
-@Autowired
-private UserRepository userRepository;
-
-@Autowired
-private CarRepository carRepository;
-
-private Long testUserId;
-private Long testCarId;
-
 package com.carrental.integration;
 
 import com.carrental.config.TestSecurityConfig;
@@ -28,6 +19,16 @@ import org.springframework.http.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+@Autowired
+private UserRepository userRepository;
+
+@Autowired
+private CarRepository carRepository;
+
+private Long testUserId;
+private Long testCarId;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestSecurityConfig.class)
 public class BookingIntegrationTest {
