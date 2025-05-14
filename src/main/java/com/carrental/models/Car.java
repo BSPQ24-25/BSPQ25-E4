@@ -128,4 +128,13 @@ public class Car {
     public void setBookings(List<Booking> bookings) {
         this.bookings = bookings;
     }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public void setPricePerDay(double pricePerDay) {
+        this.pricePerDay = pricePerDay;
+    }
+
 }
