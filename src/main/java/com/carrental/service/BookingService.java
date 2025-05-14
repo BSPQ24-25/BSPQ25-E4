@@ -7,13 +7,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.carrental.models.Booking;
+import com.carrental.models.User;
 import com.carrental.repository.BookingRepository;
+
 
 @Service
 public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final PaymentGatewayService paymentGatewayService;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     public BookingService(BookingRepository bookingRepository, PaymentGatewayService paymentGatewayService) {
@@ -46,8 +51,9 @@ public class BookingService {
         return saved;
     }
 
-    public List<Booking> getUserRentalHistory(String userName, List<String> statuses) {
-        return bookingRepository.findByUserNameAndBookingStatusIn(userName, statuses);
+    public List<Booking> getUserRentalHistory(String email, List<String> statuses) {
+        User user = userService.findByEmail(email);
+        return bookingRepository.findByUserAndBookingStatusIn(user, statuses);
     }
 
     public Booking updateBooking(Long id, Booking bookingDetails) {
