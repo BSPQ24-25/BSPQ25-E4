@@ -113,11 +113,11 @@ public class Car {
         this.manufacturingYear = manufacturingYear;
     }
 
-    public Insurance getInsurance() {
+    public Insurance getInsuranceId() {
         return insurance;
     }
 
-    public void setInsurance(Insurance insurance) {
+    public void setInsuranceID(Insurance insurance) {
         this.insurance = insurance;
     }
 

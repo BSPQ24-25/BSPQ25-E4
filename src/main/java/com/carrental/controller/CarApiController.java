@@ -110,7 +110,7 @@ public class CarApiController {
         dto.setStatus(car.getStatus());
         dto.setMileage(car.getMileage());
         dto.setManufacturingYear(car.getManufacturingYear());
-        dto.setInsuranceId(car.getInsurance() != null ? car.getInsurance().getInsuranceId() : null);
+        dto.setInsuranceId(car.getInsuranceId() != null ? car.getInsuranceId().getInsuranceId() : null);
         return dto;
     }
     

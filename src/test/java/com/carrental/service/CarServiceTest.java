@@ -65,7 +65,7 @@ class CarServiceTest {
         insurance.setProvider("SafeDrive");
         insurance.setCoverage("Full coverage");
         insurance.setMonthlyPrice(50.0);
-        car.setInsurance(insurance);
+        car.setInsuranceID(insurance);
 
         when(carRepository.save(car)).thenReturn(car);
 
@@ -80,7 +80,7 @@ class CarServiceTest {
         assertEquals("Available", savedCar.getStatus());
         assertEquals(25000, savedCar.getMileage());
         assertEquals(2020, savedCar.getManufacturingYear());
-        assertEquals("SafeDrive", savedCar.getInsurance().getProvider());
+        assertEquals("SafeDrive", savedCar.getInsuranceId().getProvider());
         logger.info("Car with all attributes added successfully: {}", savedCar);
     }
 

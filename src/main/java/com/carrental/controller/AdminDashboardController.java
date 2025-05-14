@@ -1,7 +1,5 @@
 package com.carrental.controller;
 
-import com.carrental.service.CarService;
-
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +15,7 @@ import com.carrental.models.Car;
 import com.carrental.models.Insurance;
 import com.carrental.repository.InsuranceRepository;
 import com.carrental.service.BookingService;
+import com.carrental.service.CarService;
 
 
 @Controller
@@ -54,7 +53,7 @@ public class AdminDashboardController {
     public String addVehicle(@ModelAttribute Car car, @RequestParam(name = "insuranceId", required = false) Long insuranceId) {
         if (insuranceId != null) {
             Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);
-            car.setInsurance(insurance);
+            car.setInsuranceID(insurance);
         }
         carService.saveCar(car);
         return "redirect:/admin/vehicles";
@@ -76,7 +75,7 @@ public class AdminDashboardController {
     public String updateVehicle(@ModelAttribute Car car, @RequestParam(name = "insuranceId", required = false) Long insuranceId) {
         if (insuranceId != null) {
             Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);
-            car.setInsurance(insurance);
+            car.setInsuranceID(insurance);
         }
 
         carService.saveCar(car);

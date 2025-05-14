@@ -50,7 +50,7 @@ public class CarApiControllerTest {
         testCar.setManufacturingYear(2020);
         Insurance insurance = new Insurance();
         insurance.setInsuranceId(123L);
-        testCar.setInsurance(insurance);
+        testCar.setInsuranceID(insurance);
         logger.info("Test car created with ID: " + testCar.getId());
     }
 

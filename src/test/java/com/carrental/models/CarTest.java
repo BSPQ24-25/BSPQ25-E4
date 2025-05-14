@@ -31,7 +31,7 @@ class CarTest {
         car.setStatus("Available");
         car.setMileage(50000);
         car.setManufacturingYear(2018);
-        car.setInsurance(insurance);
+        car.setInsuranceID(insurance);
         car.setBookings(bookings);
 
         assertEquals(1L, car.getId());
@@ -43,8 +43,8 @@ class CarTest {
         assertEquals("Available", car.getStatus());
         assertEquals(50000, car.getMileage());
         assertEquals(2018, car.getManufacturingYear());
-        assertNotNull(car.getInsurance());
-        assertEquals("XYZ Insurance", car.getInsurance().getProvider());
+        assertNotNull(car.getInsuranceId());
+        assertEquals("XYZ Insurance", car.getInsuranceId().getProvider());
         assertNotNull(car.getBookings());
         assertTrue(car.getBookings().isEmpty());
         logger.info("Car getters and setters tested successfully");
@@ -57,10 +57,10 @@ class CarTest {
         Insurance insurance = new Insurance();
         insurance.setProvider("XYZ Insurance");
         
-        car.setInsurance(insurance);
+        car.setInsuranceID(insurance);
         
-        assertNotNull(car.getInsurance());
-        assertEquals("XYZ Insurance", car.getInsurance().getProvider());
+        assertNotNull(car.getInsuranceId());
+        assertEquals("XYZ Insurance", car.getInsuranceId().getProvider());
         logger.info("Car insurance relationship tested successfully");
     }
 

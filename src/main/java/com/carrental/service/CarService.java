@@ -1,15 +1,15 @@
 package com.carrental.service;
 
-import com.carrental.models.Car;
-import com.carrental.repository.CarRepository;
-
-import jakarta.persistence.EntityNotFoundException;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import com.carrental.models.Car;
+import com.carrental.repository.CarRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class CarService {
@@ -35,27 +35,45 @@ public class CarService {
         }
         carRepository.deleteById(id);
     }
-    
+
     public long countAvailableCars() {
         return carRepository.countByStatusIgnoreCase("available");
     }
-    
+
     public void saveCar(Car car) {
         carRepository.save(car);
     }
-    
+
     public List<Car> searchByField(String field, String value) {
-        switch (field.toLowerCase()) {
-            case "brand": return carRepository.findByBrandContainingIgnoreCase(value);
-            case "model": return carRepository.findByModelContainingIgnoreCase(value);
-            case "color": return carRepository.findByColorContainingIgnoreCase(value);
-            case "transmission": return carRepository.findByTransmissionContainingIgnoreCase(value);
-            case "status": return carRepository.findByStatusContainingIgnoreCase(value);
-            case "fuellevel": return carRepository.findByFuelLevel(Double.parseDouble(value));
-            case "mileage": return carRepository.findByMileage(Integer.parseInt(value));
-            case "manufacturingyear": return carRepository.findByManufacturingYear(Integer.parseInt(value));
-            case "insuranceid": return carRepository.findByInsurance_Id(Long.parseLong(value));
-            default: return List.of();
+        try {
+            switch (field.toLowerCase()) {
+                case "brand":
+                    return carRepository.findByBrandContainingIgnoreCase(value);
+                case "model":
+                    return carRepository.findByModelContainingIgnoreCase(value);
+                case "color":
+                    return carRepository.findByColorContainingIgnoreCase(value);
+                case "transmission":
+                    return carRepository.findByTransmissionContainingIgnoreCase(value);
+                case "status":
+                    return carRepository.findByStatusContainingIgnoreCase(value);
+                case "fuellevel":
+                    return carRepository.findByFuelLevel(Double.parseDouble(value));
+                case "mileage":
+                    return carRepository.findByMileage(Integer.parseInt(value));
+                case "manufacturingyear":
+                    return carRepository.findByManufacturingYear(Integer.parseInt(value));
+                case "insuranceid":
+                    Long insuranceId = Long.parseLong(value);
+                    return carRepository.findAll().stream()
+                            .filter(car -> car.getInsuranceId() != null &&
+                                    car.getInsuranceId().getInsuranceId().equals(insuranceId))
+                            .toList();
+                default:
+                    return List.of();
+            }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Invalid value for field '" + field + "': " + value);
         }
     }
 }
