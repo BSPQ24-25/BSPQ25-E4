@@ -129,12 +129,12 @@ public class Car {
         this.bookings = bookings;
     }
 
-    public void setYear(int year) {
-        this.year = year;
-    }
-
     public void setPricePerDay(double pricePerDay) {
         this.pricePerDay = pricePerDay;
+    }
+
+    public void getPricePerDay() {
+        return pricePerDay;
     }
 
 }
