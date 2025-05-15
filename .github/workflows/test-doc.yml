@@ -25,7 +25,7 @@ jobs:
       run: mvn --version
 
     - name: Run Tests & Generate JaCoCo Report
-      run: mvn test jacoco:report
+      run: mvn clean verify jacoco:report
 
     - name: Archive Surefire Reports
       if: always()
