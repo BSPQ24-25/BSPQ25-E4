@@ -2,10 +2,10 @@ name: Test and Documentation
 
 on:
   push:
-    branches: ["*"] # ou simplement ne pas spécifier 'branches' pour toutes les branches
+    branches: ["*"]
   pull_request:
     branches: ["*"]
-  workflow_dispatch: # attention à l'indentation : il ne faut pas "on:" devant ici
+  workflow_dispatch:
 
 jobs:
   build-and-test:
@@ -24,8 +24,8 @@ jobs:
     - name: Set up Maven
       run: mvn --version
 
-    - name: Run Tests & Generate Reports
-      run: mvn clean verify cobertura:cobertura
+    - name: Run Tests & Generate JaCoCo Report
+      run: mvn test jacoco:report
 
     - name: Archive Surefire Reports
       if: always()
@@ -34,12 +34,12 @@ jobs:
         name: surefire-reports
         path: target/surefire-reports/
 
-    - name: Archive Cobertura Report
+    - name: Archive JaCoCo Report
       if: always()
       uses: actions/upload-artifact@v4
       with:
-        name: cobertura-report
-        path: target/site/cobertura/
+        name: jacoco-report
+        path: target/site/jacoco/
 
     - name: Generate Doxygen Docs
       run: |
