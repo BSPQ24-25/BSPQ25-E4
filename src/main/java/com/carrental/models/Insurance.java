@@ -1,6 +1,8 @@
 package com.carrental.models;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -12,6 +14,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 
 
 @JsonIgnoreProperties({"cars"})
@@ -24,8 +28,13 @@ public class Insurance {
 	@Column(name = "id")
 	private Long id;
 
+    @NotBlank(message = "Provider is required")
     private String provider;
+
+    @NotBlank(message = "Coverage is required")
     private String coverage;
+
+    @Positive(message = "Monthly price must be positive")
     private double monthlyPrice;
 
     @OneToMany(mappedBy = "insurance", cascade = CascadeType.ALL)
@@ -72,6 +81,8 @@ public class Insurance {
     }
 
     public String getFormattedPrice() {
-        return String.format("%.2f€", this.monthlyPrice);
+        NumberFormat format = NumberFormat.getNumberInstance(new Locale("es", "ES"));
+        return format.format(this.monthlyPrice) + "€";
     }
+
 }

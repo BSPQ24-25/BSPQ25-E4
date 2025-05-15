@@ -25,7 +25,6 @@ public class Car {
 	@Column(name = "id")
 	private Long id;
 
-
     private String brand;
     private String model;
     private String color;
@@ -42,7 +41,6 @@ public class Car {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -115,11 +113,11 @@ public class Car {
         this.manufacturingYear = manufacturingYear;
     }
 
-    public Insurance getInsurance() {
+    public Insurance getInsuranceId() {
         return insurance;
     }
 
-    public void setInsurance(Insurance insurance) {
+    public void setInsuranceID(Insurance insurance) {
         this.insurance = insurance;
     }
 

@@ -17,6 +17,7 @@ import com.carrental.models.Booking;
 import com.carrental.models.User;
 import com.carrental.service.BookingService;
 import com.carrental.service.UserService;
+import com.carrental.service.CarService;
 
 @Controller
 @RequestMapping("/admin")
@@ -27,6 +28,9 @@ public class AdminController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private CarService carService;
     
     @GetMapping("/dashboard")
     public String showAdminDashboard(Authentication authentication, Model model) {
@@ -35,11 +39,22 @@ public class AdminController {
 
         if (user != null && user.getIsAdmin()) {
             model.addAttribute("adminName", user.getName());
-            return "admin_dashboard";
+
+            // Añade los datos que necesitas en el HTML
+            long availableCars = carService.countAvailableCars(); 
+            long activeRentals = bookingService.countActiveBookings();
+            double totalRevenue = bookingService.getTotalRevenue();
+
+            model.addAttribute("availableCars", availableCars);
+            model.addAttribute("activeRentals", activeRentals);
+            model.addAttribute("totalRevenue", totalRevenue);
+
+            return "admin_dashboard"; 
         } else {
-            return "redirect:/access-denied";
+        return "redirect:/access-denied";
         }
     }
+
 
     @GetMapping("/users")
     public String userManagement(Model model) {

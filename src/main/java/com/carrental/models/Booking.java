@@ -10,6 +10,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "bookings")
@@ -126,4 +127,10 @@ public class Booking {
     public void setReview(String review) {
         this.review = review;
     }
+    // Additional methods
+    public double getTotalPrice() {
+        long days = ChronoUnit.DAYS.between(startDate, endDate);
+        return dailyPrice * days + securityDeposit;
+    }
+
 }

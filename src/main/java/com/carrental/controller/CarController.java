@@ -3,13 +3,14 @@ package com.carrental.controller;
 import com.carrental.models.Car;
 import com.carrental.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller // <- CAMBIADO AQUÍ
+@Controller
 @RequestMapping("/cars")
 public class CarController {
 
@@ -18,11 +19,14 @@ public class CarController {
 
     @PostMapping
     @ResponseBody
-    public Car addCar(@RequestBody Car car, @RequestParam boolean admin) {
-        if (!admin) {
-            throw new RuntimeException("Only admins can add cars.");
+    public ResponseEntity<?> addCar(@RequestBody Car car, @RequestParam(required = false) Boolean admin) {
+        if (admin == null) {
+            return ResponseEntity.badRequest().body("Missing 'admin' parameter.");
         }
-        return carService.addCar(car);
+        if (!admin) {
+            return ResponseEntity.status(500).body("Only admins can add cars.");
+        }
+        return ResponseEntity.ok(carService.addCar(car));
     }
 
     @GetMapping
@@ -33,18 +37,26 @@ public class CarController {
 
     @GetMapping("/{id}")
     @ResponseBody
-    public Car getCarById(@PathVariable Long id) {
-        return carService.getCarById(id);
+    public ResponseEntity<?> getCarById(@PathVariable Long id) {
+        return carService.getCarById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
+
 
     @DeleteMapping("/{id}")
     @ResponseBody
-    public void deleteCar(@PathVariable Long id, @RequestParam boolean admin) {
+    public ResponseEntity<?> deleteCar(@PathVariable Long id, @RequestParam(required = false) Boolean admin) {
+        if (admin == null) {
+            return ResponseEntity.badRequest().body("Missing 'admin' parameter.");
+        }
         if (!admin) {
-            throw new RuntimeException("Only admins can delete cars.");
+            return ResponseEntity.status(500).body("Only admins can delete cars.");
         }
         carService.deleteCarById(id);
+        return ResponseEntity.ok().build();
     }
+
 
     @GetMapping("/admin/vehicles")
     public String showVehicles(Model model) {

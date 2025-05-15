@@ -1,5 +1,4 @@
 com\carrental\performance\InsurancePerformanceTest.class
-com\carrental\repository\CarRepositoryTest.class
 com\carrental\controller\UserControllerTest.class
 com\carrental\controller\AuthControllerTest.class
 com\carrental\service\CarServiceTest.class
@@ -15,7 +14,6 @@ com\carrental\controller\BookingWebControllerTest.class
 com\carrental\dto\CarDTOTest.class
 com\carrental\AppTest.class
 com\carrental\service\UserServiceTest.class
-com\carrental\repository\BookingRepositoryTest.class
 com\carrental\controller\AdminControllerTest.class
 com\carrental\performance\BookingPerformanceTest.class
 com\carrental\service\CustomUserDetailsServiceTest.class
@@ -25,12 +23,7 @@ com\carrental\controller\CarControllerTest.class
 com\carrental\controller\InsuranceControllerTest.class
 com\carrental\controller\RentalHistoryControllerTest.class
 com\carrental\models\InsuranceTest.class
-com\carrental\controller\AuthControllerTest$2.class
 com\carrental\models\BookingTest.class
-com\carrental\repository\UserRepositoryTest.class
-com\carrental\controller\AuthControllerTest$1.class
-com\carrental\controller\CarRestControllerTest.class
-com\carrental\repository\InsuranceRepositoryTest.class
 com\carrental\controller\CarApiControllerTest.class
 com\carrental\models\CarTest.class
 com\carrental\config\TestSecurityConfig.class

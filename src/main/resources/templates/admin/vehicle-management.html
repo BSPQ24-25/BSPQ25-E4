@@ -11,7 +11,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
         }
 
         h1 {
@@ -133,6 +132,9 @@
             display: block;
         }
     </style>
+
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 </head>
 <body>
   
@@ -260,43 +262,26 @@
                 <td>${vehicle.manufacturingYear}</td>
                 <td>${vehicle.insuranceId ? vehicle.insuranceId : 'N/A'}</td>
                 <td><a href="/admin/vehicles/edit/${vehicle.id}" class="action-btn edit-btn" data-en="Edit" data-fr="Modifier" data-es="Editar">Edit</a></td>
-                <td><form action="/admin/vehicles/delete/${vehicle.id}" method="post" style="display:inline;">
+                <td>
+                    <form action="/admin/vehicles/delete/${vehicle.id}" method="post" style="display:inline;">
                         <button type="submit" class="action-btn delete-btn"
-                            onclick="return confirm(this.getAttribute('data-confirm'))"
-                            data-en="Delete" data-fr="Supprimer" data-es="Eliminar"
-                            data-confirm-en="Are you sure you want to delete this vehicle?"
-                            data-confirm-fr="Êtes-vous sûr de vouloir supprimer ce véhicule ?"
-                            data-confirm-es="¿Está seguro de que desea eliminar este vehículo?">Delete</button>
+                            onclick="return confirm('Are you sure you want to delete this vehicle?');"
+                            data-en="Delete" data-fr="Supprimer" data-es="Eliminar">
+                            Delete
+                        </button>
                     </form>
-                </td>`;
+                </td>
+            `;
             tableBody.appendChild(row);
-
-            // Translate the confirmation message for the delete button
-            const deleteButton = row.querySelector('.delete-btn');
-            deleteButton.addEventListener('click', function(event) {
-                const currentLang = localStorage.getItem('currentLang') || 'en';
-                const confirmMessage = this.getAttribute(`data-confirm-${currentLang}`);
-                if (!confirm(confirmMessage)) {
-                    event.preventDefault();
-                }
-            });
         });
-        translatePage(localStorage.getItem('currentLang') || 'en'); // Ensure table content is also translated on re-render
     };
 
-    document.getElementById('searchForm').addEventListener('submit', async function (e) {
-        e.preventDefault();
-        const field = document.getElementById('searchField').value;
-        const value = document.getElementById('searchValue').value;
-        const response = await fetch(`/api/cars/search?field=${field}&value=${encodeURIComponent(value)}`);
-        const data = await response.json();
-        renderVehicles(data);
-    });
-
-    window.addEventListener('DOMContentLoaded', async () => {
-        const response = await fetch('/api/cars');
-        const data = await response.json();
-        renderVehicles(data);
+    // Sample data load (replace with AJAX or fetch in real app)
+    document.addEventListener("DOMContentLoaded", () => {
+        fetch('/admin/vehicles/all')
+            .then(response => response.json())
+            .then(data => renderVehicles(data))
+            .catch(error => console.error('Error loading vehicles:', error));
     });
 </script>
 </body>

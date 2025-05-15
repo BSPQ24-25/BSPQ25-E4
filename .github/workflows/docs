@@ -1,0 +1,47 @@
+name: Build and Deploy Doxygen
+
+on:
+  push:
+    branches: [main]  # trigger only when main changes
+  workflow_dispatch:   # optional: allow manual runs from the Actions tab
+
+jobs:
+  test-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout the repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Required to push to another branch
+
+      - name: ☕ Set up Java 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 🧱 Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: 🧪 Run tests
+        run: mvn test
+
+      - name: 🛠 Install Doxygen
+        run: sudo apt-get install -y doxygen graphviz
+
+      - name: 📄 Generate Doxygen documentation
+        run: doxygen Doxyfile
+
+      - name: 🚀 Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./docs/html
+          force_orphan: false

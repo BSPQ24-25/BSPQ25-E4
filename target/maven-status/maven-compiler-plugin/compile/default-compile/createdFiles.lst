@@ -2,9 +2,9 @@ com\carrental\controller\InsuranceController.class
 com\carrental\service\UserService.class
 com\carrental\controller\CarController.class
 com\carrental\controller\RentalHistoryController.class
-com\carrental\controller\CarRestController.class
 com\carrental\controller\UserController.class
 com\carrental\controller\AdminDashboardController.class
+com\carrental\gateway\PayPalGateway.class
 com\carrental\dto\CarDTO.class
 com\carrental\controller\AuthController.class
 com\carrental\controller\CarApiController.class
@@ -22,9 +22,12 @@ com\carrental\service\InsuranceService.class
 com\carrental\models\Insurance.class
 com\carrental\repository\BookingRepository.class
 com\carrental\service\CarService.class
+com\carrental\service\PaymentGatewayService.class
+com\carrental\gateway\PaymentGateway.class
 com\carrental\service\BookingService.class
 com\carrental\controller\BookingWebController.class
 com\carrental\controller\AdminController.class
 com\carrental\App.class
 com\carrental\controller\BookingController.class
 com\carrental\repository\InsuranceRepository.class
+com\carrental\gateway\CreditCardGateway.class

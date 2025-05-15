@@ -1,9 +1,8 @@
-C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\repository\BookingRepositoryTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\performance\BookingPerformanceTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\integration\UserIntegrationTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\integration\InsuranceIntegrationTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\BookingWebControllerTest.java
-C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\repository\UserRepositoryTest.java
+C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\service\PaymentGatewayServiceTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\dto\CarDTOTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\models\CarTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\AdminControllerTest.java
@@ -19,7 +18,6 @@ C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrenta
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\UserRestControllerTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\UserControllerTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\integration\BookingIntegrationTest.java
-C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\repository\InsuranceRepositoryTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\RentalHistoryControllerTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\performance\UserPerformanceTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\service\BookingServiceTest.java
@@ -29,9 +27,7 @@ C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrenta
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\service\CustomUserDetailsServiceTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\service\UserServiceTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\performance\InsurancePerformanceTest.java
-C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\CarRestControllerTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\InsuranceRestControllerTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\AdminDashboardControllerTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\models\UserTest.java
 C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\controller\BookingControllerTest.java
-C:\Users\hugor\OneDrive\Documents\CarRental\BSPQ25-E4\src\test\java\com\carrental\repository\CarRepositoryTest.java

@@ -89,7 +89,6 @@
             background-color: darkred;
         }
 
-        /* Language selection style */
         .lang-selector {
             position: absolute;
             top: 10px;
@@ -128,7 +127,7 @@
             <div class="filter-group">
                 <label for="searchField2">And by:</label>
                 <select id="searchField2" class="input-field">
-                    <option value="">(none)</option> <!-- optional second filter -->
+                    <option value="">(none)</option>
                     <option value="brand">Brand</option>
                     <option value="model">Model</option>
                     <option value="color">Color</option>
@@ -146,10 +145,6 @@
             <button type="button" id="clearButton" class="action-btn clear-btn">Clear</button>
         </form>
 
-
-
-
-        <!-- Table -->
         <table>
             <thead>
                 <tr>
@@ -163,27 +158,27 @@
                     <th>Mileage</th>
                     <th>Year</th>
                     <th>Insurance ID</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="vehicleTableBody">
                 <tr th:each="vehicle : ${vehicles}">
+                    <td th:text="${vehicle.id}"></td>
                     <td th:text="${vehicle.brand}"></td>
                     <td th:text="${vehicle.model}"></td>
                     <td th:text="${vehicle.color}"></td>
+                    <td th:text="${vehicle.fuelLevel}"></td>
                     <td th:text="${vehicle.transmission}"></td>
                     <td th:text="${vehicle.status}"></td>
                     <td th:text="${vehicle.mileage}"></td>
                     <td th:text="${vehicle.manufacturingYear}"></td>
-                    <td th:text="${vehicle.fuelLevel}"></td>
+                    <td th:text="${vehicle.insuranceId} != null ? ${vehicle.insuranceId} : 'N/A'"></td>
                 </tr>
             </tbody>
         </table>
+
         <a href="/user/dashboard" class="btn-back">Back</a>
     </div>
-  
-    <!-- Language Selector -->
+
     <div class="lang-selector">
         <select id="langSelect">
             <option value="en" selected>English</option>
@@ -193,7 +188,7 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             const langSelect = document.getElementById('langSelect');
 
             const translations = {
@@ -205,51 +200,53 @@
                     transmission: "Transmission",
                     status: "Status",
                     mileage: "Mileage",
-                    manufacturingYear: "Manufacturing Year",
-                    fuelLevel: "Fuel level",
+                    manufacturingYear: "Year",
+                    fuelLevel: "Fuel Level",
                     back: "Back"
                 },
                 fr: {
-                    title: "Véhicules Disponibles",
+                    title: "Véhicules disponibles",
                     brand: "Marque",
                     model: "Modèle",
                     color: "Couleur",
                     transmission: "Transmission",
                     status: "Statut",
                     mileage: "Kilométrage",
-                    manufacturingYear: "Année de Fabrication",
-                    fuelLevel: "Niveau de Carburant",
+                    manufacturingYear: "Année",
+                    fuelLevel: "Niveau de carburant",
                     back: "Retour"
                 },
                 es: {
-                    title: "Vehículos Disponibles",
+                    title: "Vehículos disponibles",
                     brand: "Marca",
                     model: "Modelo",
                     color: "Color",
                     transmission: "Transmisión",
                     status: "Estado",
                     mileage: "Kilometraje",
-                    manufacturingYear: "Año de Fabricación",
-                    fuelLevel: "Nivel de Combustible",
+                    manufacturingYear: "Año",
+                    fuelLevel: "Nivel de combustible",
                     back: "Volver"
                 }
             };
 
-            langSelect.addEventListener('change', function() {
+            langSelect.addEventListener('change', function () {
                 updateTexts(this.value);
             });
 
             function updateTexts(lang) {
                 const t = translations[lang];
                 document.querySelector('h1').textContent = t.title;
-                document.querySelector('th:nth-child(1)').textContent = t.brand;
-                document.querySelector('th:nth-child(2)').textContent = t.model;
-                document.querySelector('th:nth-child(3)').textContent = t.color;
-                document.querySelector('th:nth-child(4)').textContent = t.transmission;
-                document.querySelector('th:nth-child(5)').textContent = t.status;
-                document.querySelector('th:nth-child(6)').textContent = t.mileage;
-                document.querySelector('th:nth-child(7)').textContent = t.manufacturingYear;
-                document.querySelector('th:nth-child(8)').textContent = t.fuelLevel;
+                const headers = document.querySelectorAll('th');
+                headers[1].textContent = t.brand;
+                headers[2].textContent = t.model;
+                headers[3].textContent = t.color;
+                headers[4].textContent = t.fuelLevel;
+                headers[5].textContent = t.transmission;
+                headers[6].textContent = t.status;
+                headers[7].textContent = t.mileage;
+                headers[8].textContent = t.manufacturingYear;
+                headers[9].textContent = "Insurance ID";
                 document.querySelector('.btn-back').textContent = t.back;
             }
         });

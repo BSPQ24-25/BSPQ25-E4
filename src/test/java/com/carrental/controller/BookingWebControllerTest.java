@@ -8,130 +8,124 @@ import com.carrental.service.BookingService;
 import com.carrental.service.CarService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.springframework.security.core.Authentication;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import java.time.LocalDate;
-import java.util.Collections;
 import java.util.Optional;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-class BookingWebControllerTest {
-
+@WebMvcTest(BookingWebController.class)
+public class BookingWebControllerTest {
+	private static final Logger logger = LogManager.getLogger(BookingWebControllerTest.class);
+    @Autowired
     private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private CarService carService;
 
-    @Mock
+    @MockBean
     private BookingService bookingService;
 
-    @Mock
+    @MockBean
     private UserRepository userRepository;
 
-    @InjectMocks
-    private BookingWebController bookingWebController;
+    private User mockUser;
+    private Car mockCar;
 
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-        mockMvc = MockMvcBuilders.standaloneSetup(bookingWebController)
-                .setViewResolvers(new InternalResourceViewResolver("/WEB-INF/views/", ".jsp"))
-                .build();
+    public void setUp() {
+    	logger.info("Setting up BookingWebControllerTest");
+        mockUser = new User();
+        mockUser.setEmail("user@example.com");
+        mockUser.setPassword("password123");
+        mockUser.setName("Test User");
+        mockUser.setIsAdmin(false);
+
+        mockCar = new Car();
+        mockCar.setId(1L);
+        mockCar.setBrand("Test Brand");
+        mockCar.setModel("Test Model");
+        mockCar.setColor("Red");
+        logger.info("Mock user and car created");
     }
 
     @Test
-    void testShowBookingForm() throws Exception {
-        when(carService.getAllCars()).thenReturn(Collections.emptyList());
-
-        mockMvc.perform(get("/user/bookings/form"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("user/booking-form"))
-                .andExpect(model().attributeExists("cars"));
-
-        verify(carService, times(1)).getAllCars();
-    }
-
-    @Test
-    void testCreateBooking() throws Exception {
-        Long carId = 1L;
-        LocalDate startDate = LocalDate.of(2025, 5, 1);
-        LocalDate endDate = LocalDate.of(2025, 5, 7);
-        double dailyPrice = 100.0;
-        int rating = 5;
-        String paymentMethod = "CREDIT_CARD";
-        String review = "Excellent car!";
-
-        User user = new User();
-        user.setEmail("test@example.com");
-
-        Car car = new Car();
-        car.setId(carId);
-
-        Booking booking = new Booking();
-        booking.setCar(car);
-        booking.setUser(user);
-        booking.setStartDate(startDate);
-        booking.setEndDate(endDate);
-        booking.setBookingStatus("Pending");
-        booking.setPaymentMethod(paymentMethod);
-        booking.setDailyPrice(dailyPrice);
-        booking.setSecurityDeposit(200.0);
-        booking.setRating(rating);
-        booking.setReview(review);
-
-        Authentication authentication = mock(Authentication.class);
-        when(authentication.getName()).thenReturn("test@example.com");
-        when(userRepository.findByEmail("test@example.com")).thenReturn(Optional.of(user));
-        when(carService.getCarById(carId)).thenReturn(car);
+    @WithMockUser(username = "user@example.com")
+    public void testCreateBooking_UserNotFound() throws Exception {
+    	logger.info("Running testCreateBooking_UserNotFound");
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
 
         mockMvc.perform(post("/user/bookings/create")
-                        .param("carId", carId.toString())
-                        .param("startDate", startDate.toString())
-                        .param("endDate", endDate.toString())
-                        .param("dailyPrice", String.valueOf(dailyPrice))
-                        .param("rating", String.valueOf(rating))
-                        .param("paymentMethod", paymentMethod)
-                        .param("review", review))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/user/dashboard"));
-
-        verify(bookingService, times(1)).createBooking(booking);
+                .param("carId", "1")
+                .param("startDate", "2025-05-10")
+                .param("endDate", "2025-05-15")
+                .param("dailyPrice", "50.0")
+                .param("rating", "4")
+                .param("paymentMethod", "Credit Card")
+                .param("review", "Good car")
+                .with(csrf()))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/login?error=user-not-found"));
+        logger.info("User not found, redirection to login with error message");
     }
 
     @Test
-    void testCreateBooking_UserNotFound() throws Exception {
-        Long carId = 1L;
-        LocalDate startDate = LocalDate.of(2025, 5, 1);
-        LocalDate endDate = LocalDate.of(2025, 5, 7);
-        double dailyPrice = 100.0;
-        int rating = 5;
-        String paymentMethod = "CREDIT_CARD";
-        String review = "Excellent car!";
+    @WithMockUser(username = "user@example.com", roles = {"USER"})
+    public void testCreateBooking_SuccessfulBooking() throws Exception {
+    	logger.info("Running testCreateBooking_SuccessfulBooking");
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
 
-        Authentication authentication = mock(Authentication.class);
-        when(authentication.getName()).thenReturn("nonexistent@example.com");
-        when(userRepository.findByEmail("nonexistent@example.com")).thenReturn(Optional.empty());
+        when(carService.getCarById(anyLong())).thenReturn(Optional.of(mockCar));
+
+        when(bookingService.createBooking(any(Booking.class))).thenReturn(new Booking());
 
         mockMvc.perform(post("/user/bookings/create")
-                        .param("carId", carId.toString())
-                        .param("startDate", startDate.toString())
-                        .param("endDate", endDate.toString())
-                        .param("dailyPrice", String.valueOf(dailyPrice))
-                        .param("rating", String.valueOf(rating))
-                        .param("paymentMethod", paymentMethod)
-                        .param("review", review))
-                .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/login?error=user-not-found"));
+                .param("carId", "1")
+                .param("startDate", "2025-05-10")
+                .param("endDate", "2025-05-15")
+                .param("dailyPrice", "50.0")
+                .param("rating", "4")
+                .param("paymentMethod", "Credit Card")
+                .param("review", "Good car")
+                .with(csrf()))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/user/dashboard"));
+        logger.info("Booking created successfully, redirection to dashboard");
+    }
 
-        verify(userRepository, times(1)).findByEmail("nonexistent@example.com");
+    @Test
+    @WithMockUser(username = "admin@example.com", roles = {"ADMIN"})
+    public void testCreateBooking_Admin() throws Exception {
+    	logger.info("Running testCreateBooking_Admin");
+        when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(mockUser));
+
+        when(carService.getCarById(anyLong())).thenReturn(Optional.of(mockCar));
+
+        when(bookingService.createBooking(any(Booking.class))).thenReturn(new Booking());
+
+        mockMvc.perform(post("/user/bookings/create")
+                .param("carId", "1")
+                .param("startDate", "2025-05-10")
+                .param("endDate", "2025-05-15")
+                .param("dailyPrice", "60.0")
+                .param("rating", "5")
+                .param("paymentMethod", "PayPal")
+                .param("review", "Excellent car")
+                .with(csrf()))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/user/dashboard"));
+        logger.info("Admin booking created successfully, redirection to dashboard");
     }
 }

@@ -47,7 +47,7 @@ public class UserController {
     @GetMapping("/history")
     public String userRentalHistory(Authentication authentication, Model model) {
         String userName = authentication.getName();
-        List<String> statuses = Arrays.asList("confirmed", "completed", "cancelled");
+        List<String> statuses = Arrays.asList("Confirmed", "Completed", "Cancelled");
         List<Booking> historyBookings = bookingService.getUserRentalHistory(userName, statuses);
         model.addAttribute("historyBookings", historyBookings);
         return "user/rental-history";

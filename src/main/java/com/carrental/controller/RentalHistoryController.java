@@ -34,7 +34,7 @@ public class RentalHistoryController {
             User user = optionalUser.get();
            
             List<Booking> historyBookings = bookingService.getUserRentalHistory(
-                user.getName(), 
+                user.getEmail(), 
                 List.of("confirmed", "completed", "cancelled")
             );
              

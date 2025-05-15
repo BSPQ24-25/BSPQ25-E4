@@ -1,6 +1,7 @@
 package com.carrental.controller;
 
-import com.carrental.service.CarService;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.carrental.models.Car;
 import com.carrental.models.Insurance;
-import com.carrental.repository.CarRepository;
 import com.carrental.repository.InsuranceRepository;
 import com.carrental.service.BookingService;
+import com.carrental.service.CarService;
 
 
 @Controller
@@ -22,9 +23,6 @@ public class AdminDashboardController {
 
 	@Autowired
 	private InsuranceRepository insuranceRepository;
-
-	@Autowired
-	private CarRepository carRepository;
 	
     @Autowired
     private CarService carService;
@@ -55,23 +53,21 @@ public class AdminDashboardController {
     public String addVehicle(@ModelAttribute Car car, @RequestParam(name = "insuranceId", required = false) Long insuranceId) {
         if (insuranceId != null) {
             Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);
-            car.setInsurance(insurance);
+            car.setInsuranceID(insurance);
         }
-        carRepository.save(car);
-        return "redirect:/admin/vehicles";
-    }
-
-    @PostMapping("/admin/vehicles/delete/{id}")
-    public String deleteVehicle(@PathVariable Long id) {
-        carService.deleteCarById(id);
+        carService.saveCar(car);
         return "redirect:/admin/vehicles";
     }
     
     @GetMapping("/admin/vehicles/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
-        Car car = carService.getCarById(id);
+        Optional<Car> carOpt = carService.getCarById(id);
+        if (carOpt.isEmpty()) {
+            return "redirect:/admin/vehicles?error=car-not-found";
+        }
+        Car car = carOpt.get();
         model.addAttribute("car", car);
-        model.addAttribute("insurances", insuranceRepository.findAll()); // Por si necesitas mostrar opciones de seguro
+        model.addAttribute("insurances", insuranceRepository.findAll());
         return "admin/edit-vehicle";
     }
     
@@ -79,7 +75,7 @@ public class AdminDashboardController {
     public String updateVehicle(@ModelAttribute Car car, @RequestParam(name = "insuranceId", required = false) Long insuranceId) {
         if (insuranceId != null) {
             Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);
-            car.setInsurance(insurance);
+            car.setInsuranceID(insurance);
         }
 
         carService.saveCar(car);
