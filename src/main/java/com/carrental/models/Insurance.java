@@ -1,6 +1,8 @@
 package com.carrental.models;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -79,6 +81,8 @@ public class Insurance {
     }
 
     public String getFormattedPrice() {
-        return String.format("%.2f€", this.monthlyPrice);
+        NumberFormat format = NumberFormat.getNumberInstance(new Locale("es", "ES"));
+        return format.format(this.monthlyPrice) + "€";
     }
+
 }
