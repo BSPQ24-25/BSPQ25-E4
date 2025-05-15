@@ -79,8 +79,8 @@ class UserControllerTest {
     void userRentalHistoryTest() throws Exception {
         User user = new User();
         user.setId(1L);
-        user.setEmail("john@example.com");
         user.setName("John Doe");
+        user.setEmail("john@example.com");
 
         Booking booking1 = new Booking();
         booking1.setBookingId(1L);
@@ -88,15 +88,25 @@ class UserControllerTest {
         booking2.setBookingId(2L);
         List<Booking> bookings = Arrays.asList(booking1, booking2);
 
-        when(userService.findByEmail("john@example.com")).thenReturn(user); // ✅ necesario
-        when(bookingService.getUserRentalHistory("john@example.com", Arrays.asList("confirmed", "completed", "cancelled")))
+        // 👇 Mock del servicio de usuario
+        when(userService.findByEmail("john@example.com")).thenReturn(user);
+
+        // 👇 Mock con los valores exactos usados en el controller
+        when(bookingService.getUserRentalHistory(eq("john@example.com"),
+                eq(Arrays.asList("Confirmed", "Completed", "Cancelled"))))
                 .thenReturn(bookings);
 
         mockMvc.perform(get("/history").principal(authentication))
                 .andExpect(status().isOk())
                 .andExpect(view().name("user/rental-history"))
+                .andExpect(model().attributeExists("historyBookings"))
                 .andExpect(model().attribute("historyBookings", bookings));
+
+        verify(bookingService, times(1)).getUserRentalHistory("john@example.com",
+                Arrays.asList("Confirmed", "Completed", "Cancelled"));
     }
+
+
 
     @Test
     void userDashboardTest() throws Exception {
