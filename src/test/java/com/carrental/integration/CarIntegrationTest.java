@@ -39,7 +39,10 @@ public class CarIntegrationTest {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<String> request = new HttpEntity<>(carDetails, headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/cars", request, String.class);
+      //MAL??  ResponseEntity<String> response = restTemplate.postForEntity("/api/v1/cars", request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity("/cars", request, String.class);
+        restTemplate.postForEntity("/cars?admin=true", request, String.class);
+
         assertEquals(200, response.getStatusCodeValue());
         logger.info("Car created correctly: " + response.getBody());
     }
