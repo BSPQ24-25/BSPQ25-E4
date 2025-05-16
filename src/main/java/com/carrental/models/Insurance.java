@@ -4,7 +4,9 @@ import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -21,6 +23,7 @@ import jakarta.validation.constraints.Positive;
 @JsonIgnoreProperties({"cars"})
 @Entity
 @Table(name = "insurances")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Insurance {
 
 	@Id
@@ -46,6 +49,9 @@ public class Insurance {
 
     public void setInsuranceId(Long insuranceId) {
         this.id = insuranceId;
+    }
+    public Long getId() {
+    return id;
     }
 
     public String getProvider() {
