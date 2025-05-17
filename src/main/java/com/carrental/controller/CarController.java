@@ -19,15 +19,13 @@ public class CarController {
 
     @PostMapping
     @ResponseBody
-    public ResponseEntity<?> addCar(@RequestBody Car car, @RequestParam(required = false) Boolean admin) {
-        if (admin == null) {
-            return ResponseEntity.badRequest().body("Missing 'admin' parameter.");
-        }
+    public ResponseEntity<?> addCar(@RequestBody Car car, @RequestParam(defaultValue = "false") boolean admin) {
         if (!admin) {
-            return ResponseEntity.status(500).body("Only admins can add cars.");
+            return ResponseEntity.status(403).body("Only admins can add cars.");
         }
         return ResponseEntity.ok(carService.addCar(car));
     }
+
 
     @GetMapping
     @ResponseBody

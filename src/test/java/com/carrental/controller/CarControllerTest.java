@@ -65,28 +65,30 @@ class CarControllerTest {
                 .andExpect(jsonPath("$.brand").value("Toyota"));
         logger.info("Car added successfully");
     }
-
     @Test
-    void addCar_asUser_shouldReturnInternalServerError() throws Exception {
-		logger.info("Running addCar_asUser_shouldReturnInternalServerError test");
-		
+    void addCar_asUser_shouldReturnForbidden() throws Exception {
+        logger.info("Running addCar_asUser_shouldReturnForbidden test");
+
         mockMvc.perform(post("/cars")
                 .param("admin", "false")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(testCar)))
-                .andExpect(status().isInternalServerError());
+                .andExpect(status().isForbidden());
         logger.info("Car addition failed for non-admin user");
     }
 
+
     @Test
-    void addCar_missingAdminParam_shouldReturnBadRequest() throws Exception {
-    	logger.info("Running addCar_missingAdminParam_shouldReturnBadRequest test");
+    void addCar_missingAdminParam_shouldReturnForbidden() throws Exception {
+        logger.info("Running addCar_missingAdminParam_shouldReturnForbidden test");
+
         mockMvc.perform(post("/cars")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(testCar)))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isForbidden());
         logger.info("Car addition failed due to missing admin parameter");
     }
+
 
     @Test
     void getAllCars_shouldReturnListOfCars() throws Exception {

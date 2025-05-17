@@ -1,17 +1,12 @@
-
-
 package com.carrental.integration;
 
 import com.carrental.models.Booking;
 import com.carrental.models.Car;
 import com.carrental.models.User;
-
+import com.carrental.models.Insurance;
 import com.carrental.service.UserService;
 
-import ch.qos.logback.classic.Logger;
-
 import org.apache.logging.log4j.LogManager;
-import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,10 +18,13 @@ import org.springframework.context.annotation.Import;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestSecurityConfig.class)
 public class CarRentalIntegrationTest {
-	private static final org.apache.logging.log4j.Logger logger = (org.apache.logging.log4j.Logger) LogManager.getLogger(TestSecurityConfig.class);
+
+    private static final org.apache.logging.log4j.Logger logger = LogManager.getLogger(CarRentalIntegrationTest.class);
+
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -35,8 +33,8 @@ public class CarRentalIntegrationTest {
 
     @Test
     void testUserBooksAndCancelsCar_thenCleansUp() {
-        
         logger.info("Starting integration test for car rental system...");
+
         // 1. Create user
         logger.info("Creating user...");
         User user = new User();
@@ -51,7 +49,23 @@ public class CarRentalIntegrationTest {
         assertNotNull(userId);
         logger.info("User created with ID: " + userId);
 
-        // 2. Create car
+        // 2. Create insurance
+        logger.info("Creating insurance...");
+        Insurance insurance = new Insurance();
+        insurance.setProvider("TestInsurance");
+        insurance.setCoverage("Full");
+        insurance.setMonthlyPrice(80.0);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Insurance> insuranceRequest = new HttpEntity<>(insurance, headers);
+        ResponseEntity<Insurance> insuranceResponse = restTemplate.postForEntity("/api/v1/insurances", insuranceRequest, Insurance.class);
+        assertEquals(HttpStatus.OK, insuranceResponse.getStatusCode());
+        Insurance createdInsurance = insuranceResponse.getBody();
+        assertNotNull(createdInsurance);
+        logger.info("Insurance created with ID: " + createdInsurance.getId());
+
+        // 3. Create car
         logger.info("Creating car...");
         Car car = new Car();
         car.setBrand("Toyota");
@@ -62,23 +76,19 @@ public class CarRentalIntegrationTest {
         car.setStatus("AVAILABLE");
         car.setMileage(5000);
         car.setManufacturingYear(2020);
+        car.setInsuranceID(createdInsurance);
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<Car> carRequest = new HttpEntity<>(car, headers);
-        ResponseEntity<Car> carResponse = restTemplate.postForEntity("/cars?admin=true", carRequest, Car.class);
-        assertEquals(HttpStatus.OK, carResponse.getStatusCode());
+        ResponseEntity<Car> carResponse = restTemplate.postForEntity("/api/cars?admin=true", carRequest, Car.class);
         Long carId = carResponse.getBody().getId();
         assertNotNull(carId);
         logger.info("Car created with ID: " + carId);
 
-        // 3. Create booking
+        // 4. Create booking
         logger.info("Creating booking...");
         Booking booking = new Booking();
         booking.setUser(user);
         booking.setCar(carResponse.getBody());
-
-
         booking.setDailyPrice(50.0);
         booking.setSecurityDeposit(150.0);
         booking.setStartDate(LocalDate.now().plusDays(1));
@@ -93,7 +103,7 @@ public class CarRentalIntegrationTest {
         assertNotNull(bookingId);
         logger.info("Booking created with ID: " + bookingId);
 
-        // 4. Verify booking
+        // 5. Verify booking
         logger.info("Verifying booking...");
         ResponseEntity<Booking> fetched = restTemplate.getForEntity("/api/bookings/" + bookingId, Booking.class);
         assertEquals(HttpStatus.OK, fetched.getStatusCode());
@@ -101,17 +111,33 @@ public class CarRentalIntegrationTest {
         assertEquals(carId, fetched.getBody().getCar().getId());
         logger.info("Booking verified successfully.");
 
-        // 5. Delete booking
+        // 6. Delete booking
         logger.info("Deleting booking...");
         restTemplate.delete("/api/bookings/" + bookingId);
         logger.info("Booking deleted.");
 
-        // 6. Delete car
+        // 7. Delete car
         logger.info("Deleting car...");
-        restTemplate.delete("/cars/" + carId + "?admin=true");
+        HttpHeaders deleteHeaders = new HttpHeaders();
+        HttpEntity<Void> deleteEntity = new HttpEntity<>(deleteHeaders);
+
+        ResponseEntity<Void> deleteCarResponse = restTemplate.exchange(
+            "/api/cars/" + carId + "?admin=true",
+            HttpMethod.DELETE,
+            deleteEntity,
+            Void.class
+        );
+
+        assertEquals(HttpStatus.OK, deleteCarResponse.getStatusCode());
+
         logger.info("Car deleted.");
 
-        // 7. Delete user
+        // 8. Delete insurance
+        logger.info("Deleting insurance...");
+        restTemplate.delete("/api/v1/insurances/" + createdInsurance.getId());
+        logger.info("Insurance deleted.");
+
+        // 9. Delete user
         logger.info("Deleting user...");
         userService.deleteUser(userId);
         logger.info("User deleted.");
