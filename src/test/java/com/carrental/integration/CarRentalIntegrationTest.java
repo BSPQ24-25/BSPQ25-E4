@@ -75,11 +75,9 @@ public class CarRentalIntegrationTest {
         // 3. Create booking
         logger.info("Creating booking...");
         Booking booking = new Booking();
-        User savedUser = userService.findByEmail(user.getEmail());
-        Car savedCar = restTemplate.getForObject("/cars/" + carId, Car.class);
+        booking.setUser(user);
+        booking.setCar(carResponse.getBody());
 
-        booking.setUser(savedUser);
-        booking.setCar(savedCar);
 
         booking.setDailyPrice(50.0);
         booking.setSecurityDeposit(150.0);
