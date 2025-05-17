@@ -79,10 +79,14 @@ public class AdminController {
 
     @GetMapping("/users/edit/{id}")
     public String editUserForm(@PathVariable Long id, Model model) {
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
-        return "admin/edit-user";
+        return userService.getUserById(id)
+                .map(user -> {
+                    model.addAttribute("user", user);
+                    return "admin/edit-user";
+                })
+                .orElse("redirect:/admin/users");
     }
+
 
     @PostMapping("/users/edit/{id}")
     public String updateUser(@PathVariable Long id, @ModelAttribute User user) {

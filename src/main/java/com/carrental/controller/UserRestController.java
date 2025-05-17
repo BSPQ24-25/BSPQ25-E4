@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/v1/users")
 public class UserRestController {
@@ -25,10 +27,7 @@ public class UserRestController {
 
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
-        try {
-            return ResponseEntity.ok(userService.getUserById(id));
-        } catch (RuntimeException e) {
-            return ResponseEntity.notFound().build();
-        }
+        Optional<User> user = userService.getUserById(id);
+        return user.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 }

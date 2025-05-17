@@ -35,22 +35,20 @@ public class UserService {
     
     public User findByEmail(String email) {
         Optional<User> userOptional = userRepository.findByEmail(email);
-        if (userOptional.isPresent()) {
-            return userOptional.get();
-        } else {
-            throw new RuntimeException("User not found");
-        }
+        return userOptional.orElseThrow(() -> new RuntimeException("User not found"));
     }
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
-    public User getUserById(Long id) {
-        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+
+    // CAMBIADO: Devuelve Optional para usar con orElseThrow desde fuera
+    public Optional<User> getUserById(Long id) {
+        return userRepository.findById(id);
     }
-    
+
     public void updateUser(Long id, User updatedUser) {
-        User user = getUserById(id);
+        User user = getUserById(id).orElseThrow(() -> new RuntimeException("User not found"));
         user.setName(updatedUser.getName());
         user.setEmail(updatedUser.getEmail());
         user.setAddress(updatedUser.getAddress());
@@ -58,7 +56,7 @@ public class UserService {
         user.setIsAdmin(updatedUser.getIsAdmin());
         userRepository.save(user);
     }
-    
+
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }

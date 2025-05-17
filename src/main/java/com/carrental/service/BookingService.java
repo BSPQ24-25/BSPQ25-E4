@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.carrental.dto.BookingDTO;
 import com.carrental.models.Booking;
+import com.carrental.models.Car;
 import com.carrental.models.User;
 import com.carrental.repository.BookingRepository;
 
@@ -19,6 +21,9 @@ public class BookingService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CarService carService;
 
     @Autowired
     public BookingService(BookingRepository bookingRepository, PaymentGatewayService paymentGatewayService) {
@@ -112,5 +117,24 @@ public class BookingService {
             .orElseThrow(() -> new RuntimeException("Booking not found"));
         booking.setBookingStatus("Completed");
         bookingRepository.save(booking);
+    }
+    public Booking createBookingFromDTO(BookingDTO bookingDTO) {
+    User user = userService.getUserById(bookingDTO.getUserId())
+        .orElseThrow(() -> new RuntimeException("User not found"));
+
+    Car car = carService.getCarById(bookingDTO.getCarId())
+        .orElseThrow(() -> new RuntimeException("Car not found"));
+
+    Booking booking = new Booking();
+    booking.setUser(user);
+    booking.setCar(car);
+    booking.setDailyPrice(bookingDTO.getDailyPrice());
+    booking.setSecurityDeposit(bookingDTO.getSecurityDeposit());
+    booking.setStartDate(bookingDTO.getStartDate());
+    booking.setEndDate(bookingDTO.getEndDate());
+    booking.setPaymentMethod(bookingDTO.getPaymentMethod());
+    booking.setBookingStatus(bookingDTO.getBookingStatus());
+
+    return createBooking(booking);
     }
 }

@@ -10,6 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +32,6 @@ class UserServiceTest {
     @BeforeEach
     void setUp() {
 		logger.info("Setting up UserServiceTest");
-		
         MockitoAnnotations.openMocks(this);
         user = new User();
         user.setId(1L);
@@ -46,8 +47,6 @@ class UserServiceTest {
     @Test
     void registerUser_success() {
 		logger.info("Testing registerUser method");
-
-		
         when(userRepository.existsByEmail(user.getEmail())).thenReturn(false);
         when(passwordEncoder.encode(anyString())).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class))).thenReturn(user);
@@ -62,7 +61,7 @@ class UserServiceTest {
 
     @Test
     void registerUser_emailInUse_throwsException() {
-    	logger.info("Testing registerUser method with email in use");
+		logger.info("Testing registerUser method with email in use");
         when(userRepository.existsByEmail(user.getEmail())).thenReturn(true);
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
@@ -75,7 +74,7 @@ class UserServiceTest {
 
     @Test
     void findByEmail_success() {
-    	logger.info("Testing findByEmail method");
+		logger.info("Testing findByEmail method");
         when(userRepository.findByEmail("john@example.com")).thenReturn(Optional.of(user));
 
         User found = userService.findByEmail("john@example.com");
@@ -86,7 +85,7 @@ class UserServiceTest {
 
     @Test
     void findByEmail_notFound_throwsException() {
-    	logger.info("Testing findByEmail method for a non-existing user");
+		logger.info("Testing findByEmail method for a non-existing user");
         when(userRepository.findByEmail("john@example.com")).thenReturn(Optional.empty());
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
@@ -100,7 +99,6 @@ class UserServiceTest {
     @Test
     void getAllUsers_returnsList() {
 		logger.info("Testing getAllUsers method");
-		
         List<User> users = Arrays.asList(user);
         when(userRepository.findAll()).thenReturn(users);
 
@@ -112,32 +110,36 @@ class UserServiceTest {
 
     @Test
     void getUserById_found() {
-		logger.info("Testing getUserById method");
-		
+        logger.info("Testing getUserById method");
+
         when(userRepository.findById(1L)).thenReturn(Optional.of(user));
 
-        User result = userService.getUserById(1L);
+        Optional<User> result = userService.getUserById(1L);  // ✅ ahora es Optional<User>
 
-        assertEquals(1L, result.getId());
-        logger.info("User found: {}", result.getId());
+        assertTrue(result.isPresent());
+        assertEquals(1L, result.get().getId());
+        logger.info("User found: {}", result.get().getId());
     }
+
+
 
     @Test
     void getUserById_notFound_throwsException() {
-    	logger.info("Testing getUserById method for a non-existing user");
+        logger.info("Testing getUserById method for a non-existing user");
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
 
         RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            userService.getUserById(1L);
+            userService.getUserById(1L).orElseThrow(() -> new RuntimeException("User not found"));
         });
 
         assertEquals("User not found", exception.getMessage());
         logger.info("User not found for ID: 1");
     }
 
+
     @Test
     void updateUser_success() {
-    	logger.info("Testing updateUser method");
+		logger.info("Testing updateUser method");
         User updated = new User();
         updated.setName("Jane Doe");
         updated.setEmail("jane@example.com");
@@ -159,7 +161,6 @@ class UserServiceTest {
     @Test
     void deleteUser_success() {
 		logger.info("Testing deleteUser method");
-		
         doNothing().when(userRepository).deleteById(1L);
 
         userService.deleteUser(1L);

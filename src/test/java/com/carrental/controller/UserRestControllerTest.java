@@ -10,16 +10,20 @@ import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Optional;
+
 class UserRestControllerTest {
 
-	private static final Logger logger = LogManager.getLogger(UserRestControllerTest.class);
-    
+    private static final Logger logger = LogManager.getLogger(UserRestControllerTest.class);
+
     @Mock
     private UserService userService;
 
@@ -30,7 +34,7 @@ class UserRestControllerTest {
 
     @BeforeEach
     void setUp() {
-    	        logger.info("Setting up UserRestControllerTest");
+        logger.info("Setting up UserRestControllerTest");
         MockitoAnnotations.openMocks(this);
         mockMvc = MockMvcBuilders.standaloneSetup(userRestController).build();
         logger.info("MockMvc setup complete");
@@ -38,7 +42,7 @@ class UserRestControllerTest {
 
     @Test
     void createUserTest() throws Exception {
-    	logger.info("Running createUserTest");
+        logger.info("Running createUserTest");
         User user = new User();
         user.setName("John Doe");
         user.setEmail("john@example.com");
@@ -51,7 +55,16 @@ class UserRestControllerTest {
 
         mockMvc.perform(post("/api/v1/users")
                         .contentType("application/json")
-                        .content("{\"name\": \"John Doe\", \"email\": \"john@example.com\", \"password\": \"password123\", \"phone\": \"123-456-7890\", \"address\": \"123 Main St\", \"isAdmin\": false}"))
+                        .content("""
+                                {
+                                    "name": "John Doe",
+                                    "email": "john@example.com",
+                                    "password": "password123",
+                                    "phone": "123-456-7890",
+                                    "address": "123 Main St",
+                                    "isAdmin": false
+                                }
+                                """))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value("John Doe"))
                 .andExpect(jsonPath("$.email").value("john@example.com"))
@@ -65,20 +78,23 @@ class UserRestControllerTest {
 
     @Test
     void createUserTestBadRequest() throws Exception {
-    	logger.info("Running createUserTestBadRequest");
-        User user = new User();
-        user.setName("John Doe");
-        user.setEmail("");
-        user.setPassword("password123");
-        user.setPhone("123-456-7890");
-        user.setAddress("123 Main St");
-        user.setIsAdmin(false);
+        logger.info("Running createUserTestBadRequest");
 
-        when(userService.registerUser(any(User.class))).thenThrow(new IllegalArgumentException("Invalid user data"));
+        when(userService.registerUser(any(User.class)))
+                .thenThrow(new IllegalArgumentException("Invalid user data"));
 
         mockMvc.perform(post("/api/v1/users")
                         .contentType("application/json")
-                        .content("{\"name\": \"John Doe\", \"email\": \"\", \"password\": \"password123\", \"phone\": \"123-456-7890\", \"address\": \"123 Main St\", \"isAdmin\": false}"))
+                        .content("""
+                                {
+                                    "name": "John Doe",
+                                    "email": "",
+                                    "password": "password123",
+                                    "phone": "123-456-7890",
+                                    "address": "123 Main St",
+                                    "isAdmin": false
+                                }
+                                """))
                 .andExpect(status().isBadRequest());
 
         verify(userService, times(1)).registerUser(any(User.class));
@@ -87,7 +103,7 @@ class UserRestControllerTest {
 
     @Test
     void getUserTest() throws Exception {
-    	logger.info("Running getUserTest");
+        logger.info("Running getUserTest");
         User user = new User();
         user.setId(1L);
         user.setName("John Doe");
@@ -96,7 +112,7 @@ class UserRestControllerTest {
         user.setAddress("123 Main St");
         user.setIsAdmin(false);
 
-        when(userService.getUserById(1L)).thenReturn(user);
+        when(userService.getUserById(1L)).thenReturn(Optional.of(user));
 
         mockMvc.perform(get("/api/v1/users/1"))
                 .andExpect(status().isOk())
@@ -113,8 +129,9 @@ class UserRestControllerTest {
 
     @Test
     void getUserTestNotFound() throws Exception {
-    	logger.info("Running getUserTestNotFound");
-        when(userService.getUserById(999L)).thenThrow(new RuntimeException("User not found"));
+        logger.info("Running getUserTestNotFound");
+
+        when(userService.getUserById(999L)).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/api/v1/users/999"))
                 .andExpect(status().isNotFound());

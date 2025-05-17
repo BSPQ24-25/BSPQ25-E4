@@ -1,9 +1,11 @@
 package com.carrental.integration;
 
+import com.carrental.config.TestSecurityConfig;
+import com.carrental.dto.BookingDTO;
 import com.carrental.models.Booking;
 import com.carrental.models.Car;
-import com.carrental.models.User;
 import com.carrental.models.Insurance;
+import com.carrental.models.User;
 import com.carrental.service.UserService;
 
 import org.apache.logging.log4j.LogManager;
@@ -11,9 +13,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.*;
-import com.carrental.config.TestSecurityConfig;
 import org.springframework.context.annotation.Import;
+import org.springframework.http.*;
 
 import java.time.LocalDate;
 
@@ -84,20 +85,21 @@ public class CarRentalIntegrationTest {
         assertNotNull(carId);
         logger.info("Car created with ID: " + carId);
 
-        // 4. Create booking
+        // 4. Create booking using BookingDTO
         logger.info("Creating booking...");
-        Booking booking = new Booking();
-        booking.setUser(user);
-        booking.setCar(carResponse.getBody());
-        booking.setDailyPrice(50.0);
-        booking.setSecurityDeposit(150.0);
-        booking.setStartDate(LocalDate.now().plusDays(1));
-        booking.setEndDate(LocalDate.now().plusDays(5));
-        booking.setPaymentMethod("CARD");
-        booking.setBookingStatus("CONFIRMED");
+        BookingDTO bookingDTO = new BookingDTO();
+        bookingDTO.setUserId(userId);
+        bookingDTO.setCarId(carId);
+        bookingDTO.setDailyPrice(50.0);
+        bookingDTO.setSecurityDeposit(150.0);
+        bookingDTO.setStartDate(LocalDate.now().plusDays(1));
+        bookingDTO.setEndDate(LocalDate.now().plusDays(5));
+        bookingDTO.setPaymentMethod("CARD");
+        bookingDTO.setBookingStatus("CONFIRMED");
 
-        HttpEntity<Booking> bookingRequest = new HttpEntity<>(booking, headers);
+        HttpEntity<BookingDTO> bookingRequest = new HttpEntity<>(bookingDTO, headers);
         ResponseEntity<Booking> bookingResponse = restTemplate.postForEntity("/api/bookings", bookingRequest, Booking.class);
+
         assertEquals(HttpStatus.OK, bookingResponse.getStatusCode());
         Long bookingId = bookingResponse.getBody().getBookingId();
         assertNotNull(bookingId);
@@ -118,18 +120,14 @@ public class CarRentalIntegrationTest {
 
         // 7. Delete car
         logger.info("Deleting car...");
-        HttpHeaders deleteHeaders = new HttpHeaders();
-        HttpEntity<Void> deleteEntity = new HttpEntity<>(deleteHeaders);
-
+        HttpEntity<Void> deleteEntity = new HttpEntity<>(headers);
         ResponseEntity<Void> deleteCarResponse = restTemplate.exchange(
-            "/api/cars/" + carId + "?admin=true",
-            HttpMethod.DELETE,
-            deleteEntity,
-            Void.class
+                "/api/cars/" + carId + "?admin=true",
+                HttpMethod.DELETE,
+                deleteEntity,
+                Void.class
         );
-
         assertEquals(HttpStatus.OK, deleteCarResponse.getStatusCode());
-
         logger.info("Car deleted.");
 
         // 8. Delete insurance

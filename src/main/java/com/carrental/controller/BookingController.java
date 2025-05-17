@@ -5,18 +5,15 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import com.carrental.dto.BookingDTO;
 import com.carrental.models.Booking;
+import com.carrental.models.Car;
+import com.carrental.models.User;
 import com.carrental.service.BookingService;
+import com.carrental.service.CarService;
+import com.carrental.service.UserService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -27,6 +24,12 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CarService carService;
 
     @GetMapping
     public List<Booking> getAllBookings() {
@@ -40,8 +43,23 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<Booking> createBooking(@RequestBody Booking booking) {
+    public ResponseEntity<Booking> createBooking(@RequestBody BookingDTO bookingDTO) {
         try {
+            User user = userService.getUserById(bookingDTO.getUserId())
+                                   .orElseThrow(() -> new RuntimeException("User not found"));
+            Car car = carService.getCarById(bookingDTO.getCarId())
+                                .orElseThrow(() -> new RuntimeException("Car not found"));
+
+            Booking booking = new Booking();
+            booking.setUser(user);
+            booking.setCar(car);
+            booking.setDailyPrice(bookingDTO.getDailyPrice());
+            booking.setSecurityDeposit(bookingDTO.getSecurityDeposit());
+            booking.setStartDate(bookingDTO.getStartDate());
+            booking.setEndDate(bookingDTO.getEndDate());
+            booking.setPaymentMethod(bookingDTO.getPaymentMethod());
+            booking.setBookingStatus(bookingDTO.getBookingStatus());
+
             Booking createdBooking = bookingService.createBooking(booking);
             return ResponseEntity.ok(createdBooking);
         } catch (Exception e) {
@@ -74,7 +92,7 @@ public class BookingController {
     public ResponseEntity<Void> confirmBooking(@RequestParam("bookingId") Long bookingId) {
         try {
             bookingService.confirmBooking(bookingId);
-            return ResponseEntity.ok().build(); 
+            return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

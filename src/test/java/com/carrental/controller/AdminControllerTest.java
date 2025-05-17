@@ -1,6 +1,9 @@
 package com.carrental.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+
+import java.util.Optional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +17,7 @@ import com.carrental.service.BookingService;
 import com.carrental.service.UserService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.Test;
 
 public class AdminControllerTest {
 	private static final Logger logger = LogManager.getLogger(AdminControllerTest.class);
@@ -141,20 +145,21 @@ public class AdminControllerTest {
         logger.info("Rental history view displayed successfully");
     }
 
-    public void testEditUserForm_ReturnsEditUserView() {
-    	logger.info("Running testEditUserForm_ReturnsEditUserView");
-        setup();
-        
-        Long userId = 1L;
-        when(userService.getUserById(userId)).thenReturn(adminUser);
-        
-        String viewName = adminController.editUserForm(userId, model);
-        
-        assert viewName.equals("admin/edit-user") : 
-            "Expected 'admin/edit-user' but got " + viewName;
-        verify(model).addAttribute("user", adminUser);
-        logger.info("Edit user form displayed successfully");
-    }
+    @Test
+public void testEditUserForm_ReturnsEditUserView() {
+    logger.info("Running testEditUserForm_ReturnsEditUserView");
+    setup();
+
+    Long userId = 1L;
+    when(userService.getUserById(userId)).thenReturn(Optional.of(adminUser));
+
+    String viewName = adminController.editUserForm(userId, model);
+
+    assertEquals("admin/edit-user", viewName, "Expected 'admin/edit-user'");
+    verify(model).addAttribute("user", adminUser);
+    logger.info("Edit user form displayed successfully");
+}
+
 
     public void testUpdateUser_RedirectsToUsers() {
     	logger.info("Running testUpdateUser_RedirectsToUsers");
