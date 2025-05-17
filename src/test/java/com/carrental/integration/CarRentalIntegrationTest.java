@@ -5,7 +5,13 @@ package com.carrental.integration;
 import com.carrental.models.Booking;
 import com.carrental.models.Car;
 import com.carrental.models.User;
+
 import com.carrental.service.UserService;
+
+import ch.qos.logback.classic.Logger;
+
+import org.apache.logging.log4j.LogManager;
+import org.hibernate.validator.internal.util.logging.LoggerFactory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,11 +23,10 @@ import org.springframework.context.annotation.Import;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @Import(TestSecurityConfig.class)
 public class CarRentalIntegrationTest {
-
+	private static final org.apache.logging.log4j.Logger logger = (org.apache.logging.log4j.Logger) LogManager.getLogger(TestSecurityConfig.class);
     @Autowired
     private TestRestTemplate restTemplate;
 
@@ -30,10 +35,10 @@ public class CarRentalIntegrationTest {
 
     @Test
     void testUserBooksAndCancelsCar_thenCleansUp() {
-        System.out.println("STARTING testUserBooksAndCancelsCar_thenCleansUp...");
-
+        
+        logger.info("Starting integration test for car rental system...");
         // 1. Create user
-        System.out.println("🔧 Creating user...");
+        logger.info("Creating user...");
         User user = new User();
         user.setName("Alice");
         user.setPhone("123456789");
@@ -44,10 +49,10 @@ public class CarRentalIntegrationTest {
         user = userService.registerUser(user);
         Long userId = user.getId();
         assertNotNull(userId);
-        System.out.println("User created with ID: " + userId);
+        logger.info("User created with ID: " + userId);
 
         // 2. Create car
-        System.out.println("Creating car...");
+        logger.info("Creating car...");
         Car car = new Car();
         car.setBrand("Toyota");
         car.setModel("Corolla");
@@ -65,13 +70,17 @@ public class CarRentalIntegrationTest {
         assertEquals(HttpStatus.OK, carResponse.getStatusCode());
         Long carId = carResponse.getBody().getId();
         assertNotNull(carId);
-        System.out.println("Car created with ID: " + carId);
+        logger.info("Car created with ID: " + carId);
 
         // 3. Create booking
-        System.out.println("Creating booking...");
+        logger.info("Creating booking...");
         Booking booking = new Booking();
-        booking.setUser(user);
-        booking.setCar(carResponse.getBody());
+        User savedUser = userService.findByEmail(user.getEmail());
+        Car savedCar = restTemplate.getForObject("/cars/" + carId, Car.class);
+
+        booking.setUser(savedUser);
+        booking.setCar(savedCar);
+
         booking.setDailyPrice(50.0);
         booking.setSecurityDeposit(150.0);
         booking.setStartDate(LocalDate.now().plusDays(1));
@@ -84,31 +93,31 @@ public class CarRentalIntegrationTest {
         assertEquals(HttpStatus.OK, bookingResponse.getStatusCode());
         Long bookingId = bookingResponse.getBody().getBookingId();
         assertNotNull(bookingId);
-        System.out.println("Booking created with ID: " + bookingId);
+        logger.info("Booking created with ID: " + bookingId);
 
         // 4. Verify booking
-        System.out.println("Verifying booking...");
+        logger.info("Verifying booking...");
         ResponseEntity<Booking> fetched = restTemplate.getForEntity("/api/bookings/" + bookingId, Booking.class);
         assertEquals(HttpStatus.OK, fetched.getStatusCode());
         assertEquals(userId, fetched.getBody().getUser().getId());
         assertEquals(carId, fetched.getBody().getCar().getId());
-        System.out.println("Booking verified successfully.");
+        logger.info("Booking verified successfully.");
 
         // 5. Delete booking
-        System.out.println("Deleting booking...");
+        logger.info("Deleting booking...");
         restTemplate.delete("/api/bookings/" + bookingId);
-        System.out.println("Booking deleted.");
+        logger.info("Booking deleted.");
 
         // 6. Delete car
-        System.out.println("Deleting car...");
+        logger.info("Deleting car...");
         restTemplate.delete("/cars/" + carId + "?admin=true");
-        System.out.println("Car deleted.");
+        logger.info("Car deleted.");
 
         // 7. Delete user
-        System.out.println("Deleting user...");
+        logger.info("Deleting user...");
         userService.deleteUser(userId);
-        System.out.println("User deleted.");
+        logger.info("User deleted.");
 
-        System.out.println("Test finished successfully.");
+        logger.info("Integration test completed successfully.");
     }
 }
