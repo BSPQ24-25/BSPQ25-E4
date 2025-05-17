@@ -88,9 +88,23 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <select id="langSelect" class="form-select" style="width: 150px; display: inline-block;">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
     <div class="login-container">
         <h1>Log In</h1>
 
@@ -120,5 +134,75 @@
 
         <p>Don't have an account? <a th:href="@{/register}">Register</a></p>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const langSelect = document.getElementById('langSelect');
+
+            const translations = {
+                en: {
+                    loginTitle: "Log In",
+                    emailLabel: "Email:",
+                    passwordLabel: "Password:",
+                    loginButton: "Log in",
+                    registerText: "Don't have an account?",
+                    registerLink: "Register",
+                    errorMsg: "Invalid email or password.",
+                    logoutMsg: "You have logged out.",
+                    successMsg: "Registration successful."
+                },
+                fr: {
+                    loginTitle: "Se Connecter",
+                    emailLabel: "E-mail:",
+                    passwordLabel: "Mot de passe:",
+                    loginButton: "Se Connecter",
+                    registerText: "Vous n'avez pas de compte?",
+                    registerLink: "S'inscrire",
+                    errorMsg: "E-mail ou mot de passe invalide.",
+                    logoutMsg: "Vous vous êtes déconnecté.",
+                    successMsg: "Inscription réussie."
+                },
+                es: {
+                    loginTitle: "Iniciar sesión",
+                    emailLabel: "Correo electrónico:",
+                    passwordLabel: "Contraseña:",
+                    loginButton: "Iniciar sesión",
+                    registerText: "¿No tienes cuenta?",
+                    registerLink: "Registrarse",
+                    errorMsg: "Correo electrónico o contraseña incorrectos.",
+                    logoutMsg: "Has cerrado sesión.",
+                    successMsg: "Registro exitoso."
+                }
+            };
+
+            langSelect.addEventListener('change', function() {
+                updateTexts(this.value);
+            });
+
+            function updateTexts(lang) {
+                const t = translations[lang];
+                document.querySelector('h1').textContent = t.loginTitle;
+                document.querySelector('label[for="email"]').textContent = t.emailLabel;
+                document.querySelector('label[for="password"]').textContent = t.passwordLabel;
+                document.querySelector('button[type="submit"]').textContent = t.loginButton;
+                document.querySelector('p').textContent = t.registerText;
+                document.querySelector('a').textContent = t.registerLink;
+
+                // Update alert messages
+                const errorMsg = document.querySelector('.alert-danger');
+                if (errorMsg) {
+                    errorMsg.textContent = t.errorMsg;
+                }
+                const logoutMsg = document.querySelector('.alert-success');
+                if (logoutMsg) {
+                    logoutMsg.textContent = t.logoutMsg;
+                }
+                const successMsg = document.querySelector('.alert-success');
+                if (successMsg) {
+                    successMsg.textContent = t.successMsg;
+                }
+            }
+        });
+    </script>
 </body>
 </html>
