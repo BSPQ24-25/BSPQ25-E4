@@ -11,6 +11,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -114,9 +118,11 @@ class BookingControllerTest {
         logger.info("Booking with ID 1 not found");
     }
 
+
+
     @Test
     void testCreateBooking() throws Exception {
-    	logger.info("Running testCreateBooking");
+        logger.info("Running testCreateBooking");
         Booking booking = createBooking();
 
         when(bookingService.createBooking(any(Booking.class))).thenReturn(booking);
@@ -129,25 +135,27 @@ class BookingControllerTest {
                 "bookingStatus": "PENDING",
                 "paymentMethod": "CARD",
                 "securityDeposit": 200.0,
-                "car": { "id": 1 },
-                "user": { "id": 1 }
+                "car": { "id": 2 },
+                "user": { "id": 3 }
             }
         """;
 
         mockMvc.perform(post("/api/bookings")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(bookingJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.bookingId").value(1))
-                .andExpect(jsonPath("$.dailyPrice").value(100.0));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(bookingJson)
+                .with(SecurityMockMvcRequestPostProcessors.csrf()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.bookingId").value(1))
+            .andExpect(jsonPath("$.dailyPrice").value(100.0));
 
         verify(bookingService, times(1)).createBooking(any(Booking.class));
         logger.info("Booking created successfully with ID: " + booking.getBookingId());
     }
 
+
     @Test
     void testUpdateBooking() throws Exception {
-    	logger.info("Running testUpdateBooking");
+        logger.info("Running testUpdateBooking");
         Booking updatedBooking = createBooking();
         updatedBooking.setDailyPrice(120.0);
 
@@ -161,21 +169,25 @@ class BookingControllerTest {
                 "bookingStatus": "PENDING",
                 "paymentMethod": "CARD",
                 "securityDeposit": 200.0,
-                "car": { "id": 1 },
-                "user": { "id": 1 }
+                "car": { "id": 2 },
+                "user": { "id": 3 }
             }
         """;
 
         mockMvc.perform(put("/api/bookings/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(updateJson))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.bookingId").value(1))
-                .andExpect(jsonPath("$.dailyPrice").value(120.0));
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(updateJson)
+                .with(SecurityMockMvcRequestPostProcessors.csrf()))
+            .andExpect(status().isOk())
+            .andExpect(jsonPath("$.bookingId").value(1))
+            .andExpect(jsonPath("$.dailyPrice").value(120.0));
 
         verify(bookingService, times(1)).updateBooking(eq(1L), any(Booking.class));
         logger.info("Booking updated successfully with ID: " + updatedBooking.getBookingId());
     }
+
+
+
 
     @Test
     void testDeleteBooking() throws Exception {

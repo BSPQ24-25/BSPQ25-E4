@@ -42,6 +42,10 @@ public class Booking {
 
     private int rating;
     private String review;
+    
+    public Booking() {
+    }
+
 
     // Getters and Setters
     public Long getBookingId() {

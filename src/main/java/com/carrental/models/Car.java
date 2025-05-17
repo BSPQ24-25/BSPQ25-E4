@@ -45,6 +45,11 @@ public class Car {
     @OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
     private List<Booking> bookings;
 
+    public Car() {
+    
+    }
+
+
     public Long getId() {
         return id;
     }
