@@ -195,16 +195,11 @@
         <artifactId>jacoco-maven-plugin</artifactId>
         <version>0.8.11</version>
         <executions>
-          <!-- Prepara el agente antes de ejecutar los tests -->
           <execution>
-            <id>prepare-agent</id>
             <goals>
               <goal>prepare-agent</goal>
             </goals>
-            <phase>initialize</phase>
           </execution>
-
-          <!-- Genera el reporte después de los tests -->
           <execution>
             <id>report</id>
             <phase>test</phase>
@@ -214,7 +209,6 @@
           </execution>
         </executions>
       </plugin>
-
     </plugins>
   </build>
 
