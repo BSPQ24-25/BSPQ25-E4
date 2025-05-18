@@ -6,7 +6,6 @@ import com.carrental.models.Car;
 import com.carrental.models.Insurance;
 import com.carrental.models.User;
 import com.carrental.service.UserService;
-import com.carrental.dto.BookingDTO;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -99,9 +98,9 @@ public class CarRentalIntegrationTest {
         bookingMap.put("bookingStatus", "CONFIRMED");
 
         // También preparar el DTO para alternancia
-        BookingDTO bookingDTO = new BookingDTO();
-        bookingDTO.setUserId(userId);
-        bookingDTO.setCarId(carId);
+        Booking bookingDTO = new Booking();
+        bookingDTO.setUser(user);
+        bookingDTO.setCar(car);
         bookingDTO.setDailyPrice(50.0);
         bookingDTO.setSecurityDeposit(150.0);
         bookingDTO.setStartDate(LocalDate.now().plusDays(1));
@@ -110,11 +109,11 @@ public class CarRentalIntegrationTest {
         bookingDTO.setBookingStatus("CONFIRMED");
 
         logger.info("📦 Enviando BookingDTO: userId={}, carId={}, startDate={}, endDate={}", 
-            bookingDTO.getUserId(), bookingDTO.getCarId(), 
+            bookingDTO.getUser(), bookingDTO.getCar(), 
             bookingDTO.getStartDate(), bookingDTO.getEndDate());
 
         // Probar primero con el DTO
-        HttpEntity<BookingDTO> bookingRequest = new HttpEntity<>(bookingDTO, headers);
+        HttpEntity<Booking> bookingRequest = new HttpEntity<>(bookingDTO, headers);
         
         try {
             // Obtener respuesta detallada como String para ver el mensaje de error si existe
