@@ -189,44 +189,6 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
 
-      <!-- Maven Compiler Plugin con configuración específica para compilación -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.11.0</version>
-        <executions>
-          <!-- Asegura que primero se compile el código principal -->
-          <execution>
-            <id>default-compile</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>compile</goal>
-            </goals>
-          </execution>
-          <!-- Luego compila los tests con acceso al código principal -->
-          <execution>
-            <id>default-testCompile</id>
-            <phase>test-compile</phase>
-            <goals>
-              <goal>testCompile</goal>
-            </goals>
-            <configuration>
-              <compilerArgs>
-                <arg>-cp</arg>
-                <arg>${project.build.outputDirectory}</arg>
-              </compilerArgs>
-            </configuration>
-          </execution>
-        </executions>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-          <compilerArgs>
-            <arg>-parameters</arg>
-          </compilerArgs>
-        </configuration>
-      </plugin>
-
       <!-- JaCoCo -->
       <plugin>
         <groupId>org.jacoco</groupId>
@@ -246,18 +208,6 @@
             </goals>
           </execution>
         </executions>
-      </plugin>
-
-      <!-- Maven Surefire para configurar tests -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.1.2</version>
-        <configuration>
-          <additionalClasspathElements>
-            <additionalClasspathElement>${project.build.outputDirectory}</additionalClasspathElement>
-          </additionalClasspathElements>
-        </configuration>
       </plugin>
     </plugins>
   </build>
