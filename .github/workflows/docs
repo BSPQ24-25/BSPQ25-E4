@@ -2,18 +2,24 @@ name: Build and Deploy Doxygen
 
 on:
   push:
-    branches: [main]  # trigger only when main changes
-  workflow_dispatch:   # optional: allow manual runs from the Actions tab
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   test-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
 
     steps:
       - name: 📥 Checkout the repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Required to push to another branch
+          fetch-depth: 0
 
       - name: ☕ Set up Java 17
         uses: actions/setup-java@v3
@@ -38,10 +44,11 @@ jobs:
       - name: 📄 Generate Doxygen documentation
         run: doxygen Doxyfile
 
-      - name: 🚀 Deploy to gh-pages branch
-        uses: peaceiris/actions-gh-pages@v3
+      - name: 📦 Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./docs/html
-          force_orphan: false
+          path: ./docs/html  # Asegúrate de que aquí está tu index.html
+
+      - name: 🚀 Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
