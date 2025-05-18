@@ -1,6 +1,0 @@
-<map id="com.carrental.controller.AdminController.showAdminDashboard" name="com.carrental.controller.AdminController.showAdminDashboard">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,255,72"/>
-<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="79,29,77,19,85,10,103,5,130,3,159,5,177,11,175,16,158,10,130,8,104,10,88,15,82,21,84,28"/>
-<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1models_1_1_user.html#a55b223b41fffa31ad301afde0be5809f" title=" " alt="" coords="303,29,503,72"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="255,48,287,48,287,53,255,53"/>
-</map>

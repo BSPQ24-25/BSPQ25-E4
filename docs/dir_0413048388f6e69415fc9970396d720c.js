@@ -8,5 +8,5 @@ var dir_0413048388f6e69415fc9970396d720c =
     [ "models", "dir_ae419b9310ef16bfb5362ea131eff017.html", "dir_ae419b9310ef16bfb5362ea131eff017" ],
     [ "repository", "dir_ba5ebc4d710bd3c100df41b34bbeb4a5.html", "dir_ba5ebc4d710bd3c100df41b34bbeb4a5" ],
     [ "service", "dir_f760d11eae8d4bbb8664d4092a3527ea.html", "dir_f760d11eae8d4bbb8664d4092a3527ea" ],
-    [ "App.java", "_app_8java.html", "_app_8java" ]
+    [ "App.java", "App_8java.html", "App_8java" ]
 ];

@@ -1,7 +1,7 @@
 var dir_ba5ebc4d710bd3c100df41b34bbeb4a5 =
 [
-    [ "BookingRepository.java", "_booking_repository_8java.html", "_booking_repository_8java" ],
-    [ "CarRepository.java", "_car_repository_8java.html", "_car_repository_8java" ],
-    [ "InsuranceRepository.java", "_insurance_repository_8java.html", "_insurance_repository_8java" ],
-    [ "UserRepository.java", "_user_repository_8java.html", "_user_repository_8java" ]
+    [ "BookingRepository.java", "BookingRepository_8java.html", "BookingRepository_8java" ],
+    [ "CarRepository.java", "CarRepository_8java.html", "CarRepository_8java" ],
+    [ "InsuranceRepository.java", "InsuranceRepository_8java.html", "InsuranceRepository_8java" ],
+    [ "UserRepository.java", "UserRepository_8java.html", "UserRepository_8java" ]
 ];

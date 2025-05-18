@@ -25,16 +25,16 @@
 var NAVTREE =
 [
   [ "Car Rental", "index.html", [
-    [ "🚗 CarRentalSystem", "md__r_e_a_d_m_e.html", [
-      [ "BSPQ25-E4", "md__r_e_a_d_m_e.html#autotoc_md1", [
-        [ "📦 Technologies Used", "md__r_e_a_d_m_e.html#autotoc_md3", null ],
-        [ "⚙️ Project Setup", "md__r_e_a_d_m_e.html#autotoc_md5", [
-          [ "1️⃣ Clone the repository:", "md__r_e_a_d_m_e.html#autotoc_md6", null ]
+    [ "🚗 CarRentalSystem", "md_README.html", [
+      [ "BSPQ25-E4", "md_README.html#autotoc_md1", [
+        [ "📦 Technologies Used", "md_README.html#autotoc_md3", null ],
+        [ "⚙️ Project Setup", "md_README.html#autotoc_md5", [
+          [ "1️⃣ Clone the repository:", "md_README.html#autotoc_md6", null ]
         ] ]
       ] ]
     ] ],
     [ "Packages", "namespaces.html", [
-      [ "Package List", "namespaces.html", "namespaces_dup" ]
+      [ "Package List", "namespaces.html", null ]
     ] ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
@@ -53,10 +53,9 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"_admin_controller_8java.html",
-"classcom_1_1carrental_1_1models_1_1_booking.html#a56824686371633911560b2370decaafd",
-"functions_func_s.html"
+"AdminController_8java.html",
+"classcom_1_1carrental_1_1service_1_1CarService.html#a724dd4654916d93a0f85423cfbd7c052"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
+var SYNCONMSG = 'click to disable panel synchronisation';
+var SYNCOFFMSG = 'click to enable panel synchronisation';

@@ -3,54 +3,55 @@ var annotated_dup =
     [ "com", null, [
       [ "carrental", "namespacecom_1_1carrental.html", [
         [ "config", "namespacecom_1_1carrental_1_1config.html", [
-          [ "SecurityConfig", "classcom_1_1carrental_1_1config_1_1_security_config.html", "classcom_1_1carrental_1_1config_1_1_security_config" ]
+          [ "SecurityConfig", "classcom_1_1carrental_1_1config_1_1SecurityConfig.html", "classcom_1_1carrental_1_1config_1_1SecurityConfig" ]
         ] ],
         [ "controller", "namespacecom_1_1carrental_1_1controller.html", [
-          [ "AdminController", "classcom_1_1carrental_1_1controller_1_1_admin_controller.html", "classcom_1_1carrental_1_1controller_1_1_admin_controller" ],
-          [ "AdminDashboardController", "classcom_1_1carrental_1_1controller_1_1_admin_dashboard_controller.html", "classcom_1_1carrental_1_1controller_1_1_admin_dashboard_controller" ],
-          [ "AuthController", "classcom_1_1carrental_1_1controller_1_1_auth_controller.html", "classcom_1_1carrental_1_1controller_1_1_auth_controller" ],
-          [ "BookingController", "classcom_1_1carrental_1_1controller_1_1_booking_controller.html", "classcom_1_1carrental_1_1controller_1_1_booking_controller" ],
-          [ "BookingWebController", "classcom_1_1carrental_1_1controller_1_1_booking_web_controller.html", "classcom_1_1carrental_1_1controller_1_1_booking_web_controller" ],
-          [ "CarApiController", "classcom_1_1carrental_1_1controller_1_1_car_api_controller.html", "classcom_1_1carrental_1_1controller_1_1_car_api_controller" ],
-          [ "CarController", "classcom_1_1carrental_1_1controller_1_1_car_controller.html", "classcom_1_1carrental_1_1controller_1_1_car_controller" ],
-          [ "InsuranceController", "classcom_1_1carrental_1_1controller_1_1_insurance_controller.html", "classcom_1_1carrental_1_1controller_1_1_insurance_controller" ],
-          [ "InsuranceRestController", "classcom_1_1carrental_1_1controller_1_1_insurance_rest_controller.html", "classcom_1_1carrental_1_1controller_1_1_insurance_rest_controller" ],
-          [ "RentalHistoryController", "classcom_1_1carrental_1_1controller_1_1_rental_history_controller.html", "classcom_1_1carrental_1_1controller_1_1_rental_history_controller" ],
-          [ "UserController", "classcom_1_1carrental_1_1controller_1_1_user_controller.html", "classcom_1_1carrental_1_1controller_1_1_user_controller" ],
-          [ "UserRestController", "classcom_1_1carrental_1_1controller_1_1_user_rest_controller.html", "classcom_1_1carrental_1_1controller_1_1_user_rest_controller" ]
+          [ "AdminController", "classcom_1_1carrental_1_1controller_1_1AdminController.html", "classcom_1_1carrental_1_1controller_1_1AdminController" ],
+          [ "AdminDashboardController", "classcom_1_1carrental_1_1controller_1_1AdminDashboardController.html", "classcom_1_1carrental_1_1controller_1_1AdminDashboardController" ],
+          [ "AuthController", "classcom_1_1carrental_1_1controller_1_1AuthController.html", "classcom_1_1carrental_1_1controller_1_1AuthController" ],
+          [ "BookingController", "classcom_1_1carrental_1_1controller_1_1BookingController.html", "classcom_1_1carrental_1_1controller_1_1BookingController" ],
+          [ "BookingWebController", "classcom_1_1carrental_1_1controller_1_1BookingWebController.html", "classcom_1_1carrental_1_1controller_1_1BookingWebController" ],
+          [ "CarApiController", "classcom_1_1carrental_1_1controller_1_1CarApiController.html", "classcom_1_1carrental_1_1controller_1_1CarApiController" ],
+          [ "CarController", "classcom_1_1carrental_1_1controller_1_1CarController.html", "classcom_1_1carrental_1_1controller_1_1CarController" ],
+          [ "InsuranceController", "classcom_1_1carrental_1_1controller_1_1InsuranceController.html", "classcom_1_1carrental_1_1controller_1_1InsuranceController" ],
+          [ "InsuranceRestController", "classcom_1_1carrental_1_1controller_1_1InsuranceRestController.html", "classcom_1_1carrental_1_1controller_1_1InsuranceRestController" ],
+          [ "RentalHistoryController", "classcom_1_1carrental_1_1controller_1_1RentalHistoryController.html", "classcom_1_1carrental_1_1controller_1_1RentalHistoryController" ],
+          [ "UserController", "classcom_1_1carrental_1_1controller_1_1UserController.html", "classcom_1_1carrental_1_1controller_1_1UserController" ],
+          [ "UserRestController", "classcom_1_1carrental_1_1controller_1_1UserRestController.html", "classcom_1_1carrental_1_1controller_1_1UserRestController" ]
         ] ],
         [ "database", "namespacecom_1_1carrental_1_1database.html", [
-          [ "DatabaseConnection", "classcom_1_1carrental_1_1database_1_1_database_connection.html", null ]
+          [ "DatabaseConnection", "classcom_1_1carrental_1_1database_1_1DatabaseConnection.html", null ]
         ] ],
         [ "dto", "namespacecom_1_1carrental_1_1dto.html", [
-          [ "CarDTO", "classcom_1_1carrental_1_1dto_1_1_car_d_t_o.html", "classcom_1_1carrental_1_1dto_1_1_car_d_t_o" ]
+          [ "BookingDTO", "classcom_1_1carrental_1_1dto_1_1BookingDTO.html", "classcom_1_1carrental_1_1dto_1_1BookingDTO" ],
+          [ "CarDTO", "classcom_1_1carrental_1_1dto_1_1CarDTO.html", "classcom_1_1carrental_1_1dto_1_1CarDTO" ]
         ] ],
         [ "gateway", "namespacecom_1_1carrental_1_1gateway.html", [
-          [ "CreditCardGateway", "classcom_1_1carrental_1_1gateway_1_1_credit_card_gateway.html", "classcom_1_1carrental_1_1gateway_1_1_credit_card_gateway" ],
-          [ "PaymentGateway", "interfacecom_1_1carrental_1_1gateway_1_1_payment_gateway.html", "interfacecom_1_1carrental_1_1gateway_1_1_payment_gateway" ],
-          [ "PayPalGateway", "classcom_1_1carrental_1_1gateway_1_1_pay_pal_gateway.html", "classcom_1_1carrental_1_1gateway_1_1_pay_pal_gateway" ]
+          [ "CreditCardGateway", "classcom_1_1carrental_1_1gateway_1_1CreditCardGateway.html", "classcom_1_1carrental_1_1gateway_1_1CreditCardGateway" ],
+          [ "PaymentGateway", "interfacecom_1_1carrental_1_1gateway_1_1PaymentGateway.html", "interfacecom_1_1carrental_1_1gateway_1_1PaymentGateway" ],
+          [ "PayPalGateway", "classcom_1_1carrental_1_1gateway_1_1PayPalGateway.html", "classcom_1_1carrental_1_1gateway_1_1PayPalGateway" ]
         ] ],
         [ "models", "namespacecom_1_1carrental_1_1models.html", [
-          [ "Booking", "classcom_1_1carrental_1_1models_1_1_booking.html", "classcom_1_1carrental_1_1models_1_1_booking" ],
-          [ "Car", "classcom_1_1carrental_1_1models_1_1_car.html", "classcom_1_1carrental_1_1models_1_1_car" ],
-          [ "Insurance", "classcom_1_1carrental_1_1models_1_1_insurance.html", "classcom_1_1carrental_1_1models_1_1_insurance" ],
-          [ "User", "classcom_1_1carrental_1_1models_1_1_user.html", "classcom_1_1carrental_1_1models_1_1_user" ]
+          [ "Booking", "classcom_1_1carrental_1_1models_1_1Booking.html", "classcom_1_1carrental_1_1models_1_1Booking" ],
+          [ "Car", "classcom_1_1carrental_1_1models_1_1Car.html", "classcom_1_1carrental_1_1models_1_1Car" ],
+          [ "Insurance", "classcom_1_1carrental_1_1models_1_1Insurance.html", "classcom_1_1carrental_1_1models_1_1Insurance" ],
+          [ "User", "classcom_1_1carrental_1_1models_1_1User.html", "classcom_1_1carrental_1_1models_1_1User" ]
         ] ],
         [ "repository", "namespacecom_1_1carrental_1_1repository.html", [
-          [ "BookingRepository", "interfacecom_1_1carrental_1_1repository_1_1_booking_repository.html", "interfacecom_1_1carrental_1_1repository_1_1_booking_repository" ],
-          [ "CarRepository", "interfacecom_1_1carrental_1_1repository_1_1_car_repository.html", "interfacecom_1_1carrental_1_1repository_1_1_car_repository" ],
-          [ "InsuranceRepository", "interfacecom_1_1carrental_1_1repository_1_1_insurance_repository.html", null ],
-          [ "UserRepository", "interfacecom_1_1carrental_1_1repository_1_1_user_repository.html", "interfacecom_1_1carrental_1_1repository_1_1_user_repository" ]
+          [ "BookingRepository", "interfacecom_1_1carrental_1_1repository_1_1BookingRepository.html", "interfacecom_1_1carrental_1_1repository_1_1BookingRepository" ],
+          [ "CarRepository", "interfacecom_1_1carrental_1_1repository_1_1CarRepository.html", "interfacecom_1_1carrental_1_1repository_1_1CarRepository" ],
+          [ "InsuranceRepository", "interfacecom_1_1carrental_1_1repository_1_1InsuranceRepository.html", null ],
+          [ "UserRepository", "interfacecom_1_1carrental_1_1repository_1_1UserRepository.html", "interfacecom_1_1carrental_1_1repository_1_1UserRepository" ]
         ] ],
         [ "service", "namespacecom_1_1carrental_1_1service.html", [
-          [ "BookingService", "classcom_1_1carrental_1_1service_1_1_booking_service.html", "classcom_1_1carrental_1_1service_1_1_booking_service" ],
-          [ "CarService", "classcom_1_1carrental_1_1service_1_1_car_service.html", "classcom_1_1carrental_1_1service_1_1_car_service" ],
-          [ "CustomUserDetailsService", "classcom_1_1carrental_1_1service_1_1_custom_user_details_service.html", "classcom_1_1carrental_1_1service_1_1_custom_user_details_service" ],
-          [ "InsuranceService", "classcom_1_1carrental_1_1service_1_1_insurance_service.html", "classcom_1_1carrental_1_1service_1_1_insurance_service" ],
-          [ "PaymentGatewayService", "classcom_1_1carrental_1_1service_1_1_payment_gateway_service.html", "classcom_1_1carrental_1_1service_1_1_payment_gateway_service" ],
-          [ "UserService", "classcom_1_1carrental_1_1service_1_1_user_service.html", "classcom_1_1carrental_1_1service_1_1_user_service" ]
+          [ "BookingService", "classcom_1_1carrental_1_1service_1_1BookingService.html", "classcom_1_1carrental_1_1service_1_1BookingService" ],
+          [ "CarService", "classcom_1_1carrental_1_1service_1_1CarService.html", "classcom_1_1carrental_1_1service_1_1CarService" ],
+          [ "CustomUserDetailsService", "classcom_1_1carrental_1_1service_1_1CustomUserDetailsService.html", "classcom_1_1carrental_1_1service_1_1CustomUserDetailsService" ],
+          [ "InsuranceService", "classcom_1_1carrental_1_1service_1_1InsuranceService.html", "classcom_1_1carrental_1_1service_1_1InsuranceService" ],
+          [ "PaymentGatewayService", "classcom_1_1carrental_1_1service_1_1PaymentGatewayService.html", "classcom_1_1carrental_1_1service_1_1PaymentGatewayService" ],
+          [ "UserService", "classcom_1_1carrental_1_1service_1_1UserService.html", "classcom_1_1carrental_1_1service_1_1UserService" ]
         ] ],
-        [ "App", "classcom_1_1carrental_1_1_app.html", null ]
+        [ "App", "classcom_1_1carrental_1_1App.html", null ]
       ] ]
     ] ]
 ];

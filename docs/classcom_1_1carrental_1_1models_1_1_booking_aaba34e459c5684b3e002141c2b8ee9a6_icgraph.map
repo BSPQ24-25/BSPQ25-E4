@@ -1,9 +1,0 @@
-<map id="com.carrental.models.Booking.getPaymentMethod" name="com.carrental.models.Booking.getPaymentMethod">
-<area shape="rect" id="Node000001" title=" " alt="" coords="273,72,492,115"/>
-<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1service_1_1_booking_service.html#a8176edfcc0c518d1dcccbc8b4f7742d8" title=" " alt="" coords="16,5,214,48"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="279,70,203,51,204,46,280,65"/>
-<area shape="rect" id="Node000003" href="$classcom_1_1carrental_1_1service_1_1_payment_gateway_service.html#a0a64a59d13cedd2e0eacbb2c6c5f2188" title=" " alt="" coords="5,72,225,115"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="257,96,225,96,225,91,257,91"/>
-<area shape="rect" id="Node000004" href="$classcom_1_1carrental_1_1service_1_1_booking_service.html#a05a0275b62fb8e90f2d58e7ea103e9c9" title=" " alt="" coords="16,139,214,181"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="280,122,204,141,203,135,279,116"/>
-</map>
