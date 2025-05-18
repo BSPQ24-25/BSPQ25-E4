@@ -47,7 +47,6 @@ mvnw.cmd
 # 📊 Coverage reports (JaCoCo)
 # ==========================
 jacoco.exec
-target/site/jacoco/
 
 # ==========================
 # 🚧 Temporary files

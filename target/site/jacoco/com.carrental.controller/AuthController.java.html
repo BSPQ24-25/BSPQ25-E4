@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AuthController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.controller</a> &gt; <span class="el_source">AuthController.java</span></div><h1>AuthController.java</h1><pre class="source lang-java linenums">package com.carrental.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.carrental.models.User;
+import com.carrental.service.UserService;
+
+import jakarta.validation.Valid;
+
+@Controller
+<span class="fc" id="L19">public class AuthController {</span>
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping(&quot;/register&quot;)
+    public String showRegistrationForm(Model model) {
+<span class="fc" id="L26">        model.addAttribute(&quot;user&quot;, new User());</span>
+<span class="fc" id="L27">        return &quot;register&quot;;</span>
+    }
+
+    @PostMapping(&quot;/register&quot;)
+    public String registerUser(@Valid @ModelAttribute(&quot;user&quot;) User user, BindingResult result, Model model) {
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (result.hasErrors()) {</span>
+<span class="fc" id="L33">            return &quot;register&quot;;</span>
+        }
+
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        if (user.getIsAdmin() == null) {</span>
+<span class="nc" id="L37">            user.setIsAdmin(Boolean.FALSE);</span>
+        }
+
+        try {
+<span class="fc" id="L41">            userService.registerUser(user);</span>
+<span class="fc" id="L42">            return &quot;redirect:/login?success&quot;;</span>
+<span class="nc" id="L43">        } catch (Exception e) {</span>
+<span class="nc" id="L44">            model.addAttribute(&quot;error&quot;, e.getMessage());</span>
+<span class="nc" id="L45">            return &quot;register&quot;;</span>
+        }
+    }
+
+    @GetMapping(&quot;/login&quot;)
+    public String showLoginForm() {
+<span class="fc" id="L51">        return &quot;login&quot;;</span>
+    }
+
+    @GetMapping(&quot;/redirect&quot;)
+    public String redirectAfterLogin(Authentication authentication) {
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (authentication != null &amp;&amp;</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">            authentication.getAuthorities().contains(new SimpleGrantedAuthority(&quot;ROLE_ADMIN&quot;))) {</span>
+<span class="fc" id="L58">            return &quot;redirect:/admin/dashboard&quot;;</span>
+        } else {
+<span class="fc" id="L60">            return &quot;redirect:/user/dashboard&quot;;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

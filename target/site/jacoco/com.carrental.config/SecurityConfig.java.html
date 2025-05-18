@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.config</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package com.carrental.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+import com.carrental.repository.UserRepository;
+import com.carrental.service.CustomUserDetailsService;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    private final UserRepository userRepository;
+
+    @Autowired
+<span class="fc" id="L23">    public SecurityConfig(UserRepository userRepository) {</span>
+<span class="fc" id="L24">        this.userRepository = userRepository;</span>
+<span class="fc" id="L25">    }</span>
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+<span class="fc" id="L29">        return new BCryptPasswordEncoder();</span>
+    }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+<span class="fc" id="L34">        return new CustomUserDetailsService(userRepository);</span>
+    }
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+<span class="fc" id="L39">        http</span>
+<span class="fc" id="L40">            .authorizeHttpRequests(auth -&gt; auth</span>
+<span class="fc" id="L41">                .requestMatchers(&quot;/register&quot;, &quot;/login&quot;, &quot;/css/**&quot;, &quot;/js/**&quot;).permitAll()</span>
+<span class="fc" id="L42">                .requestMatchers(&quot;/admin/**&quot;).hasRole(&quot;ADMIN&quot;)</span>
+<span class="fc" id="L43">                .anyRequest().authenticated()</span>
+            )
+<span class="fc" id="L45">            .userDetailsService(userDetailsService())</span>
+<span class="fc" id="L46">            .formLogin(form -&gt; form</span>
+<span class="fc" id="L47">                .usernameParameter(&quot;email&quot;)</span>
+<span class="fc" id="L48">                .passwordParameter(&quot;password&quot;)</span>
+<span class="fc" id="L49">                .loginPage(&quot;/login&quot;)</span>
+<span class="fc" id="L50">                .loginProcessingUrl(&quot;/login&quot;)</span>
+<span class="fc" id="L51">                .defaultSuccessUrl(&quot;/redirect&quot;, true)</span>
+<span class="fc" id="L52">                .permitAll()</span>
+            )
+<span class="fc" id="L54">            .logout(logout -&gt; logout</span>
+<span class="fc" id="L55">                .logoutSuccessUrl(&quot;/login?logout&quot;)</span>
+<span class="fc" id="L56">                .permitAll()</span>
+            );
+
+<span class="fc" id="L59">        return http.build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

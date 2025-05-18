@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AdminDashboardController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.controller</a> &gt; <span class="el_source">AdminDashboardController.java</span></div><h1>AdminDashboardController.java</h1><pre class="source lang-java linenums">package com.carrental.controller;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.carrental.models.Car;
+import com.carrental.models.Insurance;
+import com.carrental.repository.InsuranceRepository;
+import com.carrental.service.BookingService;
+import com.carrental.service.CarService;
+
+
+@Controller
+<span class="fc" id="L22">public class AdminDashboardController {</span>
+
+	@Autowired
+	private InsuranceRepository insuranceRepository;
+	
+    @Autowired
+    private CarService carService;
+
+    @Autowired
+    private BookingService bookingService;
+
+    @GetMapping(&quot;/admin&quot;)
+    public String dashboard(Model model) {
+<span class="fc" id="L35">        long availableCars = carService.countAvailableCars();</span>
+<span class="fc" id="L36">        long activeRentals = bookingService.countActiveBookings();</span>
+<span class="fc" id="L37">        double totalRevenue = bookingService.getTotalRevenue();</span>
+
+<span class="fc" id="L39">        model.addAttribute(&quot;availableCars&quot;, availableCars);</span>
+<span class="fc" id="L40">        model.addAttribute(&quot;activeRentals&quot;, activeRentals);</span>
+<span class="fc" id="L41">        model.addAttribute(&quot;totalRevenue&quot;, totalRevenue);</span>
+
+<span class="fc" id="L43">        return &quot;admin_dashboard&quot;;</span>
+    }
+    
+    @GetMapping(&quot;/admin/vehicles&quot;)
+    public String showVehicleList(Model model) {
+<span class="fc" id="L48">        model.addAttribute(&quot;vehicles&quot;, carService.getAllCars());</span>
+<span class="fc" id="L49">        return &quot;admin/vehicle-management&quot;;</span>
+    }
+    
+    @PostMapping(&quot;/admin/vehicles/add&quot;)
+    public String addVehicle(@ModelAttribute Car car, @RequestParam(name = &quot;insuranceId&quot;, required = false) Long insuranceId) {
+<span class="pc bpc" id="L54" title="1 of 2 branches missed.">        if (insuranceId != null) {</span>
+<span class="fc" id="L55">            Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);</span>
+<span class="fc" id="L56">            car.setInsuranceID(insurance);</span>
+        }
+<span class="fc" id="L58">        carService.saveCar(car);</span>
+<span class="fc" id="L59">        return &quot;redirect:/admin/vehicles&quot;;</span>
+    }
+    
+    @GetMapping(&quot;/admin/vehicles/edit/{id}&quot;)
+    public String showEditForm(@PathVariable(&quot;id&quot;) Long id, Model model) {
+<span class="fc" id="L64">        Optional&lt;Car&gt; carOpt = carService.getCarById(id);</span>
+<span class="fc bfc" id="L65" title="All 2 branches covered.">        if (carOpt.isEmpty()) {</span>
+<span class="fc" id="L66">            return &quot;redirect:/admin/vehicles?error=car-not-found&quot;;</span>
+        }
+<span class="fc" id="L68">        Car car = carOpt.get();</span>
+<span class="fc" id="L69">        model.addAttribute(&quot;car&quot;, car);</span>
+<span class="fc" id="L70">        model.addAttribute(&quot;insurances&quot;, insuranceRepository.findAll());</span>
+<span class="fc" id="L71">        return &quot;admin/edit-vehicle&quot;;</span>
+    }
+    
+    @PostMapping(&quot;/admin/vehicles/edit&quot;)
+    public String updateVehicle(@ModelAttribute Car car, @RequestParam(name = &quot;insuranceId&quot;, required = false) Long insuranceId) {
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (insuranceId != null) {</span>
+<span class="fc" id="L77">            Insurance insurance = insuranceRepository.findById(insuranceId).orElse(null);</span>
+<span class="fc" id="L78">            car.setInsuranceID(insurance);</span>
+        }
+
+<span class="fc" id="L81">        carService.saveCar(car);</span>
+<span class="fc" id="L82">        return &quot;redirect:/admin/vehicles&quot;;</span>
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

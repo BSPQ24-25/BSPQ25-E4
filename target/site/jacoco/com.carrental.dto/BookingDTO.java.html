@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>BookingDTO.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.dto</a> &gt; <span class="el_source">BookingDTO.java</span></div><h1>BookingDTO.java</h1><pre class="source lang-java linenums">package com.carrental.dto;
+
+import java.time.LocalDate;
+
+<span class="fc" id="L5">public class BookingDTO {</span>
+    private Long userId;
+    private Long carId;
+    private Double dailyPrice;
+    private Double securityDeposit;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String paymentMethod;
+    private String bookingStatus;
+
+public Long getUserId() {
+<span class="fc" id="L16">        return userId;</span>
+    }
+
+    public void setUserId(Long userId) {
+<span class="fc" id="L20">        this.userId = userId;</span>
+<span class="fc" id="L21">    }</span>
+
+    public Long getCarId() {
+<span class="fc" id="L24">        return carId;</span>
+    }
+
+    public void setCarId(Long carId) {
+<span class="fc" id="L28">        this.carId = carId;</span>
+<span class="fc" id="L29">    }</span>
+
+    public double getDailyPrice() {
+<span class="fc" id="L32">        return dailyPrice;</span>
+    }
+
+    public void setDailyPrice(double dailyPrice) {
+<span class="fc" id="L36">        this.dailyPrice = dailyPrice;</span>
+<span class="fc" id="L37">    }</span>
+
+    public double getSecurityDeposit() {
+<span class="fc" id="L40">        return securityDeposit;</span>
+    }
+
+    public void setSecurityDeposit(double securityDeposit) {
+<span class="fc" id="L44">        this.securityDeposit = securityDeposit;</span>
+<span class="fc" id="L45">    }</span>
+
+    public LocalDate getStartDate() {
+<span class="fc" id="L48">        return startDate;</span>
+    }
+
+    public void setStartDate(LocalDate startDate) {
+<span class="fc" id="L52">        this.startDate = startDate;</span>
+<span class="fc" id="L53">    }</span>
+
+    public LocalDate getEndDate() {
+<span class="fc" id="L56">        return endDate;</span>
+    }
+
+    public void setEndDate(LocalDate endDate) {
+<span class="fc" id="L60">        this.endDate = endDate;</span>
+<span class="fc" id="L61">    }</span>
+
+    public String getPaymentMethod() {
+<span class="fc" id="L64">        return paymentMethod;</span>
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+<span class="fc" id="L68">        this.paymentMethod = paymentMethod;</span>
+<span class="fc" id="L69">    }</span>
+
+    public String getBookingStatus() {
+<span class="fc" id="L72">        return bookingStatus;</span>
+    }
+
+    public void setBookingStatus(String bookingStatus) {
+<span class="fc" id="L76">        this.bookingStatus = bookingStatus;</span>
+<span class="fc" id="L77">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

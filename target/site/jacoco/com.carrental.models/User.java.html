@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.models</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">package com.carrental.models;
+
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@Entity
+@Table(name = &quot;users&quot;)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = &quot;id&quot;)
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;)
+    private Long id;
+
+    @NotBlank(message = &quot;Name is required&quot;)
+    private String name;
+
+    @NotBlank(message = &quot;Phone is required&quot;)
+    private String phone;
+
+    @NotBlank(message = &quot;Email is required&quot;)
+    @Email(message = &quot;Invalid email format&quot;)
+    private String email;
+
+    @NotBlank(message = &quot;Password is required&quot;)
+    @Size(min = 6, message = &quot;Password must be at least 6 characters&quot;)
+    private String password;
+
+    @NotBlank(message = &quot;Address is required&quot;)
+    private String address;
+
+    @Column(name = &quot;is_admin&quot;, nullable = false, columnDefinition = &quot;BOOLEAN DEFAULT FALSE&quot;)
+    private Boolean isAdmin;
+
+    @OneToMany(mappedBy = &quot;user&quot;, cascade = CascadeType.ALL)
+    private List&lt;Booking&gt; bookings;
+    
+<span class="fc" id="L46">    public User() {</span>
+    
+<span class="fc" id="L48">    }</span>
+
+
+    public Long getId() {
+<span class="fc" id="L52">        return id;</span>
+    }
+
+    public void setId(Long id) {
+<span class="fc" id="L56">        this.id = id;</span>
+<span class="fc" id="L57">    }</span>
+
+    public String getName() {
+<span class="fc" id="L60">        return name;</span>
+    }
+
+    public void setName(String name) {
+<span class="fc" id="L64">        this.name = name;</span>
+<span class="fc" id="L65">    }</span>
+
+    public String getPhone() {
+<span class="fc" id="L68">        return phone;</span>
+    }
+
+    public void setPhone(String phone) {
+<span class="fc" id="L72">        this.phone = phone;</span>
+<span class="fc" id="L73">    }</span>
+
+    public String getEmail() {
+<span class="fc" id="L76">        return email;</span>
+    }
+
+    public void setEmail(String email) {
+<span class="fc" id="L80">        this.email = email;</span>
+<span class="fc" id="L81">    }</span>
+
+    public String getPassword() {
+<span class="fc" id="L84">        return password;</span>
+    }
+
+    public void setPassword(String password) {
+<span class="fc" id="L88">        this.password = password;</span>
+<span class="fc" id="L89">    }</span>
+
+    public String getAddress() {
+<span class="fc" id="L92">        return address;</span>
+    }
+
+    public void setAddress(String address) {
+<span class="fc" id="L96">        this.address = address;</span>
+<span class="fc" id="L97">    }</span>
+
+    public Boolean getIsAdmin() {
+<span class="fc" id="L100">        return isAdmin;</span>
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+<span class="fc" id="L104">        this.isAdmin = isAdmin;</span>
+<span class="fc" id="L105">    }</span>
+
+    public List&lt;Booking&gt; getBookings() {
+<span class="fc" id="L108">        return bookings;</span>
+    }
+
+    public void setBookings(List&lt;Booking&gt; bookings) {
+<span class="fc" id="L112">        this.bookings = bookings;</span>
+<span class="fc" id="L113">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

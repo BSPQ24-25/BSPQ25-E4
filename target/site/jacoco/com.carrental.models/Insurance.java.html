@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Insurance.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.models</a> &gt; <span class="el_source">Insurance.java</span></div><h1>Insurance.java</h1><pre class="source lang-java linenums">package com.carrental.models;
+
+import java.text.NumberFormat;
+import java.util.List;
+import java.util.Locale;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+
+
+@JsonIgnoreProperties({&quot;cars&quot;})
+@Entity
+@Table(name = &quot;insurances&quot;)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = &quot;id&quot;)
+<span class="fc" id="L27">public class Insurance {</span>
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = &quot;id&quot;)
+	private Long id;
+
+    @NotBlank(message = &quot;Provider is required&quot;)
+    private String provider;
+
+    @NotBlank(message = &quot;Coverage is required&quot;)
+    private String coverage;
+
+    @Positive(message = &quot;Monthly price must be positive&quot;)
+    private double monthlyPrice;
+
+    @OneToMany(mappedBy = &quot;insurance&quot;, cascade = CascadeType.ALL)
+    private List&lt;Car&gt; cars;
+
+    public Long getInsuranceId() {
+<span class="fc" id="L47">        return id;</span>
+    }
+
+    public void setInsuranceId(Long insuranceId) {
+<span class="fc" id="L51">        this.id = insuranceId;</span>
+<span class="fc" id="L52">    }</span>
+    public Long getId() {
+<span class="fc" id="L54">    return id;</span>
+    }
+
+    public String getProvider() {
+<span class="fc" id="L58">        return provider;</span>
+    }
+
+    public void setProvider(String provider) {
+<span class="fc" id="L62">        this.provider = provider;</span>
+<span class="fc" id="L63">    }</span>
+
+    public String getCoverage() {
+<span class="fc" id="L66">        return coverage;</span>
+    }
+
+    public void setCoverage(String coverage) {
+<span class="fc" id="L70">        this.coverage = coverage;</span>
+<span class="fc" id="L71">    }</span>
+
+    public double getMonthlyPrice() {
+<span class="fc" id="L74">        return monthlyPrice;</span>
+    }
+
+    public void setMonthlyPrice(double monthlyPrice) {
+<span class="fc" id="L78">        this.monthlyPrice = monthlyPrice;</span>
+<span class="fc" id="L79">    }</span>
+
+    public List&lt;Car&gt; getCar() {
+<span class="fc" id="L82">        return cars;</span>
+    }
+
+    public void setCar(List&lt;Car&gt; cars) {
+<span class="fc" id="L86">        this.cars = cars;</span>
+<span class="fc" id="L87">    }</span>
+
+    public String getFormattedPrice() {
+<span class="fc" id="L90">        NumberFormat format = NumberFormat.getNumberInstance(new Locale(&quot;es&quot;, &quot;ES&quot;));</span>
+<span class="fc" id="L91">        return format.format(this.monthlyPrice) + &quot;€&quot;;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

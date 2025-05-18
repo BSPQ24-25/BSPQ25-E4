@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Booking.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.models</a> &gt; <span class="el_source">Booking.java</span></div><h1>Booking.java</h1><pre class="source lang-java linenums">package com.carrental.models;
+
+import java.time.LocalDate;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.Table;
+import java.time.temporal.ChronoUnit;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+@Entity
+@Table(name = &quot;bookings&quot;)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = &quot;bookingId&quot;)
+public class Booking {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = &quot;id&quot;)
+    private Long bookingId;
+
+    private double dailyPrice;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String bookingStatus;
+    private String paymentMethod;
+    private double securityDeposit;
+
+    @ManyToOne
+    @JoinColumn(name = &quot;user_id&quot;)
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = &quot;car_id&quot;)
+    private Car car;
+
+    private int rating;
+    private String review;
+    
+<span class="fc" id="L46">    public Booking() {</span>
+<span class="fc" id="L47">    }</span>
+
+
+    // Getters and Setters
+    public Long getBookingId() {
+<span class="fc" id="L52">        return bookingId;</span>
+    }
+
+    public void setBookingId(Long bookingId) {
+<span class="fc" id="L56">        this.bookingId = bookingId;</span>
+<span class="fc" id="L57">    }</span>
+
+    public double getDailyPrice() {
+<span class="fc" id="L60">        return dailyPrice;</span>
+    }
+
+    public void setDailyPrice(double dailyPrice) {
+<span class="fc" id="L64">        this.dailyPrice = dailyPrice;</span>
+<span class="fc" id="L65">    }</span>
+
+    public LocalDate getStartDate() {
+<span class="fc" id="L68">        return startDate;</span>
+    }
+
+    public void setStartDate(LocalDate startDate) {
+<span class="fc" id="L72">        this.startDate = startDate;</span>
+<span class="fc" id="L73">    }</span>
+
+    public LocalDate getEndDate() {
+<span class="fc" id="L76">        return endDate;</span>
+    }
+
+    public void setEndDate(LocalDate endDate) {
+<span class="fc" id="L80">        this.endDate = endDate;</span>
+<span class="fc" id="L81">    }</span>
+
+    public String getBookingStatus() {
+<span class="fc" id="L84">        return bookingStatus;</span>
+    }
+
+    public void setBookingStatus(String bookingStatus) {
+<span class="fc" id="L88">        this.bookingStatus = bookingStatus;</span>
+<span class="fc" id="L89">    }</span>
+
+    public String getPaymentMethod() {
+<span class="fc" id="L92">        return paymentMethod;</span>
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+<span class="fc" id="L96">        this.paymentMethod = paymentMethod;</span>
+<span class="fc" id="L97">    }</span>
+
+    public double getSecurityDeposit() {
+<span class="fc" id="L100">        return securityDeposit;</span>
+    }
+
+    public void setSecurityDeposit(double securityDeposit) {
+<span class="fc" id="L104">        this.securityDeposit = securityDeposit;</span>
+<span class="fc" id="L105">    }</span>
+
+    public User getUser() {
+<span class="fc" id="L108">        return user;</span>
+    }
+
+    public void setUser(User user) {
+<span class="fc" id="L112">        this.user = user;</span>
+<span class="fc" id="L113">    }</span>
+
+    public Car getCar() {
+<span class="fc" id="L116">        return car;</span>
+    }
+
+    public void setCar(Car car) {
+<span class="fc" id="L120">        this.car = car;</span>
+<span class="fc" id="L121">    }</span>
+
+    public int getRating() {
+<span class="fc" id="L124">        return rating;</span>
+    }
+
+    public void setRating(int rating) {
+<span class="fc" id="L128">        this.rating = rating;</span>
+<span class="fc" id="L129">    }</span>
+
+    public String getReview() {
+<span class="fc" id="L132">        return review;</span>
+    }
+
+    public void setReview(String review) {
+<span class="fc" id="L136">        this.review = review;</span>
+<span class="fc" id="L137">    }</span>
+    // Additional methods
+    public double getTotalPrice() {
+<span class="fc" id="L140">        long days = ChronoUnit.DAYS.between(startDate, endDate);</span>
+<span class="fc" id="L141">        return dailyPrice * days + securityDeposit;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CarApiController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.controller</a> &gt; <span class="el_source">CarApiController.java</span></div><h1>CarApiController.java</h1><pre class="source lang-java linenums">package com.carrental.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.carrental.dto.CarDTO;
+import com.carrental.models.Car;
+import com.carrental.service.CarService;
+
+/**
+ * @brief REST API Controller for handling car-related operations.
+ * 
+ * This controller provides endpoints to fetch all cars
+ * and to search cars based on one or two filter criteria.
+ */
+@RestController
+@RequestMapping(&quot;/api/cars&quot;)
+<span class="fc" id="L28">public class CarApiController {</span>
+
+    /**
+     * Service for managing car entities.
+     */
+    @Autowired
+    private CarService carService;
+
+    /**
+     * @brief Retrieves all cars.
+     * 
+     * @return List of all cars mapped to CarDTO objects.
+     */
+    // Get all cars (for table load)
+    @GetMapping
+    public ResponseEntity&lt;List&lt;CarDTO&gt;&gt; getAllCars() {
+        try {
+<span class="fc" id="L45">            List&lt;CarDTO&gt; cars = carService.getAllCars()</span>
+<span class="fc" id="L46">                .stream()</span>
+<span class="fc" id="L47">                .map(this::mapToDTO)</span>
+<span class="fc" id="L48">                .toList();</span>
+<span class="fc" id="L49">            return ResponseEntity.ok(cars);</span>
+<span class="fc" id="L50">        } catch (Exception e) {</span>
+<span class="fc" id="L51">            return ResponseEntity.status(500).build();</span>
+        }
+    }
+
+    /**
+     * @brief Searches cars based on one or two fields.
+     * 
+     * @param field The primary field to search by (e.g., brand, model).
+     * @param value The value to match in the primary field.
+     * @param field2 (Optional) A second field to search by.
+     * @param value2 (Optional) The value to match in the second field.
+     * @return List of cars matching the given search criteria, mapped to CarDTO.
+     */
+    @GetMapping(&quot;/search&quot;)
+    public List&lt;CarDTO&gt; searchCarsByFields( 
+        @RequestParam String field,
+        @RequestParam String value,
+        @RequestParam(required = false) String field2,
+        @RequestParam(required = false) String value2) {
+    
+<span class="fc" id="L71">    List&lt;Car&gt; cars = carService.searchByField(field, value);</span>
+
+<span class="pc bpc" id="L73" title="3 of 8 branches missed.">    if (field2 != null &amp;&amp; !field2.isEmpty() &amp;&amp; value2 != null &amp;&amp; !value2.isEmpty()) {</span>
+        // Filter using getters
+<span class="fc" id="L75">        cars = cars.stream()</span>
+<span class="fc" id="L76">                .filter(car -&gt; {</span>
+                    try {
+<span class="fc" id="L78">                        String methodName = &quot;get&quot; + field2.substring(0, 1).toUpperCase() + field2.substring(1);</span>
+<span class="fc" id="L79">                        Object fieldValue = Car.class.getMethod(methodName).invoke(car);</span>
+<span class="pc bpc" id="L80" title="1 of 4 branches missed.">                        return fieldValue != null &amp;&amp; fieldValue.toString().equalsIgnoreCase(value2);</span>
+<span class="nc" id="L81">                    } catch (Exception e) {</span>
+<span class="nc" id="L82">                        e.printStackTrace();</span>
+<span class="nc" id="L83">                        return false;</span>
+                    }
+                })
+<span class="fc" id="L86">                .toList();</span>
+    }
+
+<span class="fc" id="L89">    return cars.stream()</span>
+<span class="fc" id="L90">            .map(this::mapToDTO)</span>
+<span class="fc" id="L91">            .toList();</span>
+    }
+      
+
+    /**
+     * @brief Maps a Car entity to a CarDTO object.
+     * 
+     * @param car The Car entity to map.
+     * @return The corresponding CarDTO.
+     */
+    // Utility method: Car ➔ CarDTO
+    private CarDTO mapToDTO(Car car) {
+<span class="fc" id="L103">        CarDTO dto = new CarDTO();</span>
+<span class="fc" id="L104">        dto.setId(car.getId());</span>
+<span class="fc" id="L105">        dto.setBrand(car.getBrand());</span>
+<span class="fc" id="L106">        dto.setModel(car.getModel());</span>
+<span class="fc" id="L107">        dto.setColor(car.getColor());</span>
+<span class="fc" id="L108">        dto.setFuelLevel(car.getFuelLevel());</span>
+<span class="fc" id="L109">        dto.setTransmission(car.getTransmission());</span>
+<span class="fc" id="L110">        dto.setStatus(car.getStatus());</span>
+<span class="fc" id="L111">        dto.setMileage(car.getMileage());</span>
+<span class="fc" id="L112">        dto.setManufacturingYear(car.getManufacturingYear());</span>
+<span class="fc bfc" id="L113" title="All 2 branches covered.">        dto.setInsuranceId(car.getInsuranceId() != null ? car.getInsuranceId().getInsuranceId() : null);</span>
+<span class="fc" id="L114">        return dto;</span>
+    }
+    
+    @PostMapping(&quot;/{id}&quot;)
+    @ResponseBody
+    public ResponseEntity&lt;?&gt; deleteCar(@PathVariable Long id, @RequestParam(required = false) Boolean admin) {
+<span class="nc bnc" id="L120" title="All 2 branches missed.">        if (admin == null) {</span>
+<span class="nc" id="L121">            return ResponseEntity.badRequest().body(&quot;Missing 'admin' parameter.&quot;);</span>
+        }
+<span class="nc bnc" id="L123" title="All 2 branches missed.">        if (!admin) {</span>
+<span class="nc" id="L124">            return ResponseEntity.status(500).body(&quot;Only admins can delete cars.&quot;);</span>
+        }
+<span class="nc" id="L126">        carService.deleteCarById(id);</span>
+<span class="nc" id="L127">        return ResponseEntity.ok().build();</span>
+    }
+    
+    @DeleteMapping(&quot;/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deleteCar(@PathVariable Long id) {
+<span class="nc" id="L132">        carService.deleteCarById(id);</span>
+<span class="nc" id="L133">        return ResponseEntity.ok().build();</span>
+    }
+
+
+    
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

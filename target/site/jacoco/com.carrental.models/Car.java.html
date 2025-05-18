@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Car.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.models</a> &gt; <span class="el_source">Car.java</span></div><h1>Car.java</h1><pre class="source lang-java linenums">package com.carrental.models;
+
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@JsonIgnoreProperties({&quot;bookings&quot;})
+@Entity
+@Table(name = &quot;cars&quot;)
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = &quot;id&quot;)
+public class Car {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = &quot;id&quot;)
+	private Long id;
+
+    private String brand;
+    private String model;
+    private String color;
+    private double fuelLevel;
+    private String transmission;
+    private String status;
+    private int mileage;
+    private int manufacturingYear;
+
+    @ManyToOne
+    @JoinColumn(name = &quot;insurance_id&quot;)
+    private Insurance insurance;
+
+    @OneToMany(mappedBy = &quot;car&quot;, cascade = CascadeType.ALL)
+    private List&lt;Booking&gt; bookings;
+
+<span class="fc" id="L48">    public Car() {</span>
+    
+<span class="fc" id="L50">    }</span>
+
+
+    public Long getId() {
+<span class="fc" id="L54">        return id;</span>
+    }
+
+    public void setId(Long vehicleId) {
+<span class="fc" id="L58">        this.id = vehicleId;</span>
+<span class="fc" id="L59">    }</span>
+
+    public String getBrand() {
+<span class="fc" id="L62">        return brand;</span>
+    }
+
+    public void setBrand(String brand) {
+<span class="fc" id="L66">        this.brand = brand;</span>
+<span class="fc" id="L67">    }</span>
+
+    public String getModel() {
+<span class="fc" id="L70">        return model;</span>
+    }
+
+    public void setModel(String model) {
+<span class="fc" id="L74">        this.model = model;</span>
+<span class="fc" id="L75">    }</span>
+
+    public String getColor() {
+<span class="fc" id="L78">        return color;</span>
+    }
+
+    public void setColor(String color) {
+<span class="fc" id="L82">        this.color = color;</span>
+<span class="fc" id="L83">    }</span>
+
+    public double getFuelLevel() {
+<span class="fc" id="L86">        return fuelLevel;</span>
+    }
+
+    public void setFuelLevel(double fuelLevel) {
+<span class="fc" id="L90">        this.fuelLevel = fuelLevel;</span>
+<span class="fc" id="L91">    }</span>
+
+    public String getTransmission() {
+<span class="fc" id="L94">        return transmission;</span>
+    }
+
+    public void setTransmission(String transmission) {
+<span class="fc" id="L98">        this.transmission = transmission;</span>
+<span class="fc" id="L99">    }</span>
+
+    public String getStatus() {
+<span class="fc" id="L102">        return status;</span>
+    }
+
+    public void setStatus(String status) {
+<span class="fc" id="L106">        this.status = status;</span>
+<span class="fc" id="L107">    }</span>
+
+    public int getMileage() {
+<span class="fc" id="L110">        return mileage;</span>
+    }
+
+    public void setMileage(int mileage) {
+<span class="fc" id="L114">        this.mileage = mileage;</span>
+<span class="fc" id="L115">    }</span>
+
+    public int getManufacturingYear() {
+<span class="fc" id="L118">        return manufacturingYear;</span>
+    }
+
+    public void setManufacturingYear(int manufacturingYear) {
+<span class="fc" id="L122">        this.manufacturingYear = manufacturingYear;</span>
+<span class="fc" id="L123">    }</span>
+
+    public Insurance getInsuranceId() {
+<span class="fc" id="L126">        return insurance;</span>
+    }
+
+    public void setInsuranceID(Insurance insurance) {
+<span class="fc" id="L130">        this.insurance = insurance;</span>
+<span class="fc" id="L131">    }</span>
+
+    public List&lt;Booking&gt; getBookings() {
+<span class="fc" id="L134">        return bookings;</span>
+    }
+
+    public void setBookings(List&lt;Booking&gt; bookings) {
+<span class="fc" id="L138">        this.bookings = bookings;</span>
+<span class="fc" id="L139">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

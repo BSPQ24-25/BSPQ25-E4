@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PaymentGatewayService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.service</a> &gt; <span class="el_source">PaymentGatewayService.java</span></div><h1>PaymentGatewayService.java</h1><pre class="source lang-java linenums">package com.carrental.service;
+
+import com.carrental.models.Booking;
+import org.springframework.stereotype.Service;
+
+@Service
+<span class="fc" id="L7">public class PaymentGatewayService {</span>
+
+    public String processPayment(Booking booking) {
+<span class="fc bfc" id="L10" title="All 3 branches covered.">        switch (booking.getPaymentMethod().toLowerCase()) {</span>
+            case &quot;credit card&quot;:
+<span class="fc" id="L12">                return simulateCreditCard(booking);</span>
+            case &quot;paypal&quot;:
+<span class="fc" id="L14">                return simulatePayPal(booking);</span>
+            default:
+<span class="fc" id="L16">                return &quot;No gateway needed&quot;;</span>
+        }
+    }
+
+    private String simulateCreditCard(Booking booking) {
+        // Simulación ficticia
+<span class="fc" id="L22">        return &quot;Processed via Credit Card (simulated)&quot;;</span>
+    }
+
+    private String simulatePayPal(Booking booking) {
+        // Simulación ficticia
+<span class="fc" id="L27">        return &quot;Processed via PayPal (simulated)&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

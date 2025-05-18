@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CarController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.controller</a> &gt; <span class="el_source">CarController.java</span></div><h1>CarController.java</h1><pre class="source lang-java linenums">package com.carrental.controller;
+
+import com.carrental.models.Car;
+import com.carrental.service.CarService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+@RequestMapping(&quot;/cars&quot;)
+<span class="fc" id="L15">public class CarController {</span>
+
+    @Autowired
+    private CarService carService;
+
+    @PostMapping
+    @ResponseBody
+    public ResponseEntity&lt;?&gt; addCar(@RequestBody Car car, @RequestParam(required = false) Boolean admin) {
+<span class="fc bfc" id="L23" title="All 2 branches covered.">        if (admin == null) {</span>
+<span class="fc" id="L24">            return ResponseEntity.badRequest().body(&quot;Missing 'admin' parameter.&quot;);</span>
+        }
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        if (!admin) {</span>
+<span class="fc" id="L27">            return ResponseEntity.status(500).body(&quot;Only admins can add cars.&quot;);</span>
+        }
+<span class="fc" id="L29">        return ResponseEntity.ok(carService.addCar(car));</span>
+    }
+
+    @GetMapping
+    @ResponseBody
+    public List&lt;Car&gt; getAllCars() {
+<span class="fc" id="L35">        return carService.getAllCars();</span>
+    }
+
+    @GetMapping(&quot;/{id}&quot;)
+    @ResponseBody
+    public ResponseEntity&lt;?&gt; getCarById(@PathVariable Long id) {
+<span class="fc" id="L41">        return carService.getCarById(id)</span>
+<span class="fc" id="L42">                .map(ResponseEntity::ok)</span>
+<span class="fc" id="L43">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+
+    @DeleteMapping(&quot;/{id}&quot;)
+    @ResponseBody
+    public ResponseEntity&lt;?&gt; deleteCar(@PathVariable Long id, @RequestParam(required = false) Boolean admin) {
+<span class="fc bfc" id="L50" title="All 2 branches covered.">        if (admin == null) {</span>
+<span class="fc" id="L51">            return ResponseEntity.badRequest().body(&quot;Missing 'admin' parameter.&quot;);</span>
+        }
+<span class="fc bfc" id="L53" title="All 2 branches covered.">        if (!admin) {</span>
+<span class="fc" id="L54">            return ResponseEntity.status(500).body(&quot;Only admins can delete cars.&quot;);</span>
+        }
+<span class="fc" id="L56">        carService.deleteCarById(id);</span>
+<span class="fc" id="L57">        return ResponseEntity.ok().build();</span>
+    }
+
+
+    @GetMapping(&quot;/admin/vehicles&quot;)
+    public String showVehicles(Model model) {
+<span class="nc" id="L63">        model.addAttribute(&quot;cars&quot;, carService.getAllCars());</span>
+<span class="nc" id="L64">        return &quot;admin/edit-vehicle&quot;;</span>
+    }
+
+    @GetMapping(&quot;/user/vehicles&quot;)
+    public String browseVehicles(Model model) {
+<span class="nc" id="L69">        model.addAttribute(&quot;vehicles&quot;, carService.getAllCars());</span>
+<span class="nc" id="L70">        return &quot;user/browse-vehicles&quot;;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

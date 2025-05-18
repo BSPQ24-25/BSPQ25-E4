@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CarService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">CarRentalSystem</a> &gt; <a href="index.source.html" class="el_package">com.carrental.service</a> &gt; <span class="el_source">CarService.java</span></div><h1>CarService.java</h1><pre class="source lang-java linenums">package com.carrental.service;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.carrental.models.Car;
+import com.carrental.repository.CarRepository;
+
+import jakarta.persistence.EntityNotFoundException;
+
+@Service
+<span class="fc" id="L15">public class CarService {</span>
+
+    @Autowired
+    private CarRepository carRepository;
+
+    public Car addCar(Car car) {
+<span class="fc" id="L21">        return carRepository.save(car);</span>
+    }
+
+    public List&lt;Car&gt; getAllCars() {
+<span class="fc" id="L25">        return carRepository.findAll();</span>
+    }
+
+    public Optional&lt;Car&gt; getCarById(Long id) {
+<span class="fc" id="L29">        return carRepository.findById(id);</span>
+    }
+
+    public void deleteCarById(Long id) {
+<span class="fc bfc" id="L33" title="All 2 branches covered.">        if (!carRepository.existsById(id)) {</span>
+<span class="fc" id="L34">            throw new EntityNotFoundException(&quot;Car not found with id: &quot; + id);</span>
+        }
+<span class="fc" id="L36">        carRepository.deleteById(id);</span>
+<span class="fc" id="L37">    }</span>
+
+    public long countAvailableCars() {
+<span class="fc" id="L40">        return carRepository.countByStatusIgnoreCase(&quot;available&quot;);</span>
+    }
+
+    public void saveCar(Car car) {
+<span class="nc" id="L44">        carRepository.save(car);</span>
+<span class="nc" id="L45">    }</span>
+
+    public List&lt;Car&gt; searchByField(String field, String value) {
+        try {
+<span class="nc bnc" id="L49" title="All 10 branches missed.">            switch (field.toLowerCase()) {</span>
+                case &quot;brand&quot;:
+<span class="nc" id="L51">                    return carRepository.findByBrandContainingIgnoreCase(value);</span>
+                case &quot;model&quot;:
+<span class="nc" id="L53">                    return carRepository.findByModelContainingIgnoreCase(value);</span>
+                case &quot;color&quot;:
+<span class="nc" id="L55">                    return carRepository.findByColorContainingIgnoreCase(value);</span>
+                case &quot;transmission&quot;:
+<span class="nc" id="L57">                    return carRepository.findByTransmissionContainingIgnoreCase(value);</span>
+                case &quot;status&quot;:
+<span class="nc" id="L59">                    return carRepository.findByStatusContainingIgnoreCase(value);</span>
+                case &quot;fuellevel&quot;:
+<span class="nc" id="L61">                    return carRepository.findByFuelLevel(Double.parseDouble(value));</span>
+                case &quot;mileage&quot;:
+<span class="nc" id="L63">                    return carRepository.findByMileage(Integer.parseInt(value));</span>
+                case &quot;manufacturingyear&quot;:
+<span class="nc" id="L65">                    return carRepository.findByManufacturingYear(Integer.parseInt(value));</span>
+                case &quot;insuranceid&quot;:
+<span class="nc" id="L67">                    Long insuranceId = Long.parseLong(value);</span>
+<span class="nc" id="L68">                    return carRepository.findAll().stream()</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">                            .filter(car -&gt; car.getInsuranceId() != null &amp;&amp;</span>
+<span class="nc bnc" id="L70" title="All 2 branches missed.">                                    car.getInsuranceId().getInsuranceId().equals(insuranceId))</span>
+<span class="nc" id="L71">                            .toList();</span>
+                default:
+<span class="nc" id="L73">                    return List.of();</span>
+            }
+<span class="nc" id="L75">        } catch (NumberFormatException e) {</span>
+<span class="nc" id="L76">            throw new IllegalArgumentException(&quot;Invalid value for field '&quot; + field + &quot;': &quot; + value);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
