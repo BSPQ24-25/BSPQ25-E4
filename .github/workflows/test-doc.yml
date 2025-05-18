@@ -60,3 +60,38 @@ jobs:
       with:
         name: performance-reports
         path: performance-reports/
+
+    - name: Deploy to gh-pages branch
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+
+        COMMIT_HASH=$(git rev-parse --short HEAD)
+
+        # Obtener gh-pages
+        git fetch origin gh-pages
+        git worktree add gh-pages gh-pages
+
+        # Limpiar contenido anterior
+        rm -rf gh-pages/*
+
+        # Crear estructura esperada
+        mkdir -p gh-pages/docs
+        mkdir -p gh-pages/target/reports
+        mkdir -p gh-pages/target/site/jacoco
+
+        # Copiar archivos generados
+        cp -r docs/html/* gh-pages/docs/
+        cp -r target/reports/* gh-pages/target/reports/
+        cp -r target/site/jacoco/* gh-pages/target/site/jacoco/
+
+        # Copiar el index.html del root del proyecto
+        cp index.html gh-pages/index.html
+
+        # Hacer commit y push
+        cd gh-pages
+        git add .
+        git commit -m "Update GitHub Pages with latest dashboard and reports from $COMMIT_HASH"
+        git push origin gh-pages
+
+
