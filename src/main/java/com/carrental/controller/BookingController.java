@@ -15,6 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.carrental.dto.BookingDTO;
+import com.carrental.models.Car;
+import com.carrental.models.User;
+import com.carrental.service.CarService;
+import com.carrental.service.UserService;
 import com.carrental.models.Booking;
 import com.carrental.service.BookingService;
 
@@ -27,6 +32,12 @@ public class BookingController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CarService carService;
 
     @GetMapping
     public List<Booking> getAllBookings() {
@@ -48,6 +59,36 @@ public class BookingController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+
+
+
+@PostMapping("/from-dto")
+public ResponseEntity<Booking> createBookingFromDTO(@RequestBody BookingDTO dto) {
+    try {
+        User user = userService.getUserById(dto.getUserId()); // devuelve directamente User
+        Car car = carService.getCarById(dto.getCarId())
+                .orElseThrow(() -> new RuntimeException("Car not found")); // Optional<Car>
+
+        Booking booking = new Booking();
+        booking.setUser(user);
+        booking.setCar(car);
+        booking.setDailyPrice(dto.getDailyPrice());
+        booking.setSecurityDeposit(dto.getSecurityDeposit());
+        booking.setStartDate(dto.getStartDate());
+        booking.setEndDate(dto.getEndDate());
+        booking.setPaymentMethod(dto.getPaymentMethod());
+        booking.setBookingStatus(dto.getBookingStatus());
+
+        Booking createdBooking = bookingService.createBooking(booking);
+        return ResponseEntity.ok(createdBooking);
+    } catch (Exception e) {
+        return ResponseEntity.badRequest().build();
+    }
+}
+
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Booking> updateBooking(@PathVariable Long id, @RequestBody Booking bookingDetails) {

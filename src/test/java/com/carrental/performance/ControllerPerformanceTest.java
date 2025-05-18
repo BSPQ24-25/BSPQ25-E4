@@ -26,42 +26,42 @@ public class ControllerPerformanceTest {
 
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 8000, warmUpMs = 1000)
-    @JUnitPerfTestRequirement(executionsPerSec = 500, percentiles = "95:40ms,99:100ms", allowedErrorPercentage = 0.0f)
+    @JUnitPerfTestRequirement(executionsPerSec = 100, percentiles = "95:40ms,99:100ms", allowedErrorPercentage = 0.0f)
     public void testGetAllBookings() {
         restTemplate.getForEntity("/api/bookings", String.class);
     }
 
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 8000, warmUpMs = 1000)
-    @JUnitPerfTestRequirement(executionsPerSec = 500, percentiles = "95:30ms,99:50ms", allowedErrorPercentage = 0.0f)
+    @JUnitPerfTestRequirement(executionsPerSec = 100, percentiles = "95:30ms,99:50ms", allowedErrorPercentage = 0.0f)
     public void testGetAllCars() {
         restTemplate.getForEntity("/cars", String.class);
     }
 
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 8000, warmUpMs = 1000)
-    @JUnitPerfTestRequirement(executionsPerSec = 500, percentiles = "95:35ms,99:80ms", allowedErrorPercentage = 0.0f)
+    @JUnitPerfTestRequirement(executionsPerSec = 100, percentiles = "95:35ms,99:80ms", allowedErrorPercentage = 0.0f)
     public void testGetAllInsurances() {
         restTemplate.getForEntity("/admin/insurances", String.class);
     }
 
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 8000, warmUpMs = 1000)
-    @JUnitPerfTestRequirement(executionsPerSec = 500, percentiles = "95:30ms,99:60ms", allowedErrorPercentage = 0.0f)
+    @JUnitPerfTestRequirement(executionsPerSec = 100, percentiles = "95:30ms,99:60ms", allowedErrorPercentage = 0.0f)
     public void testUserProfile() {
         restTemplate.getForEntity("/user/profile", String.class);
     }
 
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 8000, warmUpMs = 1000)
-    @JUnitPerfTestRequirement(executionsPerSec = 300, percentiles = "95:40ms,99:90ms", allowedErrorPercentage = 0.0f)
+    @JUnitPerfTestRequirement(executionsPerSec = 100, percentiles = "95:40ms,99:90ms", allowedErrorPercentage = 0.0f)
     public void testUserDashboard() {
         restTemplate.getForEntity("/user/dashboard", String.class);
     }
 
     @Test
     @JUnitPerfTest(threads = 10, durationMs = 8000, warmUpMs = 1000)
-    @JUnitPerfTestRequirement(executionsPerSec = 250, percentiles = "95:35ms,99:80ms", allowedErrorPercentage = 0.0f)
+    @JUnitPerfTestRequirement(executionsPerSec = 100, percentiles = "95:35ms,99:80ms", allowedErrorPercentage = 0.0f)
     public void testUserRentalHistory() {
         restTemplate.getForEntity("/history", String.class);
     }

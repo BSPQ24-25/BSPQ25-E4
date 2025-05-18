@@ -130,7 +130,7 @@ public class CarRentalIntegrationTest {
                 
             // Si llegamos aquí, intentar con el objeto normal
             ResponseEntity<Booking> bookingResponse = restTemplate.postForEntity(
-                "/api/bookings", bookingRequest, Booking.class);
+                "/api/bookings/from-dto", bookingRequest, Booking.class);
             
             assertEquals(HttpStatus.OK, bookingResponse.getStatusCode());
             Booking createdBooking = bookingResponse.getBody();

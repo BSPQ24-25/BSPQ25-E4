@@ -2,6 +2,7 @@ com\carrental\controller\InsuranceController.class
 com\carrental\service\UserService.class
 com\carrental\controller\CarController.class
 com\carrental\controller\RentalHistoryController.class
+com\carrental\dto\BookingDTO.class
 com\carrental\controller\UserController.class
 com\carrental\controller\AdminDashboardController.class
 com\carrental\gateway\PayPalGateway.class
