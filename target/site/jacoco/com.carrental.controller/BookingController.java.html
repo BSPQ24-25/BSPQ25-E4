@@ -55,8 +55,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
         try {
 <span class="fc" id="L56">            Booking createdBooking = bookingService.createBooking(booking);</span>
 <span class="fc" id="L57">            return ResponseEntity.ok(createdBooking);</span>
-<span class="fc" id="L58">        } catch (Exception e) {</span>
-<span class="fc" id="L59">            return ResponseEntity.badRequest().build();</span>
+<span class="nc" id="L58">        } catch (Exception e) {</span>
+<span class="nc" id="L59">            return ResponseEntity.badRequest().build();</span>
         }
     }
 
