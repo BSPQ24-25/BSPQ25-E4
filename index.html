@@ -1,60 +1,101 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Resumen del Proyecto - CarRentalSystem</title>
+  <title>Project Summary - CarRentalSystem</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 2rem;
-      color: #333;
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
-    h1 {
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #ecf0f1;
+      padding: 2rem;
       color: #2c3e50;
     }
+
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
     h2 {
-      margin-top: 2rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
       color: #34495e;
+      border-left: 5px solid #3498db;
+      padding-left: 0.5rem;
     }
-    ul {
-      list-style: none;
-      padding-left: 0;
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem;
     }
-    li {
-      margin: 0.5rem 0;
+
+    .card {
+      background-color: #fff;
+      padding: 1rem 1.2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+      flex: 1 1 300px;
     }
-    a {
-      color: #2980b9;
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card a {
       text-decoration: none;
-      font-weight: bold;
+      color: #2980b9;
+      font-weight: 600;
+      font-size: 1rem;
     }
-    a:hover {
+
+    .card a:hover {
       text-decoration: underline;
+    }
+
+    .emoji {
+      font-size: 1.2rem;
+      margin-right: 0.3rem;
     }
   </style>
 </head>
 <body>
 
-  <h1>📦 Panel de Informes del Proyecto</h1>
+  <h1>📦 Project Report Dashboard</h1>
 
-  <h2>📚 Documentación</h2>
-  <ul>
-    <li><a href="docs/index.html" target="_blank">Documentación generada por Doxygen</a></li>
-  </ul>
+  <h2>📚 Documentation</h2>
+  <div class="card-container">
+    <div class="card">
+      <span class="emoji">📄</span><a href="docs/index.html" target="_blank">Doxygen-Generated Documentation</a>
+    </div>
+  </div>
 
-  <h2>🚀 Informes de Rendimiento</h2>
-  <ul>
-    <li><a href="target/reports/booking-perf-report.html" target="_blank">Booking Performance</a></li>
-    <li><a href="target/reports/car-perf-report.html" target="_blank">Car Performance</a></li>
-    <li><a href="target/reports/insurance-perf-report.html" target="_blank">Insurance Performance</a></li>
-    <li><a href="target/reports/user-perf-report.html" target="_blank">User Performance</a></li>
-  </ul>
+  <h2>🚀 Performance Reports</h2>
+  <div class="card-container">
+    <div class="card"><span class="emoji">📊</span><a href="target/reports/booking-perf-report.html" target="_blank">Booking Performance</a></div>
+    <div class="card"><span class="emoji">🚗</span><a href="target/reports/car-perf-report.html" target="_blank">Car Performance</a></div>
+    <div class="card"><span class="emoji">🧪</span><a href="target/reports/ControllerPerformanceTestReport.html" target="_blank">Controller Performance</a></div>
+    <div class="card"><span class="emoji">🧾</span><a href="target/reports/insurance-perf-report.html" target="_blank">Insurance Report</a></div>
+    <div class="card"><span class="emoji">🔍</span><a href="target/reports/ServiceTestsReport.html" target="_blank">Service Test Report</a></div>
+    <div class="card"><span class="emoji">👤</span><a href="target/reports/user-perf-report.html" target="_blank">User Performance</a></div>
+  </div>
 
-  <h2>🌐 Sitio Maven</h2>
-  <ul>
-    <li><a href="target/site/index.html" target="_blank">Maven Site</a></li>
-  </ul>
+  <h2>🌐 Maven Site</h2>
+  <div class="card-container">
+    <div class="card">
+      <span class="emoji">📘</span><a href="target/site/index.html" target="_blank">Maven Site</a>
+    </div>
+  </div>
 
 </body>
 </html>
