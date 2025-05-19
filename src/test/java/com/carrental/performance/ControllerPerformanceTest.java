@@ -66,3 +66,5 @@ public class ControllerPerformanceTest {
         restTemplate.getForEntity("/history", String.class);
     }
 }
+
+
