@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Rental History</title>
     <style>
         body {
@@ -9,9 +10,14 @@
             margin: 0;
             padding: 0;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            overflow-x: auto;
         }
 
         h1 {
@@ -21,7 +27,7 @@
         }
 
         table {
-            width: 90%;
+            width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
             background-color: white;
@@ -51,13 +57,6 @@
             color: #555;
         }
 
-        /* Optional: Add some spacing and center the table */
-        .container {
-            width: 80%;
-            overflow-x: auto;
-        }
-
-        /* Estilo para el botón rojo */
         .btn-back {
             background-color: red;
             color: white;
@@ -73,25 +72,40 @@
         .btn-back:hover {
             background-color: darkred;
         }
+
+        #langSelect {
+            width: 150px;
+            margin: 20px 0;
+        }
     </style>
 </head>
 <body>
+
+    <!-- Language Selector -->
+    <div style="align-self: flex-end; margin: 10px;">
+        <select id="langSelect" class="form-select">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
     <div class="container">
-        <h1>Rental History</h1>
+        <h1 id="rentalHistoryTitle">Rental History</h1>
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>User ID</th>
-                    <th>Car ID</th>
-                    <th>Start date</th>
-                    <th>End date</th>
-                    <th>Daily price</th>
-                    <th>Booking status</th>
-                    <th>Payment method</th>
-                    <th>Security deposit</th>
-                    <th>Rating</th>
-                    <th>Review</th>
+                    <th id="idHeader">ID</th>
+                    <th id="userIdHeader">User ID</th>
+                    <th id="carIdHeader">Car ID</th>
+                    <th id="startDateHeader">Start date</th>
+                    <th id="endDateHeader">End date</th>
+                    <th id="dailyPriceHeader">Daily price</th>
+                    <th id="bookingStatusHeader">Booking status</th>
+                    <th id="paymentMethodHeader">Payment method</th>
+                    <th id="securityDepositHeader">Security deposit</th>
+                    <th id="ratingHeader">Rating</th>
+                    <th id="reviewHeader">Review</th>
                 </tr>
             </thead>
             <tbody>
@@ -110,7 +124,81 @@
                 </tr>
             </tbody>
         </table>
-        <a href="/admin/dashboard" class="btn-back">Back</a>
+        <a href="/admin/dashboard" class="btn-back" id="backLink">Back</a>
     </div>
+
+    <script>
+        const langSelect = document.getElementById('langSelect');
+        const translations = {
+            en: {
+                rentalHistoryTitle: "Rental History",
+                idHeader: "ID",
+                userIdHeader: "User ID",
+                carIdHeader: "Car ID",
+                startDateHeader: "Start date",
+                endDateHeader: "End date",
+                dailyPriceHeader: "Daily price",
+                bookingStatusHeader: "Booking status",
+                paymentMethodHeader: "Payment method",
+                securityDepositHeader: "Security deposit",
+                ratingHeader: "Rating",
+                reviewHeader: "Review",
+                backLink: "Back"
+            },
+            fr: {
+                rentalHistoryTitle: "Historique des locations",
+                idHeader: "ID",
+                userIdHeader: "ID Utilisateur",
+                carIdHeader: "ID Voiture",
+                startDateHeader: "Date de début",
+                endDateHeader: "Date de fin",
+                dailyPriceHeader: "Prix journalier",
+                bookingStatusHeader: "Statut de réservation",
+                paymentMethodHeader: "Méthode de paiement",
+                securityDepositHeader: "Dépôt de garantie",
+                ratingHeader: "Évaluation",
+                reviewHeader: "Avis",
+                backLink: "Retour"
+            },
+            es: {
+                rentalHistoryTitle: "Historial de alquiler",
+                idHeader: "ID",
+                userIdHeader: "ID Usuario",
+                carIdHeader: "ID Coche",
+                startDateHeader: "Fecha inicio",
+                endDateHeader: "Fecha fin",
+                dailyPriceHeader: "Precio diario",
+                bookingStatusHeader: "Estado de la reserva",
+                paymentMethodHeader: "Método de pago",
+                securityDepositHeader: "Depósito de seguridad",
+                ratingHeader: "Calificación",
+                reviewHeader: "Reseña",
+                backLink: "Atrás"
+            }
+        };
+
+        langSelect.addEventListener('change', function() {
+            const selectedLang = this.value;
+            updateTexts(selectedLang);
+        });
+
+        function updateTexts(lang) {
+            const t = translations[lang];
+            document.getElementById('rentalHistoryTitle').textContent = t.rentalHistoryTitle;
+            document.getElementById('idHeader').textContent = t.idHeader;
+            document.getElementById('userIdHeader').textContent = t.userIdHeader;
+            document.getElementById('carIdHeader').textContent = t.carIdHeader;
+            document.getElementById('startDateHeader').textContent = t.startDateHeader;
+            document.getElementById('endDateHeader').textContent = t.endDateHeader;
+            document.getElementById('dailyPriceHeader').textContent = t.dailyPriceHeader;
+            document.getElementById('bookingStatusHeader').textContent = t.bookingStatusHeader;
+            document.getElementById('paymentMethodHeader').textContent = t.paymentMethodHeader;
+            document.getElementById('securityDepositHeader').textContent = t.securityDepositHeader;
+            document.getElementById('ratingHeader').textContent = t.ratingHeader;
+            document.getElementById('reviewHeader').textContent = t.reviewHeader;
+            document.getElementById('backLink').textContent = t.backLink;
+        }
+    </script>
+
 </body>
 </html>

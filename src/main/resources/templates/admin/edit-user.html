@@ -12,8 +12,6 @@
         .form-label {
             font-weight: bold;
         }
-
-        /* Estilo para el botón rojo */
         .btn-back {
             background-color: red;
             color: white;
@@ -25,51 +23,116 @@
             display: inline-block;
             text-align: center;
         }
-
         .btn-back:hover {
             background-color: darkred;
         }
-
-        
+        #langSelect {
+            width: 150px;
+            margin-bottom: 20px;
+            display: inline-block;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2 class="text-center mb-4">Edit User</h2>
+        <!-- Language Selector -->
+        <div style="text-align: right;">
+            <select id="langSelect" class="form-select">
+                <option value="en" selected>English</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+            </select>
+        </div>
+
+        <h2 class="text-center mb-4" id="editUserTitle">Edit User</h2>
         <form th:action="@{'/admin/users/edit/' + ${user.id}}" th:object="${user}" method="post" class="border p-4 rounded shadow-sm bg-light">
             <div class="mb-3">
-                <label class="form-label">Name:</label>
+                <label class="form-label" id="nameLabel">Name:</label>
                 <input type="text" th:field="*{name}" class="form-control" required />
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Email:</label>
+                <label class="form-label" id="emailLabel">Email:</label>
                 <input type="email" th:field="*{email}" class="form-control" required />
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Phone:</label>
+                <label class="form-label" id="phoneLabel">Phone:</label>
                 <input type="text" th:field="*{phone}" class="form-control" />
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Address:</label>
+                <label class="form-label" id="addressLabel">Address:</label>
                 <input type="text" th:field="*{address}" class="form-control" />
             </div>
 
             <div class="form-check mb-3">
                 <input class="form-check-input" type="checkbox" th:field="*{isAdmin}" id="isAdminCheck" />
-                <label class="form-check-label" for="isAdminCheck">
+                <label class="form-check-label" for="isAdminCheck" id="adminLabel">
                     Is Admin
                 </label>
             </div>
 
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Update User</button>
+                <button type="submit" class="btn btn-primary" id="updateButton">Update User</button>
             </div>
         </form>
-        <a href="/admin/users" class="back-link">Back</a>
+
+        <a href="/admin/users" class="btn-back" id="backLink">Back</a>
     </div>
+
+    <script>
+        const langSelect = document.getElementById('langSelect');
+        const translations = {
+            en: {
+                editUserTitle: "Edit User",
+                nameLabel: "Name:",
+                emailLabel: "Email:",
+                phoneLabel: "Phone:",
+                addressLabel: "Address:",
+                adminLabel: "Is Admin",
+                updateButton: "Update User",
+                backLink: "Back"
+            },
+            fr: {
+                editUserTitle: "Modifier l'utilisateur",
+                nameLabel: "Nom :",
+                emailLabel: "Email :",
+                phoneLabel: "Téléphone :",
+                addressLabel: "Adresse :",
+                adminLabel: "Administrateur",
+                updateButton: "Mettre à jour",
+                backLink: "Retour"
+            },
+            es: {
+                editUserTitle: "Editar Usuario",
+                nameLabel: "Nombre:",
+                emailLabel: "Correo electrónico:",
+                phoneLabel: "Teléfono:",
+                addressLabel: "Dirección:",
+                adminLabel: "Administrador",
+                updateButton: "Actualizar",
+                backLink: "Atrás"
+            }
+        };
+
+        langSelect.addEventListener('change', function() {
+            const selectedLang = this.value;
+            updateTexts(selectedLang);
+        });
+
+        function updateTexts(lang) {
+            const t = translations[lang];
+            document.getElementById('editUserTitle').textContent = t.editUserTitle;
+            document.getElementById('nameLabel').textContent = t.nameLabel;
+            document.getElementById('emailLabel').textContent = t.emailLabel;
+            document.getElementById('phoneLabel').textContent = t.phoneLabel;
+            document.getElementById('addressLabel').textContent = t.addressLabel;
+            document.getElementById('adminLabel').textContent = t.adminLabel;
+            document.getElementById('updateButton').textContent = t.updateButton;
+            document.getElementById('backLink').textContent = t.backLink;
+        }
+    </script>
 
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 </body>
