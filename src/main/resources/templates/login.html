@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title data-i18n="title">Login</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -88,37 +88,111 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
+        }
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h1>Log In</h1>
+    <div class="lang-select-container">
+        <select id="langSelect" class="form-select">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
 
-        <div th:if="${param.error}" class="alert alert-danger">
+    <div class="login-container">
+        <h1 data-i18n="loginTitle">Log In</h1>
+
+        <div th:if="${param.error}" class="alert alert-danger" data-i18n="loginError">
             Invalid email or password.
         </div>
 
-        <div th:if="${param.logout}" class="alert alert-success">
+        <div th:if="${param.logout}" class="alert alert-success" data-i18n="logoutMessage">
             You have logged out.
         </div>
 
-        <div th:if="${param.success}" class="alert alert-success">
+        <div th:if="${param.success}" class="alert alert-success" data-i18n="registerSuccess">
             Registration successful.
         </div>
 
         <form th:action="@{/login}" method="post">
             <div>
-                <label for="email">Email:</label>
+                <label for="email" data-i18n="email">Email:</label>
                 <input type="email" id="email" name="email" required />
             </div>
             <div>
-                <label for="password">Password:</label>
+                <label for="password" data-i18n="password">Password:</label>
                 <input type="password" id="password" name="password" required />
             </div>
-            <button type="submit">Log in</button>
+            <button type="submit" data-i18n="loginBtn">Log in</button>
         </form>
 
-        <p>Don't have an account? <a th:href="@{/register}">Register</a></p>
+        <p><span data-i18n="noAccount">Don't have an account?</span> <a th:href="@{/register}" data-i18n="registerLink">Register</a></p>
     </div>
+
+    <script>
+        const translations = {
+            en: {
+                title: "Login",
+                loginTitle: "Log In",
+                loginError: "Invalid email or password.",
+                logoutMessage: "You have logged out.",
+                registerSuccess: "Registration successful.",
+                email: "Email:",
+                password: "Password:",
+                loginBtn: "Log in",
+                noAccount: "Don't have an account?",
+                registerLink: "Register"
+            },
+            fr: {
+                title: "Connexion",
+                loginTitle: "Se connecter",
+                loginError: "Email ou mot de passe invalide.",
+                logoutMessage: "Vous avez été déconnecté.",
+                registerSuccess: "Inscription réussie.",
+                email: "Email :",
+                password: "Mot de passe :",
+                loginBtn: "Connexion",
+                noAccount: "Vous n'avez pas de compte ?",
+                registerLink: "Inscrivez-vous"
+            },
+            es: {
+                title: "Iniciar sesión",
+                loginTitle: "Iniciar sesión",
+                loginError: "Correo o contraseña inválidos.",
+                logoutMessage: "Has cerrado sesión.",
+                registerSuccess: "Registro exitoso.",
+                email: "Correo:",
+                password: "Contraseña:",
+                loginBtn: "Iniciar sesión",
+                noAccount: "¿No tienes una cuenta?",
+                registerLink: "Regístrate"
+            }
+        };
+
+        const applyTranslations = (lang) => {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                el.textContent = translations[lang][key];
+            });
+            document.title = translations[lang]['title'];
+        };
+
+        document.getElementById("langSelect").addEventListener("change", (e) => {
+            const selectedLang = e.target.value;
+            applyTranslations(selectedLang);
+        });
+
+        window.addEventListener("DOMContentLoaded", () => {
+            applyTranslations("en");
+        });
+    </script>
 </body>
 </html>

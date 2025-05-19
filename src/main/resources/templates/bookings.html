@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>🚗 Booking List</title>
+    <title data-i18n="title">🚗 Booking List</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,36 +41,110 @@
         td {
             font-size: 14px;
         }
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
+        }
     </style>
 </head>
 <body>
-    <h1>🚗 Booking List</h1>
+    <div class="lang-select-container">
+        <select id="langSelect" class="form-select">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
+    <h1 data-i18n="title">🚗 Booking List</h1>
     <table>
         <thead>
             <tr>
-                <th>ID</th>
-                <th>💰 Daily Price</th>
-                <th>📅 Start Date</th>
-                <th>📅 End Date</th>
-                <th>📌 Status</th>
-                <th>💳 Payment</th>
-                <th>🔒 Security Deposit</th>
-                <th>👤 User</th>
-                <th>🚘 Vehicle</th>
-                <th>⭐ Rating</th>
-                <th>💬 Review</th>
-                <th>❌ Cancel</th> <!-- New column for cancel button -->
+                <th data-i18n="id">ID</th>
+                <th data-i18n="price">💰 Daily Price</th>
+                <th data-i18n="startDate">📅 Start Date</th>
+                <th data-i18n="endDate">📅 End Date</th>
+                <th data-i18n="status">📌 Status</th>
+                <th data-i18n="payment">💳 Payment</th>
+                <th data-i18n="deposit">🔒 Security Deposit</th>
+                <th data-i18n="user">👤 User</th>
+                <th data-i18n="vehicle">🚘 Vehicle</th>
+                <th data-i18n="rating">⭐ Rating</th>
+                <th data-i18n="review">💬 Review</th>
+                <th data-i18n="cancel">❌ Cancel</th>
             </tr>
         </thead>
-        <tbody id="bookingsTableBody">
-            <!-- Bookings will be inserted here -->
-        </tbody>
+        <tbody id="bookingsTableBody"></tbody>
     </table>
 
     <script>
+        const translations = {
+            en: {
+                title: "🚗 Booking List",
+                id: "ID",
+                price: "💰 Daily Price",
+                startDate: "📅 Start Date",
+                endDate: "📅 End Date",
+                status: "📌 Status",
+                payment: "💳 Payment",
+                deposit: "🔒 Security Deposit",
+                user: "👤 User",
+                vehicle: "🚘 Vehicle",
+                rating: "⭐ Rating",
+                review: "💬 Review",
+                cancel: "❌ Cancel"
+            },
+            fr: {
+                title: "🚗 Liste des réservations",
+                id: "ID",
+                price: "💰 Prix journalier",
+                startDate: "📅 Date de début",
+                endDate: "📅 Date de fin",
+                status: "📌 Statut",
+                payment: "💳 Paiement",
+                deposit: "🔒 Caution",
+                user: "👤 Utilisateur",
+                vehicle: "🚘 Véhicule",
+                rating: "⭐ Note",
+                review: "💬 Avis",
+                cancel: "❌ Annuler"
+            },
+            es: {
+                title: "🚗 Lista de reservas",
+                id: "ID",
+                price: "💰 Precio diario",
+                startDate: "📅 Fecha inicio",
+                endDate: "📅 Fecha fin",
+                status: "📌 Estado",
+                payment: "💳 Pago",
+                deposit: "🔒 Depósito",
+                user: "👤 Usuario",
+                vehicle: "🚘 Vehículo",
+                rating: "⭐ Valoración",
+                review: "💬 Reseña",
+                cancel: "❌ Cancelar"
+            }
+        };
+
+        const applyTranslations = (lang) => {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                el.textContent = translations[lang][key];
+            });
+            document.title = translations[lang]['title'];
+        };
+
+        document.getElementById("langSelect").addEventListener("change", (e) => {
+            const selectedLang = e.target.value;
+            applyTranslations(selectedLang);
+        });
+
         async function fetchBookings() {
             try {
-                const response = await fetch('/api/bookings'); // Modify the URL if needed
+                const response = await fetch('/api/bookings');
                 const bookings = await response.json();
                 
                 const tableBody = document.getElementById('bookingsTableBody');
@@ -90,7 +164,7 @@
                         <td>🚘 ${booking.car ? booking.car.model : 'N/A'}</td>
                         <td>⭐ ${booking.rating || 'N/A'}</td>
                         <td>💬 ${booking.review || 'No review'}</td>
-                        <td><button onclick="cancelBooking(${booking.bookingId})">❌ Cancel</button></td> <!-- Cancel button -->
+                        <td><button onclick="cancelBooking(${booking.bookingId})" data-i18n="cancel">❌ Cancel</button></td>
                     `;
                     tableBody.appendChild(row);
                 });
@@ -107,7 +181,7 @@
 
                 if (response.ok) {
                     alert('Booking cancelled successfully');
-                    fetchBookings(); // Refresh the booking list
+                    fetchBookings();
                 } else {
                     alert('Error cancelling booking');
                 }
@@ -116,7 +190,10 @@
             }
         }
 
-        document.addEventListener('DOMContentLoaded', fetchBookings);
+        document.addEventListener('DOMContentLoaded', () => {
+            applyTranslations("en");
+            fetchBookings();
+        });
     </script>
 </body>
 </html>

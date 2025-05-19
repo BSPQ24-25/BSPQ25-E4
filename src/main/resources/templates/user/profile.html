@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Perfil de Usuario</title>
+    <title data-i18n="title">Perfil de Usuario</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -39,7 +39,6 @@
             color: #222;
         }
 
-        /* Estilo para el botón rojo */
         .btn-back {
             background-color: red;
             color: white;
@@ -55,18 +54,83 @@
         .btn-back:hover {
             background-color: darkred;
         }
+
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
+        }
     </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>Bienvenido, <span th:text="${user.name}"></span></h1>
-        <div class="profile-info">
-            <p><strong>Nombre:</strong> <span th:text="${user.name}"></span></p>
-            <p><strong>Email:</strong> <span th:text="${user.email}"></span></p>
-            <p><strong>Teléfono:</strong> <span th:text="${user.phone}"></span></p>
-            <p><strong>Dirección:</strong> <span th:text="${user.address}"></span></p>
-        </div>
-        <a href="/user/dashboard" class="btn-back">Back</a>
+    <div class="lang-select-container">
+        <select id="langSelect" class="form-select">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
     </div>
+
+    <div class="profile-container">
+        <h1><span data-i18n="welcome">Bienvenido</span>, <span th:text="${user.name}"></span></h1>
+        <div class="profile-info">
+            <p><strong data-i18n="name">Nombre:</strong> <span th:text="${user.name}"></span></p>
+            <p><strong data-i18n="email">Email:</strong> <span th:text="${user.email}"></span></p>
+            <p><strong data-i18n="phone">Teléfono:</strong> <span th:text="${user.phone}"></span></p>
+            <p><strong data-i18n="address">Dirección:</strong> <span th:text="${user.address}"></span></p>
+        </div>
+        <a href="/user/dashboard" class="btn-back" data-i18n="back">Back</a>
+    </div>
+
+    <script>
+        const translations = {
+            en: {
+                title: "User Profile",
+                welcome: "Welcome",
+                name: "Name:",
+                email: "Email:",
+                phone: "Phone:",
+                address: "Address:",
+                back: "Back"
+            },
+            fr: {
+                title: "Profil de l'utilisateur",
+                welcome: "Bienvenue",
+                name: "Nom :",
+                email: "Email :",
+                phone: "Téléphone :",
+                address: "Adresse :",
+                back: "Retour"
+            },
+            es: {
+                title: "Perfil de Usuario",
+                welcome: "Bienvenido",
+                name: "Nombre:",
+                email: "Email:",
+                phone: "Teléfono:",
+                address: "Dirección:",
+                back: "Atrás"
+            }
+        };
+
+        const applyTranslations = (lang) => {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                el.textContent = translations[lang][key];
+            });
+            document.title = translations[lang]['title'];
+        };
+
+        document.getElementById("langSelect").addEventListener("change", (e) => {
+            const selectedLang = e.target.value;
+            applyTranslations(selectedLang);
+        });
+
+        window.addEventListener("DOMContentLoaded", () => {
+            applyTranslations("en");
+        });
+    </script>
 </body>
 </html>

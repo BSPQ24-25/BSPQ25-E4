@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title data-i18n="title">Register</title>
     <style>
         body {
             font-family: 'Segoe UI', sans-serif;
@@ -105,11 +105,27 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
+        }
     </style>
 </head>
 <body>
+<div class="lang-select-container">
+    <select id="langSelect" class="form-select">
+        <option value="en" selected>English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+    </select>
+</div>
+
 <div class="container">
-    <h1>Register</h1>
+    <h1 data-i18n="register">Register</h1>
 
     <div th:if="${error}" class="alert alert-danger">
         <p th:text="${error}"></p>
@@ -117,34 +133,95 @@
 
     <form th:action="@{/register}" th:object="${user}" method="post">
         <div>
-            <label for="name">Name:</label>
+            <label for="name" data-i18n="name">Name:</label>
             <input type="text" id="name" th:field="*{name}" required />
         </div>
         <div>
-            <label for="email">Email:</label>
+            <label for="email" data-i18n="email">Email:</label>
             <input type="email" id="email" th:field="*{email}" required />
         </div>
         <div>
-            <label for="password">Password:</label>
+            <label for="password" data-i18n="password">Password:</label>
             <input type="password" id="password" th:field="*{password}" required />
         </div>
         <div>
-            <label for="telephone">Phone number:</label>
+            <label for="telephone" data-i18n="phone">Phone number:</label>
             <input type="text" id="telephone" th:field="*{phone}" />
         </div>
         <div>
-            <label for="address">Address:</label>
+            <label for="address" data-i18n="address">Address:</label>
             <input type="text" id="address" th:field="*{address}" />
         </div>
         <div class="checkbox-wrapper">
             <input type="checkbox" id="isAdmin" th:field="*{isAdmin}" th:checked="${user.isAdmin}" />
-            <label for="isAdmin">Select if you are an admin</label>
+            <label for="isAdmin" data-i18n="adminCheck">Select if you are an admin</label>
         </div>
-        
-        <button type="submit">Register</button>
+
+        <button type="submit" data-i18n="registerBtn">Register</button>
     </form>
 
-    <p>Already have an account? <a th:href="@{/login}">Log In</a></p>
+    <p><span data-i18n="haveAccount">Already have an account?</span> <a th:href="@{/login}" data-i18n="loginLink">Log In</a></p>
 </div>
+
+<script>
+    const translations = {
+        en: {
+            title: "Register",
+            register: "Register",
+            name: "Name:",
+            email: "Email:",
+            password: "Password:",
+            phone: "Phone number:",
+            address: "Address:",
+            adminCheck: "Select if you are an admin",
+            registerBtn: "Register",
+            haveAccount: "Already have an account?",
+            loginLink: "Log In"
+        },
+        fr: {
+            title: "Inscription",
+            register: "Inscription",
+            name: "Nom :",
+            email: "Email :",
+            password: "Mot de passe :",
+            phone: "Numéro de téléphone :",
+            address: "Adresse :",
+            adminCheck: "Cochez si vous êtes un administrateur",
+            registerBtn: "S'inscrire",
+            haveAccount: "Vous avez déjà un compte ?",
+            loginLink: "Se connecter"
+        },
+        es: {
+            title: "Registro",
+            register: "Registro",
+            name: "Nombre:",
+            email: "Correo:",
+            password: "Contraseña:",
+            phone: "Número de teléfono:",
+            address: "Dirección:",
+            adminCheck: "Selecciona si eres administrador",
+            registerBtn: "Registrarse",
+            haveAccount: "¿Ya tienes una cuenta?",
+            loginLink: "Iniciar sesión"
+        }
+    };
+
+    const applyTranslations = (lang) => {
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            el.textContent = translations[lang][key];
+        });
+        document.title = translations[lang]['title'];
+    };
+
+    document.getElementById("langSelect").addEventListener("change", (e) => {
+        const selectedLang = e.target.value;
+        applyTranslations(selectedLang);
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+        applyTranslations("en");
+    });
+</script>
 </body>
 </html>
