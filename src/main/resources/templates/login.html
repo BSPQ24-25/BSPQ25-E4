@@ -11,6 +11,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0; /* Ajout pour éviter les barres de défilement inutiles */
         }
 
         .login-container {
@@ -52,7 +53,8 @@
         }
 
         input {
-            width: 100%;
+            width: 100%; /* Utilise box-sizing pour inclure padding/border dans la largeur */
+            box-sizing: border-box;
             padding: 0.5rem;
             margin-bottom: 1rem;
             border: 1px solid #ccc;
@@ -145,8 +147,8 @@
                     emailLabel: "Email:",
                     passwordLabel: "Password:",
                     loginButton: "Log in",
-                    registerText: "Don't have an account?",
-                    registerLink: "Register",
+                    registerText: "Don't have an account?", // Texte avant le lien
+                    registerLink: "Register",             // Texte du lien
                     errorMsg: "Invalid email or password.",
                     logoutMsg: "You have logged out.",
                     successMsg: "Registration successful."
@@ -185,23 +187,35 @@
                 document.querySelector('label[for="email"]').textContent = t.emailLabel;
                 document.querySelector('label[for="password"]').textContent = t.passwordLabel;
                 document.querySelector('button[type="submit"]').textContent = t.loginButton;
-                document.querySelector('p').textContent = t.registerText;
-                document.querySelector('a').textContent = t.registerLink;
 
-                // Update alert messages
-                const errorMsg = document.querySelector('.alert-danger');
-                if (errorMsg) {
-                    errorMsg.textContent = t.errorMsg;
+                const registerParagraph = document.querySelector('.login-container p');
+                if (registerParagraph) {
+                    const registerLinkElement = registerParagraph.querySelector('a');
+                    if (registerLinkElement) {
+                        registerLinkElement.textContent = t.registerLink;
+
+                        if (registerParagraph.firstChild && registerParagraph.firstChild.nodeType === Node.TEXT_NODE) {
+                            registerParagraph.firstChild.nodeValue = t.registerText + " ";
+                        }
+                    }
                 }
-                const logoutMsg = document.querySelector('.alert-success');
-                if (logoutMsg) {
-                    logoutMsg.textContent = t.logoutMsg;
+
+                const errorAlert = document.querySelector('div[th\\:if="${param.error}"].alert-danger');
+                if (errorAlert) {
+                    errorAlert.textContent = t.errorMsg;
                 }
-                const successMsg = document.querySelector('.alert-success');
-                if (successMsg) {
-                    successMsg.textContent = t.successMsg;
+
+                const logoutAlert = document.querySelector('div[th\\:if="${param.logout}"].alert-success');
+                if (logoutAlert) {
+                    logoutAlert.textContent = t.logoutMsg;
+                }
+
+                const registrationSuccessAlert = document.querySelector('div[th\\:if="${param.success}"].alert-success');
+                if (registrationSuccessAlert) {
+                    registrationSuccessAlert.textContent = t.successMsg;
                 }
             }
+
         });
     </script>
 </body>
