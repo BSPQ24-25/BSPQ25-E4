@@ -27,9 +27,10 @@ var NAVTREE =
   [ "Car Rental", "index.html", [
     [ "🚗 CarRentalSystem", "md_README.html", [
       [ "BSPQ25-E4", "md_README.html#autotoc_md1", [
-        [ "📦 Technologies Used", "md_README.html#autotoc_md3", null ],
-        [ "⚙️ Project Setup", "md_README.html#autotoc_md5", [
-          [ "1️⃣ Clone the repository:", "md_README.html#autotoc_md6", null ]
+        [ "📁 GitHub repository: <a href=\"https://github.com/BSPQ24-25/BSPQ25-E4\" >https://github.com/BSPQ24-25/BSPQ25-E4</a>", "md_README.html#autotoc_md2", null ],
+        [ "📦 Technologies Used", "md_README.html#autotoc_md4", null ],
+        [ "⚙️ Project Setup", "md_README.html#autotoc_md6", [
+          [ "1️⃣ Clone the repository:", "md_README.html#autotoc_md7", null ]
         ] ]
       ] ]
     ] ],
