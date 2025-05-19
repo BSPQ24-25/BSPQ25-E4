@@ -55,6 +55,19 @@
         .btn-back:hover {
             background-color: darkred;
         }
+
+        /* Language selection style */
+        .lang-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+        }
+
+        .lang-selector select {
+            padding: 5px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -68,5 +81,61 @@
         </div>
         <a href="/user/dashboard" class="btn-back">Back</a>
     </div>
+
+    <!-- Language Selector -->
+    <div class="lang-selector">
+        <select id="langSelect">
+            <option value="es" selected>Español</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+        </select>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const langSelect = document.getElementById('langSelect');
+
+            const translations = {
+                en: {
+                    title: "Welcome,",
+                    name: "Name:",
+                    email: "Email:",
+                    phone: "Phone:",
+                    address: "Address:",
+                    back: "Back"
+                },
+                fr: {
+                    title: "Bienvenue,",
+                    name: "Nom:",
+                    email: "Email:",
+                    phone: "Téléphone:",
+                    address: "Adresse:",
+                    back: "Retour"
+                },
+                es: {
+                    title: "Bienvenido,",
+                    name: "Nombre:",
+                    email: "Correo Electrónico:",
+                    phone: "Teléfono:",
+                    address: "Dirección:",
+                    back: "Volver"
+                }
+            };
+
+            langSelect.addEventListener('change', function() {
+                updateTexts(this.value);
+            });
+
+            function updateTexts(lang) {
+                const t = translations[lang];
+                document.querySelector('h1').textContent = t.title + " " + document.querySelector('span[th\\:text="${user.name}"]').textContent;
+                document.querySelector('.profile-info p:nth-child(1) strong').textContent = t.name;
+                document.querySelector('.profile-info p:nth-child(2) strong').textContent = t.email;
+                document.querySelector('.profile-info p:nth-child(3) strong').textContent = t.phone;
+                document.querySelector('.profile-info p:nth-child(4) strong').textContent = t.address;
+                document.querySelector('.btn-back').textContent = t.back;
+            }
+        });
+    </script>
 </body>
 </html>

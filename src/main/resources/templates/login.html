@@ -11,6 +11,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+            margin: 0; /* Ajout pour éviter les barres de défilement inutiles */
         }
 
         .login-container {
@@ -52,7 +53,8 @@
         }
 
         input {
-            width: 100%;
+            width: 100%; /* Utilise box-sizing pour inclure padding/border dans la largeur */
+            box-sizing: border-box;
             padding: 0.5rem;
             margin-bottom: 1rem;
             border: 1px solid #ccc;
@@ -88,9 +90,23 @@
         a:hover {
             text-decoration: underline;
         }
+
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <select id="langSelect" class="form-select" style="width: 150px; display: inline-block;">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
     <div class="login-container">
         <h1>Log In</h1>
 
@@ -120,5 +136,87 @@
 
         <p>Don't have an account? <a th:href="@{/register}">Register</a></p>
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const langSelect = document.getElementById('langSelect');
+
+            const translations = {
+                en: {
+                    loginTitle: "Log In",
+                    emailLabel: "Email:",
+                    passwordLabel: "Password:",
+                    loginButton: "Log in",
+                    registerText: "Don't have an account?", // Texte avant le lien
+                    registerLink: "Register",             // Texte du lien
+                    errorMsg: "Invalid email or password.",
+                    logoutMsg: "You have logged out.",
+                    successMsg: "Registration successful."
+                },
+                fr: {
+                    loginTitle: "Se Connecter",
+                    emailLabel: "E-mail:",
+                    passwordLabel: "Mot de passe:",
+                    loginButton: "Se Connecter",
+                    registerText: "Vous n'avez pas de compte?",
+                    registerLink: "S'inscrire",
+                    errorMsg: "E-mail ou mot de passe invalide.",
+                    logoutMsg: "Vous vous êtes déconnecté.",
+                    successMsg: "Inscription réussie."
+                },
+                es: {
+                    loginTitle: "Iniciar sesión",
+                    emailLabel: "Correo electrónico:",
+                    passwordLabel: "Contraseña:",
+                    loginButton: "Iniciar sesión",
+                    registerText: "¿No tienes cuenta?",
+                    registerLink: "Registrarse",
+                    errorMsg: "Correo electrónico o contraseña incorrectos.",
+                    logoutMsg: "Has cerrado sesión.",
+                    successMsg: "Registro exitoso."
+                }
+            };
+
+            langSelect.addEventListener('change', function() {
+                updateTexts(this.value);
+            });
+
+            function updateTexts(lang) {
+                const t = translations[lang];
+                document.querySelector('h1').textContent = t.loginTitle;
+                document.querySelector('label[for="email"]').textContent = t.emailLabel;
+                document.querySelector('label[for="password"]').textContent = t.passwordLabel;
+                document.querySelector('button[type="submit"]').textContent = t.loginButton;
+
+                const registerParagraph = document.querySelector('.login-container p');
+                if (registerParagraph) {
+                    const registerLinkElement = registerParagraph.querySelector('a');
+                    if (registerLinkElement) {
+                        registerLinkElement.textContent = t.registerLink;
+
+                        if (registerParagraph.firstChild && registerParagraph.firstChild.nodeType === Node.TEXT_NODE) {
+                            registerParagraph.firstChild.nodeValue = t.registerText + " ";
+                        }
+                    }
+                }
+
+                const errorAlert = document.querySelector('div[th\\:if="${param.error}"].alert-danger');
+                if (errorAlert) {
+                    errorAlert.textContent = t.errorMsg;
+                }
+
+                const logoutAlert = document.querySelector('div[th\\:if="${param.logout}"].alert-success');
+                if (logoutAlert) {
+                    logoutAlert.textContent = t.logoutMsg;
+                }
+
+                const registrationSuccessAlert = document.querySelector('div[th\\:if="${param.success}"].alert-success');
+                if (registrationSuccessAlert) {
+                    registrationSuccessAlert.textContent = t.successMsg;
+                }
+            }
+
+        });
+    </script>
 </body>
 </html>
