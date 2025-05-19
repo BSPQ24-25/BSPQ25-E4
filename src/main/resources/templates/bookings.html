@@ -41,48 +41,25 @@
         td {
             font-size: 14px;
         }
-
-        /* Language selection style */
-        .lang-selector {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-        }
-
-        .lang-selector select {
-            padding: 5px;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
     <h1>🚗 Booking List</h1>
-    
-    <!-- Language Selector -->
-    <div class="lang-selector">
-        <select id="langSelect">
-            <option value="en" selected>English</option>
-            <option value="es">Español</option>
-            <option value="fr">Français</option>
-        </select>
-    </div>
-
     <table>
         <thead>
             <tr>
-                <th id="idColumn">ID</th>
-                <th id="priceColumn">💰 Daily Price</th>
-                <th id="startDateColumn">📅 Start Date</th>
-                <th id="endDateColumn">📅 End Date</th>
-                <th id="statusColumn">📌 Status</th>
-                <th id="paymentColumn">💳 Payment</th>
-                <th id="depositColumn">🔒 Security Deposit</th>
-                <th id="userColumn">👤 User</th>
-                <th id="vehicleColumn">🚘 Vehicle</th>
-                <th id="ratingColumn">⭐ Rating</th>
-                <th id="reviewColumn">💬 Review</th>
-                <th id="cancelColumn">❌ Cancel</th> <!-- New column for cancel button -->
+                <th>ID</th>
+                <th>💰 Daily Price</th>
+                <th>📅 Start Date</th>
+                <th>📅 End Date</th>
+                <th>📌 Status</th>
+                <th>💳 Payment</th>
+                <th>🔒 Security Deposit</th>
+                <th>👤 User</th>
+                <th>🚘 Vehicle</th>
+                <th>⭐ Rating</th>
+                <th>💬 Review</th>
+                <th>❌ Cancel</th> <!-- New column for cancel button -->
             </tr>
         </thead>
         <tbody id="bookingsTableBody">
@@ -91,66 +68,6 @@
     </table>
 
     <script>
-        const translations = {
-            en: {
-                title: "🚗 Booking List",
-                idColumn: "ID",
-                priceColumn: "💰 Daily Price",
-                startDateColumn: "📅 Start Date",
-                endDateColumn: "📅 End Date",
-                statusColumn: "📌 Status",
-                paymentColumn: "💳 Payment",
-                depositColumn: "🔒 Security Deposit",
-                userColumn: "👤 User",
-                vehicleColumn: "🚘 Vehicle",
-                ratingColumn: "⭐ Rating",
-                reviewColumn: "💬 Review",
-                cancelColumn: "❌ Cancel",
-                cancelButton: "❌ Cancel",
-                noReview: "No review"
-            },
-            fr: {
-                title: "🚗 Liste des Réservations",
-                idColumn: "ID",
-                priceColumn: "💰 Prix Journalier",
-                startDateColumn: "📅 Date de Début",
-                endDateColumn: "📅 Date de Fin",
-                statusColumn: "📌 Statut",
-                paymentColumn: "💳 Paiement",
-                depositColumn: "🔒 Dépôt de Garantie",
-                userColumn: "👤 Utilisateur",
-                vehicleColumn: "🚘 Véhicule",
-                ratingColumn: "⭐ Note",
-                reviewColumn: "💬 Avis",
-                cancelColumn: "❌ Annuler",
-                cancelButton: "❌ Annuler",
-                noReview: "Pas d'avis"
-            },
-            es: {
-                title: "🚗 Lista de Reservas",
-                idColumn: "ID",
-                priceColumn: "💰 Precio Diario",
-                startDateColumn: "📅 Fecha de Inicio",
-                endDateColumn: "📅 Fecha de Fin",
-                statusColumn: "📌 Estado",
-                paymentColumn: "💳 Pago",
-                depositColumn: "🔒 Depósito de Seguridad",
-                userColumn: "👤 Usuario",
-                vehicleColumn: "🚘 Vehículo",
-                ratingColumn: "⭐ Calificación",
-                reviewColumn: "💬 Reseña",
-                cancelColumn: "❌ Cancelar",
-                cancelButton: "❌ Cancelar",
-                noReview: "Sin reseña"
-            }
-        };
-
-        document.addEventListener('DOMContentLoaded', fetchBookings);
-
-        document.getElementById('langSelect').addEventListener('change', (e) => {
-            updateTexts(e.target.value);
-        });
-
         async function fetchBookings() {
             try {
                 const response = await fetch('/api/bookings'); // Modify the URL if needed
@@ -172,8 +89,8 @@
                         <td>👤 ${booking.user ? booking.user.name : 'N/A'}</td>
                         <td>🚘 ${booking.car ? booking.car.model : 'N/A'}</td>
                         <td>⭐ ${booking.rating || 'N/A'}</td>
-                        <td>💬 ${booking.review || translations[document.documentElement.lang].noReview}</td>
-                        <td><button onclick="cancelBooking(${booking.bookingId})">${translations[document.documentElement.lang].cancelButton}</button></td> <!-- Cancel button -->
+                        <td>💬 ${booking.review || 'No review'}</td>
+                        <td><button onclick="cancelBooking(${booking.bookingId})">❌ Cancel</button></td> <!-- Cancel button -->
                     `;
                     tableBody.appendChild(row);
                 });
@@ -199,22 +116,7 @@
             }
         }
 
-        function updateTexts(lang) {
-            const t = translations[lang];
-            document.querySelector('h1').textContent = t.title;
-            document.querySelectorAll('th')[0].textContent = t.idColumn;
-            document.querySelectorAll('th')[1].textContent = t.priceColumn;
-            document.querySelectorAll('th')[2].textContent = t.startDateColumn;
-            document.querySelectorAll('th')[3].textContent = t.endDateColumn;
-            document.querySelectorAll('th')[4].textContent = t.statusColumn;
-            document.querySelectorAll('th')[5].textContent = t.paymentColumn;
-            document.querySelectorAll('th')[6].textContent = t.depositColumn;
-            document.querySelectorAll('th')[7].textContent = t.userColumn;
-            document.querySelectorAll('th')[8].textContent = t.vehicleColumn;
-            document.querySelectorAll('th')[9].textContent = t.ratingColumn;
-            document.querySelectorAll('th')[10].textContent = t.reviewColumn;
-            document.querySelectorAll('th')[11].textContent = t.cancelColumn;
-        }
+        document.addEventListener('DOMContentLoaded', fetchBookings);
     </script>
 </body>
 </html>

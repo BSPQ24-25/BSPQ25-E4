@@ -61,6 +61,7 @@
             background-color: #45a049;
         }
 
+        /* Estilo para el botón rojo */
         .btn-back {
             background-color: red;
             color: white;
@@ -76,128 +77,45 @@
         .btn-back:hover {
             background-color: darkred;
         }
-
-        #langSelect {
-            width: 150px;
-            margin-bottom: 20px;
-            display: inline-block;
-        }
+        
     </style>
 </head>
 <body>
 <div class="container">
-    <!-- Language Selector -->
-    <div style="text-align: right;">
-        <select id="langSelect" class="form-select">
-            <option value="en" selected>English</option>
-            <option value="fr">Français</option>
-            <option value="es">Español</option>
-        </select>
-    </div>
-
-    <h1 id="editVehicleTitle">Edit Vehicle</h1>
+    <h1>Edit Vehicle</h1>
     <form th:action="@{'/admin/vehicles/edit'}" th:object="${car}" method="post">
         <input type="hidden" th:field="*{id}" />
 
-        <label id="brandLabel">Brand:</label>
+        <label>Brand:</label>
         <input type="text" th:field="*{brand}" required />
 
-        <label id="modelLabel">Model:</label>
+        <label>Model:</label>
         <input type="text" th:field="*{model}" required />
 
-        <label id="colorLabel">Color:</label>
+        <label>Color:</label>
         <input type="text" th:field="*{color}" required />
 
-        <label id="fuelLabel">Fuel Level:</label>
+        <label>Fuel Level:</label>
         <input type="number" step="0.1" min="0" th:field="*{fuelLevel}" required />
 
-        <label id="transmissionLabel">Transmission:</label>
+        <label>Transmission:</label>
         <input type="text" th:field="*{transmission}" required />
 
-        <label id="statusLabel">Status:</label>
+        <label>Status:</label>
         <input type="text" th:field="*{status}" required />
 
-        <label id="mileageLabel">Mileage:</label>
-        <input type="number" step="10" min="0" th:field="*{mileage}" required />
+        <label>Mileage:</label>
+        <input type="number" step="10" min="0"  th:field="*{mileage}" required />
 
-        <label id="yearLabel">Manufacturing Year:</label>
+        <label>Manufacturing Year:</label>
         <input type="number" th:field="*{manufacturingYear}" required />
 
-        <label id="insuranceLabel">Insurance ID:</label>
+        <label>Insurance ID:</label>
         <input type="number" name="insuranceId" th:value="${car.insurance != null ? car.insurance.insuranceId : ''}" />
 
-        <button type="submit" id="updateButton">Update Vehicle</button>
+        <button type="submit">Update Vehicle</button>
     </form>
-    <a href="/admin/vehicles" class="btn-back" id="backLink">Back</a>
+    <a href="/admin/vehicles" class="back-link">Back</a>
 </div>
-
-<script>
-    const langSelect = document.getElementById('langSelect');
-    const translations = {
-        en: {
-            editVehicleTitle: "Edit Vehicle",
-            brandLabel: "Brand:",
-            modelLabel: "Model:",
-            colorLabel: "Color:",
-            fuelLabel: "Fuel Level:",
-            transmissionLabel: "Transmission:",
-            statusLabel: "Status:",
-            mileageLabel: "Mileage:",
-            yearLabel: "Manufacturing Year:",
-            insuranceLabel: "Insurance ID:",
-            updateButton: "Update Vehicle",
-            backLink: "Back"
-        },
-        fr: {
-            editVehicleTitle: "Modifier Véhicule",
-            brandLabel: "Marque :",
-            modelLabel: "Modèle :",
-            colorLabel: "Couleur :",
-            fuelLabel: "Niveau de carburant :",
-            transmissionLabel: "Transmission :",
-            statusLabel: "Statut :",
-            mileageLabel: "Kilométrage :",
-            yearLabel: "Année de fabrication :",
-            insuranceLabel: "ID Assurance :",
-            updateButton: "Mettre à jour",
-            backLink: "Retour"
-        },
-        es: {
-            editVehicleTitle: "Editar Vehículo",
-            brandLabel: "Marca:",
-            modelLabel: "Modelo:",
-            colorLabel: "Color:",
-            fuelLabel: "Nivel de combustible:",
-            transmissionLabel: "Transmisión:",
-            statusLabel: "Estado:",
-            mileageLabel: "Kilometraje:",
-            yearLabel: "Año de fabricación:",
-            insuranceLabel: "ID del seguro:",
-            updateButton: "Actualizar vehículo",
-            backLink: "Atrás"
-        }
-    };
-
-    langSelect.addEventListener('change', function() {
-        const selectedLang = this.value;
-        updateTexts(selectedLang);
-    });
-
-    function updateTexts(lang) {
-        const t = translations[lang];
-        document.getElementById('editVehicleTitle').textContent = t.editVehicleTitle;
-        document.getElementById('brandLabel').textContent = t.brandLabel;
-        document.getElementById('modelLabel').textContent = t.modelLabel;
-        document.getElementById('colorLabel').textContent = t.colorLabel;
-        document.getElementById('fuelLabel').textContent = t.fuelLabel;
-        document.getElementById('transmissionLabel').textContent = t.transmissionLabel;
-        document.getElementById('statusLabel').textContent = t.statusLabel;
-        document.getElementById('mileageLabel').textContent = t.mileageLabel;
-        document.getElementById('yearLabel').textContent = t.yearLabel;
-        document.getElementById('insuranceLabel').textContent = t.insuranceLabel;
-        document.getElementById('updateButton').textContent = t.updateButton;
-        document.getElementById('backLink').textContent = t.backLink;
-    }
-</script>
 </body>
 </html>

@@ -68,19 +68,6 @@
         .btn-back:hover {
             background-color: darkred;
         }
-
-        /* Language selection style */
-        .lang-selector {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 1000;
-        }
-
-        .lang-selector select {
-            padding: 5px;
-            font-size: 14px;
-        }
     </style>
 </head>
 <body>
@@ -98,62 +85,11 @@
                 <tr th:each="insurance : ${insurances}">
                     <td th:text="${insurance.provider}"></td>
                     <td th:text="${insurance.coverage}"></td>
-                    <td th:text="${insurance.monthlyPrice}"></td>
+                    <td th:text="${insurance.formattedPrice}"></td>
                 </tr>
             </tbody>
         </table>
         <a href="/user/dashboard" class="btn-back">Back</a>
     </div>
-    <!-- Language Selector -->
-    <div class="lang-selector">
-        <select id="langSelect">
-            <option value="en" selected>English</option>
-            <option value="fr">Français</option>
-            <option value="es">Español</option>
-        </select>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const langSelect = document.getElementById('langSelect');
-
-            const translations = {
-                en: {
-                    title: "Available Insurances",
-                    provider: "Provider",
-                    coverage: "Coverage",
-                    monthlyPrice: "Monthly Price",
-                    back: "Back"
-                },
-                fr: {
-                    title: "Assurances Disponibles",
-                    provider: "Fournisseur",
-                    coverage: "Couverture",
-                    monthlyPrice: "Prix Mensuel",
-                    back: "Retour"
-                },
-                es: {
-                    title: "Seguros Disponibles",
-                    provider: "Proveedor",
-                    coverage: "Cobertura",
-                    monthlyPrice: "Precio Mensual",
-                    back: "Volver"
-                }
-            };
-
-            langSelect.addEventListener('change', function() {
-                updateTexts(this.value);
-            });
-
-            function updateTexts(lang) {
-                const t = translations[lang];
-                document.querySelector('h1').textContent = t.title;
-                document.querySelector('th:nth-child(1)').textContent = t.provider;
-                document.querySelector('th:nth-child(2)').textContent = t.coverage;
-                document.querySelector('th:nth-child(3)').textContent = t.monthlyPrice;
-                document.querySelector('.btn-back').textContent = t.back;
-            }
-        });
-    </script>
 </body>
 </html>

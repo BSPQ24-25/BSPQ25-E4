@@ -1,215 +1,124 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Admin Insurance Management</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1200px;
-        }
-
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-
-        table {
-            width: 100%;
-            margin-top: 20px;
-            border-collapse: collapse;
-            background-color: white;
-            border: 1px solid #ddd;
-        }
-
-        th, td {
-            padding: 10px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-
-        th {
-            background-color: #4CAF50;
-            color: white;
-        }
-
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-
-        tr:hover {
-            background-color: #ddd;
-        }
-
-        .action-btn {
-            margin-right: 10px;
-            padding: 5px 10px;
-            border: none;
-            border-radius: 4px;
-            text-decoration: none;
-            cursor: pointer;
-            font-size: 0.9em;
-        }
-
-        .edit-btn {
-            background-color: #2196F3;
-            color: white;
-        }
-
-        .delete-btn {
-            background-color: #f44336;
-            color: white;
-        }
-
-        .btn-back {
-            background-color: red;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-            margin-top: 20px;
-            display: inline-block;
-            text-align: center;
-        }
-
-        .btn-back:hover {
-            background-color: darkred;
-        }
-
-        #langSelect {
-            width: 150px;
-            margin: 20px 0;
-        }
-    </style>
 </head>
 <body>
-    <!-- Language Selector -->
-    <div style="align-self: flex-end; margin: 10px;">
-        <select id="langSelect" class="form-select">
-            <option value="en" selected>English</option>
-            <option value="fr">Français</option>
-            <option value="es">Español</option>
-        </select>
-    </div>
+    <h1>Insurance Management</h1>
+    <a href="/admin/insurances/new">Create new Insurance</a>
+	<style>
+	        body {
+	            font-family: Arial, sans-serif;
+	            background-color: #f4f4f4;
+	            margin: 0;
+	            padding: 0;
+	            display: flex;
+	            justify-content: center;
+	            align-items: center;
+	            height: 100vh;
+	        }
 
-    <div class="container">
-        <h1 id="insuranceManagementTitle">Insurance Management</h1>
-        <a href="/admin/insurances/new" id="createInsuranceLink">Create new Insurance</a>
+	        .container {
+	            width: 90%;
+	            max-width: 1200px;
+	        }
 
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th id="providerHeader">Provider</th>
-                    <th id="coverageHeader">Coverage</th>
-                    <th id="monthlyPriceHeader">Monthly Price</th>
-                    <th id="editHeader">Edit</th>
-                    <th id="deleteHeader">Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="insurance : ${insurances}">
-                    <td th:text="${insurance.insuranceId}"></td>
-                    <td th:text="${insurance.provider}"></td>
-                    <td th:text="${insurance.coverage}"></td>
-                    <td th:text="${insurance.monthlyPrice}"></td>
-                    <td>
-                        <a th:href="@{'/admin/insurances/edit/' + ${insurance.insuranceId}}"
-                            class="action-btn edit-btn" id="editButton">Edit</a>
-                    </td>
-                    <td>
-                        <form th:action="@{'/admin/insurances/delete/' + ${insurance.insuranceId}}" method="post"
-                            style="display:inline;">
-                            <button type="submit" class="action-btn delete-btn"
-                                onclick="return confirm('Are you sure you want to delete this insurance?')"
-                                id="deleteButton">
-                                Delete
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+	        h1 {
+	            text-align: center;
+	            color: #333;
+	        }
 
-        <a href="/admin/dashboard" class="btn-back" id="backLink">Back</a>
-    </div>
+	        table {
+	            width: 100%;
+	            margin-top: 20px;
+	            border-collapse: collapse;
+	            background-color: white;
+	            border: 1px solid #ddd;
+	        }
 
-    <script>
-        const langSelect = document.getElementById('langSelect');
-        const translations = {
-            en: {
-                insuranceManagementTitle: "Insurance Management",
-                createInsuranceLink: "Create new Insurance",
-                providerHeader: "Provider",
-                coverageHeader: "Coverage",
-                monthlyPriceHeader: "Monthly Price",
-                editHeader: "Edit",
-                deleteHeader: "Delete",
-                editButton: "Edit",
-                deleteButton: "Delete",
-                backLink: "Back"
-            },
-            fr: {
-                insuranceManagementTitle: "Gestion des assurances",
-                createInsuranceLink: "Créer une assurance",
-                providerHeader: "Fournisseur",
-                coverageHeader: "Couverture",
-                monthlyPriceHeader: "Prix mensuel",
-                editHeader: "Modifier",
-                deleteHeader: "Supprimer",
-                editButton: "Modifier",
-                deleteButton: "Supprimer",
-                backLink: "Retour"
-            },
-            es: {
-                insuranceManagementTitle: "Gestión de seguros",
-                createInsuranceLink: "Crear nuevo seguro",
-                providerHeader: "Proveedor",
-                coverageHeader: "Cobertura",
-                monthlyPriceHeader: "Precio mensual",
-                editHeader: "Editar",
-                deleteHeader: "Eliminar",
-                editButton: "Editar",
-                deleteButton: "Eliminar",
-                backLink: "Atrás"
-            }
-        };
+	        th, td {
+	            padding: 10px;
+	            text-align: left;
+	            border: 1px solid #ddd;
+	        }
 
-        langSelect.addEventListener('change', function() {
-            const selectedLang = this.value;
-            updateTexts(selectedLang);
-        });
+	        th {
+	            background-color: #4CAF50;
+	            color: white;
+	        }
 
-        function updateTexts(lang) {
-            const t = translations[lang];
-            document.getElementById('insuranceManagementTitle').textContent = t.insuranceManagementTitle;
-            document.getElementById('createInsuranceLink').textContent = t.createInsuranceLink;
-            document.getElementById('providerHeader').textContent = t.providerHeader;
-            document.getElementById('coverageHeader').textContent = t.coverageHeader;
-            document.getElementById('monthlyPriceHeader').textContent = t.monthlyPriceHeader;
-            document.getElementById('editHeader').textContent = t.editHeader;
-            document.getElementById('deleteHeader').textContent = t.deleteHeader;
+	        tr:nth-child(even) {
+	            background-color: #f2f2f2;
+	        }
 
-            // Pour les boutons dans les lignes dynamiques
-            const editButtons = document.querySelectorAll('#editButton');
-            const deleteButtons = document.querySelectorAll('#deleteButton');
-            editButtons.forEach(btn => btn.textContent = t.editButton);
-            deleteButtons.forEach(btn => btn.textContent = t.deleteButton);
+	        tr:hover {
+	            background-color: #ddd;
+	        }
 
-            document.getElementById('backLink').textContent = t.backLink;
-        }
-    </script>
+	        .action-btn {
+	            margin-right: 10px;
+	            padding: 5px 10px;
+	            border: none;
+	            border-radius: 4px;
+	            text-decoration: none;
+	            cursor: pointer;
+	            font-size: 0.9em;
+	        }
+
+	        .edit-btn {
+	            background-color: #2196F3;
+	            color: white;
+	        }
+
+	        .delete-btn {
+	            background-color: #f44336;
+	            color: white;
+	        }
+
+			/* Estilo para el botón rojo */
+			.btn-back {
+            	background-color: red;
+            	color: white;
+            	padding: 10px 20px;
+            	text-decoration: none;
+            	border-radius: 5px;
+            	font-size: 16px;
+            	margin-top: 20px;
+            	display: inline-block;
+            	text-align: center;
+        	}
+
+        	.btn-back:hover {
+            	background-color: darkred;
+        	}
+	    </style>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Provider</th>
+            <th>Coverage</th>
+            <th>Monthly Price</th>
+        </tr>
+        <tr th:each="insurance : ${insurances}">
+            <td th:text="${insurance.insuranceId}"></td>
+            <td th:text="${insurance.provider}"></td>
+            <td th:text="${insurance.coverage}"></td>
+            <td th:text="${insurance.monthlyPrice}"></td>
+			<td>
+                <a th:href="@{'/admin/insurances/edit/' + ${insurance.insuranceId}}"
+                    class="action-btn edit-btn">Edit</a>
+            </td>
+            <td>
+                <form th:action="@{'/admin/insurances/delete/' + ${insurance.insuranceId}}" method="post"
+                    style="display:inline;">
+                    <button type="submit" class="action-btn delete-btn"
+                        onclick="return confirm('Are you sure you want to delete this insurance?')">
+                        Delete
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </table>
+	<a href="/admin/dashboard" class="btn-back">Back</a>
 </body>
 </html>
