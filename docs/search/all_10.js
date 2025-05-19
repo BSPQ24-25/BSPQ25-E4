@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['technologies_20used_0',['📦 Technologies Used',['../md_README.html#autotoc_md4',1,'']]],
-  ['the_20repository_3a_1',['1️⃣ Clone the repository:',['../md_README.html#autotoc_md7',1,'']]]
+  ['⚙️_20project_20setup_0',['⚙️ Project Setup',['../md_README.html#autotoc_md5',1,'']]]
 ];
