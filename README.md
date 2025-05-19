@@ -1,5 +1,10 @@
 # 🚗 CarRentalSystem
 # BSPQ25-E4
+
+
+## 📁 GitHub repository: [https://github.com/BSPQ24-25/BSPQ25-E4](https://github.com/BSPQ24-25/BSPQ25-E4)
+
+
 Java-based car rental management system developed as part of a university project.  
 Includes database integration, unit testing, and code coverage.
 
@@ -30,6 +35,8 @@ To run the project:
 2. mvn package (optional)
 3. mvn spring-boot:run
 4. Go to http://localhost:port on browser
+
+
 
 ### 1️⃣ Clone the repository:
 ```bash
