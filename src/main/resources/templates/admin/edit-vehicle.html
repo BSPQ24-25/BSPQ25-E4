@@ -111,7 +111,9 @@
         <input type="number" th:field="*{manufacturingYear}" required />
 
         <label>Insurance ID:</label>
-        <input type="number" name="insuranceId" th:value="${car.insurance != null ? car.insurance.insuranceId : ''}" />
+        <input type="number" name="insuranceId"
+                th:value="${car.insuranceId != null ? car.insuranceId.insuranceId : ''}" />
+
 
         <button type="submit">Update Vehicle</button>
     </form>
