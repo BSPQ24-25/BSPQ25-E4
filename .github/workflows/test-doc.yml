@@ -71,34 +71,29 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-
+    
         COMMIT_HASH=$(git rev-parse --short HEAD)
-
-        # Obtener gh-pages
+    
         git fetch origin gh-pages
         git worktree add gh-pages gh-pages
-
-        # Limpiar contenido anterior
+    
         rm -rf gh-pages/*
-
-        # Crear estructura esperada
         mkdir -p gh-pages/docs
         mkdir -p gh-pages/target/reports
         mkdir -p gh-pages/target/site/jacoco
-
-        # Copiar archivos generados
-        rsync -av docs/ gh-pages/docs/
-        cp -r target/reports/* gh-pages/target/reports/
-        cp -r target/site/jacoco/* gh-pages/target/site/jacoco/
-
-        # Copiar el index.html del root del proyecto
+    
+        # ✅ Copia fiable de todo, incluidas las gráficas
+        rsync -av --delete docs/ gh-pages/docs/
+        rsync -av target/reports/ gh-pages/target/reports/
+        rsync -av target/site/jacoco/ gh-pages/target/site/jacoco/
+    
         cp index.html gh-pages/index.html
         touch gh-pages/.nojekyll
-
-        # Hacer commit y push
+    
         cd gh-pages
         git add .
         git commit -m "Update GitHub Pages with latest dashboard and reports from $COMMIT_HASH"
         git push origin gh-pages
+
 
 
