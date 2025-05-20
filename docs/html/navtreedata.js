@@ -54,8 +54,8 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"AdminControllerTest_8java.html",
-"classcom_1_1carrental_1_1models_1_1Car.html#a5a8d00f192d8191286048b5aa2b4643e"
+"AdminController_8java.html",
+"classcom_1_1carrental_1_1service_1_1CarService.html#a724dd4654916d93a0f85423cfbd7c052"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

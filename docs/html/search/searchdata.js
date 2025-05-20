@@ -1,10 +1,10 @@
 var indexSectionsWithContent =
 {
   0: "12abcdefghilmprstu⚙📁📦🚗",
-  1: "abcdiprstu",
+  1: "abcdiprsu",
   2: "c",
-  3: "abcdiprstu",
-  4: "abcdefglmprstu",
+  3: "abcdiprsu",
+  4: "abcdefglmprsu",
   5: "c🚗"
 };
 
