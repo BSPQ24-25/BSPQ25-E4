@@ -87,12 +87,13 @@ jobs:
         mkdir -p gh-pages/target/site/jacoco
 
         # Copiar archivos generados
-        cp -r docs/* gh-pages/docs/
+        rsync -av docs/ gh-pages/docs/
         cp -r target/reports/* gh-pages/target/reports/
         cp -r target/site/jacoco/* gh-pages/target/site/jacoco/
 
         # Copiar el index.html del root del proyecto
         cp index.html gh-pages/index.html
+        touch gh-pages/.nojekyll
 
         # Hacer commit y push
         cd gh-pages
