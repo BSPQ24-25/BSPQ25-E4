@@ -87,7 +87,7 @@ jobs:
         mkdir -p gh-pages/target/site/jacoco
 
         # Copiar archivos generados
-        cp -r docs/html/* gh-pages/docs/
+        cp -r docs/* gh-pages/docs/
         cp -r target/reports/* gh-pages/target/reports/
         cp -r target/site/jacoco/* gh-pages/target/site/jacoco/
 
