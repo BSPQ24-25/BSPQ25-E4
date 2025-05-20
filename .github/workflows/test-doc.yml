@@ -45,7 +45,13 @@ jobs:
       run: |
         sudo apt-get update
         sudo apt-get install -y doxygen graphviz
-        doxygen Doxyfile
+        Doxygen Doxyfile
+
+    - name: Confirmar contenido del Doxyfile
+      run: |
+        echo "Primeras líneas del Doxyfile:"
+        head -n 10 Doxyfile
+
 
     - name: Check Graphviz install
       run: |
