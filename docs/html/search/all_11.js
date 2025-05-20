@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['updatebooking_0',['updatebooking',['../classcom_1_1carrental_1_1service_1_1BookingService.html#a05a0275b62fb8e90f2d58e7ea103e9c9',1,'com.carrental.service.BookingService.updateBooking()'],['../classcom_1_1carrental_1_1controller_1_1BookingController.html#a12f24e8d9d9828c7e21bad16b7032a08',1,'com.carrental.controller.BookingController.updateBooking()']]],
-  ['updateuser_1',['updateuser',['../classcom_1_1carrental_1_1service_1_1UserService.html#a5f26c036ca86ed26f6260899efeba46c',1,'com.carrental.service.UserService.updateUser()'],['../classcom_1_1carrental_1_1controller_1_1AdminController.html#a5589faf0735b102543249480355970ef',1,'com.carrental.controller.AdminController.updateUser()']]],
+  ['updatebooking_0',['updateBooking',['../classcom_1_1carrental_1_1controller_1_1BookingController.html#a12f24e8d9d9828c7e21bad16b7032a08',1,'com.carrental.controller.BookingController.updateBooking()'],['../classcom_1_1carrental_1_1service_1_1BookingService.html#a05a0275b62fb8e90f2d58e7ea103e9c9',1,'com.carrental.service.BookingService.updateBooking()']]],
+  ['updateuser_1',['updateUser',['../classcom_1_1carrental_1_1controller_1_1AdminController.html#a5589faf0735b102543249480355970ef',1,'com.carrental.controller.AdminController.updateUser()'],['../classcom_1_1carrental_1_1service_1_1UserService.html#a5f26c036ca86ed26f6260899efeba46c',1,'com.carrental.service.UserService.updateUser()']]],
   ['updatevehicle_2',['updateVehicle',['../classcom_1_1carrental_1_1controller_1_1AdminDashboardController.html#ae751ce3e48ef5ac10afab921f94a2d74',1,'com::carrental::controller::AdminDashboardController']]],
   ['used_3',['📦 Technologies Used',['../md_README.html#autotoc_md4',1,'']]],
-  ['user_4',['user',['../classcom_1_1carrental_1_1models_1_1User.html#af1c43de9731c8189881ccda21f2671b9',1,'com.carrental.models.User.User()'],['../classcom_1_1carrental_1_1models_1_1User.html',1,'com.carrental.models.User']]],
+  ['user_4',['User',['../classcom_1_1carrental_1_1models_1_1User.html',1,'com.carrental.models.User'],['../classcom_1_1carrental_1_1models_1_1User.html#af1c43de9731c8189881ccda21f2671b9',1,'com.carrental.models.User.User()']]],
   ['user_2ejava_5',['User.java',['../User_8java.html',1,'']]],
   ['usercontroller_6',['UserController',['../classcom_1_1carrental_1_1controller_1_1UserController.html',1,'com::carrental::controller']]],
   ['usercontroller_2ejava_7',['UserController.java',['../UserController_8java.html',1,'']]],

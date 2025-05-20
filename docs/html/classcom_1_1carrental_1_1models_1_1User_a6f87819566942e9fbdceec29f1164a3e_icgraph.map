@@ -1,0 +1,8 @@
+<map id="com.carrental.models.User.getName" name="com.carrental.models.User.getName">
+<area shape="rect" id="Node000001" title=" " alt="" coords="271,57,532,82"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1service_1_1UserService.html#a5f26c036ca86ed26f6260899efeba46c" title=" " alt="" coords="15,5,213,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="304,57,212,43,213,38,305,52"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1carrental_1_1controller_1_1UserController.html#a6410fe87f5c9be7b04de60fa5ce3a6ad" title=" " alt="" coords="5,93,223,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="305,87,223,99,222,94,304,81"/>
+<area shape="poly" id="edge3_Node000003_Node000003" title=" " alt="" coords="163,82,146,75,114,72,86,74,69,79,63,85,66,92,61,94,58,84,67,74,85,69,114,67,147,69,165,77"/>
+</map>

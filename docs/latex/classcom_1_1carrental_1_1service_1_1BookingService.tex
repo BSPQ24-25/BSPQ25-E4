@@ -3,21 +3,21 @@
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_ad2bbd89c3ec91fa8577433b971710010}{Booking\+Service}} (Booking\+Repository booking\+Repository, \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1PaymentGatewayService}{Payment\+Gateway\+Service}} payment\+Gateway\+Service)
+\mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_ad2bbd89c3ec91fa8577433b971710010}{Booking\+Service}} (\mbox{\hyperlink{interfacecom_1_1carrental_1_1repository_1_1BookingRepository}{Booking\+Repository}} booking\+Repository, \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1PaymentGatewayService}{Payment\+Gateway\+Service}} payment\+Gateway\+Service)
 \item 
-List$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a15cc96d83a6ffc1a88a737de0b5d7928}{get\+All\+Bookings}} ()
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a15cc96d83a6ffc1a88a737de0b5d7928}{get\+All\+Bookings}} ()
 \item 
-List$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a6667e8702992d353a19d061b0f19e435}{get\+Pending\+Bookings}} ()
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a6667e8702992d353a19d061b0f19e435}{get\+Pending\+Bookings}} ()
 \item 
-List$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a7d5bda5016a017f38592e6cf2964aee9}{get\+History\+Bookings}} ()
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a7d5bda5016a017f38592e6cf2964aee9}{get\+History\+Bookings}} ()
 \item 
-Optional$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a96ee5c4d9b9b140a199d53641b459386}{get\+Booking\+By\+Id}} (Long id)
+Optional$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a96ee5c4d9b9b140a199d53641b459386}{get\+Booking\+By\+Id}} (Long id)
 \item 
-Booking \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a5810bd231f323dc35cb6c8fbcc267600}{create\+Booking}} (Booking booking)
+\mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a5810bd231f323dc35cb6c8fbcc267600}{create\+Booking}} (\mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} booking)
 \item 
-List$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a3f9d0bcc6695970f9c6740678fc00b8b}{get\+User\+Rental\+History}} (String email, List$<$ String $>$ statuses)
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a3f9d0bcc6695970f9c6740678fc00b8b}{get\+User\+Rental\+History}} (String email, List$<$ String $>$ statuses)
 \item 
-Booking \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a05a0275b62fb8e90f2d58e7ea103e9c9}{update\+Booking}} (Long id, Booking booking\+Details)
+\mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_a05a0275b62fb8e90f2d58e7ea103e9c9}{update\+Booking}} (Long id, \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} booking\+Details)
 \item 
 void \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_ad8886c5c45bd25fb5c5136b5dfc93f84}{delete\+Booking}} (Long id)
 \item 
@@ -34,101 +34,125 @@ void \mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1BookingService_aa46fae
 
 
 \doxysubsection{Constructor \& Destructor Documentation}
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_ad2bbd89c3ec91fa8577433b971710010}\label{classcom_1_1carrental_1_1service_1_1BookingService_ad2bbd89c3ec91fa8577433b971710010} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!BookingService@{BookingService}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_ad2bbd89c3ec91fa8577433b971710010}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!BookingService@{BookingService}}
 \index{BookingService@{BookingService}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{BookingService()}{BookingService()}}
-{\footnotesize\ttfamily com.\+carrental.\+service.\+Booking\+Service.\+Booking\+Service (\begin{DoxyParamCaption}\item[{Booking\+Repository}]{booking\+Repository,  }\item[{\mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1PaymentGatewayService}{Payment\+Gateway\+Service}}}]{payment\+Gateway\+Service }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_ad2bbd89c3ec91fa8577433b971710010} 
+com.\+carrental.\+service.\+Booking\+Service.\+Booking\+Service (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{interfacecom_1_1carrental_1_1repository_1_1BookingRepository}{Booking\+Repository}}}]{booking\+Repository}{, }\item[{\mbox{\hyperlink{classcom_1_1carrental_1_1service_1_1PaymentGatewayService}{Payment\+Gateway\+Service}}}]{payment\+Gateway\+Service}{}\end{DoxyParamCaption})}
 
 
 
 \doxysubsection{Member Function Documentation}
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a624e4de3a77840c9e6416435257fd17f}\label{classcom_1_1carrental_1_1service_1_1BookingService_a624e4de3a77840c9e6416435257fd17f} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!cancelBooking@{cancelBooking}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a624e4de3a77840c9e6416435257fd17f}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!cancelBooking@{cancelBooking}}
 \index{cancelBooking@{cancelBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{cancelBooking()}{cancelBooking()}}
-{\footnotesize\ttfamily void com.\+carrental.\+service.\+Booking\+Service.\+cancel\+Booking (\begin{DoxyParamCaption}\item[{Long}]{booking\+Id }\end{DoxyParamCaption})}
-
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_aa46fae945ff3c876b9f307d3fb771d4f}\label{classcom_1_1carrental_1_1service_1_1BookingService_aa46fae945ff3c876b9f307d3fb771d4f} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!completeBooking@{completeBooking}}
-\index{completeBooking@{completeBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
-\doxysubsubsection{\texorpdfstring{completeBooking()}{completeBooking()}}
-{\footnotesize\ttfamily void com.\+carrental.\+service.\+Booking\+Service.\+complete\+Booking (\begin{DoxyParamCaption}\item[{Long}]{booking\+Id }\end{DoxyParamCaption})}
-
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a0c9d5c82bbc5cb4056bfa64a527cd796}\label{classcom_1_1carrental_1_1service_1_1BookingService_a0c9d5c82bbc5cb4056bfa64a527cd796} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!confirmBooking@{confirmBooking}}
-\index{confirmBooking@{confirmBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
-\doxysubsubsection{\texorpdfstring{confirmBooking()}{confirmBooking()}}
-{\footnotesize\ttfamily void com.\+carrental.\+service.\+Booking\+Service.\+confirm\+Booking (\begin{DoxyParamCaption}\item[{Long}]{booking\+Id }\end{DoxyParamCaption})}
-
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a04342cae4b5a5b14954249240b005733}\label{classcom_1_1carrental_1_1service_1_1BookingService_a04342cae4b5a5b14954249240b005733} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!countActiveBookings@{countActiveBookings}}
-\index{countActiveBookings@{countActiveBookings}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
-\doxysubsubsection{\texorpdfstring{countActiveBookings()}{countActiveBookings()}}
-{\footnotesize\ttfamily long com.\+carrental.\+service.\+Booking\+Service.\+count\+Active\+Bookings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
-
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a5810bd231f323dc35cb6c8fbcc267600}\label{classcom_1_1carrental_1_1service_1_1BookingService_a5810bd231f323dc35cb6c8fbcc267600} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!createBooking@{createBooking}}
-\index{createBooking@{createBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
-\doxysubsubsection{\texorpdfstring{createBooking()}{createBooking()}}
-{\footnotesize\ttfamily Booking com.\+carrental.\+service.\+Booking\+Service.\+create\+Booking (\begin{DoxyParamCaption}\item[{Booking}]{booking }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a624e4de3a77840c9e6416435257fd17f} 
+void com.\+carrental.\+service.\+Booking\+Service.\+cancel\+Booking (\begin{DoxyParamCaption}\item[{Long}]{booking\+Id}{}\end{DoxyParamCaption})}
 
 Here is the call graph for this function\+:
 \nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[width=350pt]{classcom_1_1carrental_1_1service_1_1BookingService_a5810bd231f323dc35cb6c8fbcc267600_cgraph}
+\includegraphics[width=350pt]{classcom_1_1carrental_1_1service_1_1BookingService_a624e4de3a77840c9e6416435257fd17f_cgraph}
 \end{center}
 \end{figure}
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_ad8886c5c45bd25fb5c5136b5dfc93f84}\label{classcom_1_1carrental_1_1service_1_1BookingService_ad8886c5c45bd25fb5c5136b5dfc93f84} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!deleteBooking@{deleteBooking}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_aa46fae945ff3c876b9f307d3fb771d4f}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!completeBooking@{completeBooking}}
+\index{completeBooking@{completeBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
+\doxysubsubsection{\texorpdfstring{completeBooking()}{completeBooking()}}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_aa46fae945ff3c876b9f307d3fb771d4f} 
+void com.\+carrental.\+service.\+Booking\+Service.\+complete\+Booking (\begin{DoxyParamCaption}\item[{Long}]{booking\+Id}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1carrental_1_1service_1_1BookingService_aa46fae945ff3c876b9f307d3fb771d4f_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a0c9d5c82bbc5cb4056bfa64a527cd796}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!confirmBooking@{confirmBooking}}
+\index{confirmBooking@{confirmBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
+\doxysubsubsection{\texorpdfstring{confirmBooking()}{confirmBooking()}}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a0c9d5c82bbc5cb4056bfa64a527cd796} 
+void com.\+carrental.\+service.\+Booking\+Service.\+confirm\+Booking (\begin{DoxyParamCaption}\item[{Long}]{booking\+Id}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1carrental_1_1service_1_1BookingService_a0c9d5c82bbc5cb4056bfa64a527cd796_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a04342cae4b5a5b14954249240b005733}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!countActiveBookings@{countActiveBookings}}
+\index{countActiveBookings@{countActiveBookings}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
+\doxysubsubsection{\texorpdfstring{countActiveBookings()}{countActiveBookings()}}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a04342cae4b5a5b14954249240b005733} 
+long com.\+carrental.\+service.\+Booking\+Service.\+count\+Active\+Bookings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a5810bd231f323dc35cb6c8fbcc267600}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!createBooking@{createBooking}}
+\index{createBooking@{createBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
+\doxysubsubsection{\texorpdfstring{createBooking()}{createBooking()}}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a5810bd231f323dc35cb6c8fbcc267600} 
+\mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} com.\+carrental.\+service.\+Booking\+Service.\+create\+Booking (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}}}]{booking}{}\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_ad8886c5c45bd25fb5c5136b5dfc93f84}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!deleteBooking@{deleteBooking}}
 \index{deleteBooking@{deleteBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{deleteBooking()}{deleteBooking()}}
-{\footnotesize\ttfamily void com.\+carrental.\+service.\+Booking\+Service.\+delete\+Booking (\begin{DoxyParamCaption}\item[{Long}]{id }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_ad8886c5c45bd25fb5c5136b5dfc93f84} 
+void com.\+carrental.\+service.\+Booking\+Service.\+delete\+Booking (\begin{DoxyParamCaption}\item[{Long}]{id}{}\end{DoxyParamCaption})}
 
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a15cc96d83a6ffc1a88a737de0b5d7928}\label{classcom_1_1carrental_1_1service_1_1BookingService_a15cc96d83a6ffc1a88a737de0b5d7928} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getAllBookings@{getAllBookings}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a15cc96d83a6ffc1a88a737de0b5d7928}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getAllBookings@{getAllBookings}}
 \index{getAllBookings@{getAllBookings}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{getAllBookings()}{getAllBookings()}}
-{\footnotesize\ttfamily List$<$ Booking $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+All\+Bookings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a15cc96d83a6ffc1a88a737de0b5d7928} 
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+All\+Bookings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a96ee5c4d9b9b140a199d53641b459386}\label{classcom_1_1carrental_1_1service_1_1BookingService_a96ee5c4d9b9b140a199d53641b459386} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getBookingById@{getBookingById}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a96ee5c4d9b9b140a199d53641b459386}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getBookingById@{getBookingById}}
 \index{getBookingById@{getBookingById}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{getBookingById()}{getBookingById()}}
-{\footnotesize\ttfamily Optional$<$ Booking $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+Booking\+By\+Id (\begin{DoxyParamCaption}\item[{Long}]{id }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a96ee5c4d9b9b140a199d53641b459386} 
+Optional$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+Booking\+By\+Id (\begin{DoxyParamCaption}\item[{Long}]{id}{}\end{DoxyParamCaption})}
 
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a7d5bda5016a017f38592e6cf2964aee9}\label{classcom_1_1carrental_1_1service_1_1BookingService_a7d5bda5016a017f38592e6cf2964aee9} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getHistoryBookings@{getHistoryBookings}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a7d5bda5016a017f38592e6cf2964aee9}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getHistoryBookings@{getHistoryBookings}}
 \index{getHistoryBookings@{getHistoryBookings}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{getHistoryBookings()}{getHistoryBookings()}}
-{\footnotesize\ttfamily List$<$ Booking $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+History\+Bookings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a7d5bda5016a017f38592e6cf2964aee9} 
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+History\+Bookings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a6667e8702992d353a19d061b0f19e435}\label{classcom_1_1carrental_1_1service_1_1BookingService_a6667e8702992d353a19d061b0f19e435} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getPendingBookings@{getPendingBookings}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a6667e8702992d353a19d061b0f19e435}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getPendingBookings@{getPendingBookings}}
 \index{getPendingBookings@{getPendingBookings}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{getPendingBookings()}{getPendingBookings()}}
-{\footnotesize\ttfamily List$<$ Booking $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+Pending\+Bookings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a6667e8702992d353a19d061b0f19e435} 
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+Pending\+Bookings (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_ae5a35d78500a90b1fe7704b63226d679}\label{classcom_1_1carrental_1_1service_1_1BookingService_ae5a35d78500a90b1fe7704b63226d679} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getTotalRevenue@{getTotalRevenue}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_ae5a35d78500a90b1fe7704b63226d679}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getTotalRevenue@{getTotalRevenue}}
 \index{getTotalRevenue@{getTotalRevenue}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{getTotalRevenue()}{getTotalRevenue()}}
-{\footnotesize\ttfamily double com.\+carrental.\+service.\+Booking\+Service.\+get\+Total\+Revenue (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_ae5a35d78500a90b1fe7704b63226d679} 
+double com.\+carrental.\+service.\+Booking\+Service.\+get\+Total\+Revenue (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
 
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a3f9d0bcc6695970f9c6740678fc00b8b}\label{classcom_1_1carrental_1_1service_1_1BookingService_a3f9d0bcc6695970f9c6740678fc00b8b} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getUserRentalHistory@{getUserRentalHistory}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a3f9d0bcc6695970f9c6740678fc00b8b}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!getUserRentalHistory@{getUserRentalHistory}}
 \index{getUserRentalHistory@{getUserRentalHistory}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{getUserRentalHistory()}{getUserRentalHistory()}}
-{\footnotesize\ttfamily List$<$ Booking $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+User\+Rental\+History (\begin{DoxyParamCaption}\item[{String}]{email,  }\item[{List$<$ String $>$}]{statuses }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a3f9d0bcc6695970f9c6740678fc00b8b} 
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} $>$ com.\+carrental.\+service.\+Booking\+Service.\+get\+User\+Rental\+History (\begin{DoxyParamCaption}\item[{String}]{email}{, }\item[{List$<$ String $>$}]{statuses}{}\end{DoxyParamCaption})}
 
-\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a05a0275b62fb8e90f2d58e7ea103e9c9}\label{classcom_1_1carrental_1_1service_1_1BookingService_a05a0275b62fb8e90f2d58e7ea103e9c9} 
-\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!updateBooking@{updateBooking}}
+\Hypertarget{classcom_1_1carrental_1_1service_1_1BookingService_a05a0275b62fb8e90f2d58e7ea103e9c9}\index{com.carrental.service.BookingService@{com.carrental.service.BookingService}!updateBooking@{updateBooking}}
 \index{updateBooking@{updateBooking}!com.carrental.service.BookingService@{com.carrental.service.BookingService}}
 \doxysubsubsection{\texorpdfstring{updateBooking()}{updateBooking()}}
-{\footnotesize\ttfamily Booking com.\+carrental.\+service.\+Booking\+Service.\+update\+Booking (\begin{DoxyParamCaption}\item[{Long}]{id,  }\item[{Booking}]{booking\+Details }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1service_1_1BookingService_a05a0275b62fb8e90f2d58e7ea103e9c9} 
+\mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}} com.\+carrental.\+service.\+Booking\+Service.\+update\+Booking (\begin{DoxyParamCaption}\item[{Long}]{id}{, }\item[{\mbox{\hyperlink{classcom_1_1carrental_1_1models_1_1Booking}{Booking}}}]{booking\+Details}{}\end{DoxyParamCaption})}
 
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=550pt]{classcom_1_1carrental_1_1service_1_1BookingService_a05a0275b62fb8e90f2d58e7ea103e9c9_cgraph}
+\end{center}
+\end{figure}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

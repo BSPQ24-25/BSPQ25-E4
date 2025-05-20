@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['updatebooking_0',['updatebooking',['../classcom_1_1carrental_1_1controller_1_1BookingController.html#a12f24e8d9d9828c7e21bad16b7032a08',1,'com.carrental.controller.BookingController.updateBooking()'],['../classcom_1_1carrental_1_1service_1_1BookingService.html#a05a0275b62fb8e90f2d58e7ea103e9c9',1,'com.carrental.service.BookingService.updateBooking()']]],
-  ['updateuser_1',['updateuser',['../classcom_1_1carrental_1_1controller_1_1AdminController.html#a5589faf0735b102543249480355970ef',1,'com.carrental.controller.AdminController.updateUser()'],['../classcom_1_1carrental_1_1service_1_1UserService.html#a5f26c036ca86ed26f6260899efeba46c',1,'com.carrental.service.UserService.updateUser()']]],
+  ['updatebooking_0',['updateBooking',['../classcom_1_1carrental_1_1controller_1_1BookingController.html#a12f24e8d9d9828c7e21bad16b7032a08',1,'com.carrental.controller.BookingController.updateBooking()'],['../classcom_1_1carrental_1_1service_1_1BookingService.html#a05a0275b62fb8e90f2d58e7ea103e9c9',1,'com.carrental.service.BookingService.updateBooking()']]],
+  ['updateuser_1',['updateUser',['../classcom_1_1carrental_1_1controller_1_1AdminController.html#a5589faf0735b102543249480355970ef',1,'com.carrental.controller.AdminController.updateUser()'],['../classcom_1_1carrental_1_1service_1_1UserService.html#a5f26c036ca86ed26f6260899efeba46c',1,'com.carrental.service.UserService.updateUser()']]],
   ['updatevehicle_2',['updateVehicle',['../classcom_1_1carrental_1_1controller_1_1AdminDashboardController.html#ae751ce3e48ef5ac10afab921f94a2d74',1,'com::carrental::controller::AdminDashboardController']]],
   ['user_3',['User',['../classcom_1_1carrental_1_1models_1_1User.html#af1c43de9731c8189881ccda21f2671b9',1,'com::carrental::models::User']]],
   ['userdashboard_4',['userDashboard',['../classcom_1_1carrental_1_1controller_1_1UserController.html#a6410fe87f5c9be7b04de60fa5ce3a6ad',1,'com::carrental::controller::UserController']]],
