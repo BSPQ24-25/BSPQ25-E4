@@ -1,0 +1,61 @@
+\doxysection{com.\+carrental.\+controller.\+Car\+Controller Class Reference}
+\hypertarget{classcom_1_1carrental_1_1controller_1_1CarController}{}\label{classcom_1_1carrental_1_1controller_1_1CarController}\index{com.carrental.controller.CarController@{com.carrental.controller.CarController}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Response\+Entity$<$?$>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarController_a3c4acc911c3aea81e5282add2f8b18cc}{add\+Car}} (@Request\+Body Car car, @Request\+Param(required=false) Boolean admin)
+\item 
+List$<$ Car $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarController_ac523abcc4f3ee8911401e7122962ad07}{get\+All\+Cars}} ()
+\item 
+Response\+Entity$<$?$>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarController_a37862984380c76fd00cd812d2dc55a0d}{get\+Car\+By\+Id}} (@Path\+Variable Long id)
+\item 
+Response\+Entity$<$?$>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarController_a8dc24efbd110e89762ebd35589e79457}{delete\+Car}} (@Path\+Variable Long id, @Request\+Param(required=false) Boolean admin)
+\item 
+String \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarController_ae63b9b6cec2c79f7c2b9479405c58c92}{show\+Vehicles}} (Model model)
+\item 
+String \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarController_a8e1655af4302299105c7b6aee1159fa4}{browse\+Vehicles}} (Model model)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarController_a3c4acc911c3aea81e5282add2f8b18cc}\label{classcom_1_1carrental_1_1controller_1_1CarController_a3c4acc911c3aea81e5282add2f8b18cc} 
+\index{com.carrental.controller.CarController@{com.carrental.controller.CarController}!addCar@{addCar}}
+\index{addCar@{addCar}!com.carrental.controller.CarController@{com.carrental.controller.CarController}}
+\doxysubsubsection{\texorpdfstring{addCar()}{addCar()}}
+{\footnotesize\ttfamily Response\+Entity$<$?$>$ com.\+carrental.\+controller.\+Car\+Controller.\+add\+Car (\begin{DoxyParamCaption}\item[{@Request\+Body Car}]{car,  }\item[{@Request\+Param(required=false) Boolean}]{admin }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarController_a8e1655af4302299105c7b6aee1159fa4}\label{classcom_1_1carrental_1_1controller_1_1CarController_a8e1655af4302299105c7b6aee1159fa4} 
+\index{com.carrental.controller.CarController@{com.carrental.controller.CarController}!browseVehicles@{browseVehicles}}
+\index{browseVehicles@{browseVehicles}!com.carrental.controller.CarController@{com.carrental.controller.CarController}}
+\doxysubsubsection{\texorpdfstring{browseVehicles()}{browseVehicles()}}
+{\footnotesize\ttfamily String com.\+carrental.\+controller.\+Car\+Controller.\+browse\+Vehicles (\begin{DoxyParamCaption}\item[{Model}]{model }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarController_a8dc24efbd110e89762ebd35589e79457}\label{classcom_1_1carrental_1_1controller_1_1CarController_a8dc24efbd110e89762ebd35589e79457} 
+\index{com.carrental.controller.CarController@{com.carrental.controller.CarController}!deleteCar@{deleteCar}}
+\index{deleteCar@{deleteCar}!com.carrental.controller.CarController@{com.carrental.controller.CarController}}
+\doxysubsubsection{\texorpdfstring{deleteCar()}{deleteCar()}}
+{\footnotesize\ttfamily Response\+Entity$<$?$>$ com.\+carrental.\+controller.\+Car\+Controller.\+delete\+Car (\begin{DoxyParamCaption}\item[{@Path\+Variable Long}]{id,  }\item[{@Request\+Param(required=false) Boolean}]{admin }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarController_ac523abcc4f3ee8911401e7122962ad07}\label{classcom_1_1carrental_1_1controller_1_1CarController_ac523abcc4f3ee8911401e7122962ad07} 
+\index{com.carrental.controller.CarController@{com.carrental.controller.CarController}!getAllCars@{getAllCars}}
+\index{getAllCars@{getAllCars}!com.carrental.controller.CarController@{com.carrental.controller.CarController}}
+\doxysubsubsection{\texorpdfstring{getAllCars()}{getAllCars()}}
+{\footnotesize\ttfamily List$<$ Car $>$ com.\+carrental.\+controller.\+Car\+Controller.\+get\+All\+Cars (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarController_a37862984380c76fd00cd812d2dc55a0d}\label{classcom_1_1carrental_1_1controller_1_1CarController_a37862984380c76fd00cd812d2dc55a0d} 
+\index{com.carrental.controller.CarController@{com.carrental.controller.CarController}!getCarById@{getCarById}}
+\index{getCarById@{getCarById}!com.carrental.controller.CarController@{com.carrental.controller.CarController}}
+\doxysubsubsection{\texorpdfstring{getCarById()}{getCarById()}}
+{\footnotesize\ttfamily Response\+Entity$<$?$>$ com.\+carrental.\+controller.\+Car\+Controller.\+get\+Car\+By\+Id (\begin{DoxyParamCaption}\item[{@Path\+Variable Long}]{id }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarController_ae63b9b6cec2c79f7c2b9479405c58c92}\label{classcom_1_1carrental_1_1controller_1_1CarController_ae63b9b6cec2c79f7c2b9479405c58c92} 
+\index{com.carrental.controller.CarController@{com.carrental.controller.CarController}!showVehicles@{showVehicles}}
+\index{showVehicles@{showVehicles}!com.carrental.controller.CarController@{com.carrental.controller.CarController}}
+\doxysubsubsection{\texorpdfstring{showVehicles()}{showVehicles()}}
+{\footnotesize\ttfamily String com.\+carrental.\+controller.\+Car\+Controller.\+show\+Vehicles (\begin{DoxyParamCaption}\item[{Model}]{model }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{CarController_8java}{Car\+Controller.\+java}}\end{DoxyCompactItemize}

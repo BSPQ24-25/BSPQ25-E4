@@ -1,0 +1,69 @@
+\doxysection{com.\+carrental.\+controller.\+Booking\+Controller Class Reference}
+\hypertarget{classcom_1_1carrental_1_1controller_1_1BookingController}{}\label{classcom_1_1carrental_1_1controller_1_1BookingController}\index{com.carrental.controller.BookingController@{com.carrental.controller.BookingController}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+List$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1BookingController_a9172c300a2f2767e59a15884bd2e09ab}{get\+All\+Bookings}} ()
+\item 
+Response\+Entity$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1BookingController_afe79c5ca849e68f1d189edea9d72158a}{get\+Booking\+By\+Id}} (@Path\+Variable Long id)
+\item 
+Response\+Entity$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1BookingController_acbcca164ed9dc62b5fb2c24e86f44f6f}{create\+Booking}} (@Request\+Body Booking booking)
+\item 
+Response\+Entity$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1BookingController_a8f1d246ed5d38625a56dcb297c274d6b}{create\+Booking\+From\+DTO}} (@Request\+Body Booking\+DTO dto)
+\item 
+Response\+Entity$<$ Booking $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1BookingController_a12f24e8d9d9828c7e21bad16b7032a08}{update\+Booking}} (@Path\+Variable Long id, @Request\+Body Booking booking\+Details)
+\item 
+Response\+Entity$<$ Void $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1BookingController_a8f986fe51469301b4e2b4dbba604fb86}{delete\+Booking}} (@Path\+Variable Long id)
+\item 
+Response\+Entity$<$ Void $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1BookingController_aa52b19c715dcdf7366b378aa172d93b6}{confirm\+Booking}} (@Request\+Param("{}booking\+Id"{}) Long booking\+Id)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1BookingController_aa52b19c715dcdf7366b378aa172d93b6}\label{classcom_1_1carrental_1_1controller_1_1BookingController_aa52b19c715dcdf7366b378aa172d93b6} 
+\index{com.carrental.controller.BookingController@{com.carrental.controller.BookingController}!confirmBooking@{confirmBooking}}
+\index{confirmBooking@{confirmBooking}!com.carrental.controller.BookingController@{com.carrental.controller.BookingController}}
+\doxysubsubsection{\texorpdfstring{confirmBooking()}{confirmBooking()}}
+{\footnotesize\ttfamily Response\+Entity$<$ Void $>$ com.\+carrental.\+controller.\+Booking\+Controller.\+confirm\+Booking (\begin{DoxyParamCaption}\item[{@Request\+Param("{}booking\+Id"{}) Long}]{booking\+Id }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1BookingController_acbcca164ed9dc62b5fb2c24e86f44f6f}\label{classcom_1_1carrental_1_1controller_1_1BookingController_acbcca164ed9dc62b5fb2c24e86f44f6f} 
+\index{com.carrental.controller.BookingController@{com.carrental.controller.BookingController}!createBooking@{createBooking}}
+\index{createBooking@{createBooking}!com.carrental.controller.BookingController@{com.carrental.controller.BookingController}}
+\doxysubsubsection{\texorpdfstring{createBooking()}{createBooking()}}
+{\footnotesize\ttfamily Response\+Entity$<$ Booking $>$ com.\+carrental.\+controller.\+Booking\+Controller.\+create\+Booking (\begin{DoxyParamCaption}\item[{@Request\+Body Booking}]{booking }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1BookingController_a8f1d246ed5d38625a56dcb297c274d6b}\label{classcom_1_1carrental_1_1controller_1_1BookingController_a8f1d246ed5d38625a56dcb297c274d6b} 
+\index{com.carrental.controller.BookingController@{com.carrental.controller.BookingController}!createBookingFromDTO@{createBookingFromDTO}}
+\index{createBookingFromDTO@{createBookingFromDTO}!com.carrental.controller.BookingController@{com.carrental.controller.BookingController}}
+\doxysubsubsection{\texorpdfstring{createBookingFromDTO()}{createBookingFromDTO()}}
+{\footnotesize\ttfamily Response\+Entity$<$ Booking $>$ com.\+carrental.\+controller.\+Booking\+Controller.\+create\+Booking\+From\+DTO (\begin{DoxyParamCaption}\item[{@Request\+Body Booking\+DTO}]{dto }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1BookingController_a8f986fe51469301b4e2b4dbba604fb86}\label{classcom_1_1carrental_1_1controller_1_1BookingController_a8f986fe51469301b4e2b4dbba604fb86} 
+\index{com.carrental.controller.BookingController@{com.carrental.controller.BookingController}!deleteBooking@{deleteBooking}}
+\index{deleteBooking@{deleteBooking}!com.carrental.controller.BookingController@{com.carrental.controller.BookingController}}
+\doxysubsubsection{\texorpdfstring{deleteBooking()}{deleteBooking()}}
+{\footnotesize\ttfamily Response\+Entity$<$ Void $>$ com.\+carrental.\+controller.\+Booking\+Controller.\+delete\+Booking (\begin{DoxyParamCaption}\item[{@Path\+Variable Long}]{id }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1BookingController_a9172c300a2f2767e59a15884bd2e09ab}\label{classcom_1_1carrental_1_1controller_1_1BookingController_a9172c300a2f2767e59a15884bd2e09ab} 
+\index{com.carrental.controller.BookingController@{com.carrental.controller.BookingController}!getAllBookings@{getAllBookings}}
+\index{getAllBookings@{getAllBookings}!com.carrental.controller.BookingController@{com.carrental.controller.BookingController}}
+\doxysubsubsection{\texorpdfstring{getAllBookings()}{getAllBookings()}}
+{\footnotesize\ttfamily List$<$ Booking $>$ com.\+carrental.\+controller.\+Booking\+Controller.\+get\+All\+Bookings (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1BookingController_afe79c5ca849e68f1d189edea9d72158a}\label{classcom_1_1carrental_1_1controller_1_1BookingController_afe79c5ca849e68f1d189edea9d72158a} 
+\index{com.carrental.controller.BookingController@{com.carrental.controller.BookingController}!getBookingById@{getBookingById}}
+\index{getBookingById@{getBookingById}!com.carrental.controller.BookingController@{com.carrental.controller.BookingController}}
+\doxysubsubsection{\texorpdfstring{getBookingById()}{getBookingById()}}
+{\footnotesize\ttfamily Response\+Entity$<$ Booking $>$ com.\+carrental.\+controller.\+Booking\+Controller.\+get\+Booking\+By\+Id (\begin{DoxyParamCaption}\item[{@Path\+Variable Long}]{id }\end{DoxyParamCaption})}
+
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1BookingController_a12f24e8d9d9828c7e21bad16b7032a08}\label{classcom_1_1carrental_1_1controller_1_1BookingController_a12f24e8d9d9828c7e21bad16b7032a08} 
+\index{com.carrental.controller.BookingController@{com.carrental.controller.BookingController}!updateBooking@{updateBooking}}
+\index{updateBooking@{updateBooking}!com.carrental.controller.BookingController@{com.carrental.controller.BookingController}}
+\doxysubsubsection{\texorpdfstring{updateBooking()}{updateBooking()}}
+{\footnotesize\ttfamily Response\+Entity$<$ Booking $>$ com.\+carrental.\+controller.\+Booking\+Controller.\+update\+Booking (\begin{DoxyParamCaption}\item[{@Path\+Variable Long}]{id,  }\item[{@Request\+Body Booking}]{booking\+Details }\end{DoxyParamCaption})}
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{BookingController_8java}{Booking\+Controller.\+java}}\end{DoxyCompactItemize}
