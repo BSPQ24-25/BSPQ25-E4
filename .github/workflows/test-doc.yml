@@ -41,11 +41,20 @@ jobs:
         name: jacoco-report
         path: target/site/jacoco/
 
-    - name: Generate Doxygen Docs
+    - name: Install Doxygen 1.13.2
       run: |
-        sudo apt-get update
-        sudo apt-get install -y doxygen graphviz
-        doxygen Doxyfile
+        wget https://github.com/doxygen/doxygen/releases/download/Release_1_13_2/doxygen-1.13.2.linux.bin.tar.gz
+        tar -xzf doxygen-1.13.2.linux.bin.tar.gz
+        sudo mv doxygen-1.13.2/bin/doxygen /usr/local/bin/doxygen
+
+    - name: Install Graphviz
+      run: sudo apt-get install -y graphviz
+
+    - name: Confirm Doxygen version
+      run: doxygen --version
+
+    - name: Run Doxygen 
+      run: doxygen Doxyfile
 
     - name: Confirmar contenido del Doxyfile
       run: |
