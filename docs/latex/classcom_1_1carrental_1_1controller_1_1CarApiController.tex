@@ -1,0 +1,112 @@
+\doxysection{com.\+carrental.\+controller.\+Car\+Api\+Controller Class Reference}
+\hypertarget{classcom_1_1carrental_1_1controller_1_1CarApiController}{}\label{classcom_1_1carrental_1_1controller_1_1CarApiController}\index{com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}}
+
+
+REST API Controller for handling car-\/related operations.  
+
+
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+Response\+Entity$<$ List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1dto_1_1CarDTO}{Car\+DTO}} $>$ $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarApiController_a571d297f16cb883faf364e609c759f54}{get\+All\+Cars}} ()
+\begin{DoxyCompactList}\small\item\em Retrieves all cars. \end{DoxyCompactList}\item 
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1dto_1_1CarDTO}{Car\+DTO}} $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarApiController_a951686c5fd7bce30ce2194b6db0336a7}{search\+Cars\+By\+Fields}} ( @Request\+Param String field, @Request\+Param String value, @Request\+Param(required=false) String field2, @Request\+Param(required=false) String value2)
+\begin{DoxyCompactList}\small\item\em Searches cars based on one or two fields. \end{DoxyCompactList}\item 
+Response\+Entity$<$?$>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarApiController_a293cf4cff0fb13a575534b83f88b8e41}{delete\+Car}} (@Path\+Variable Long id, @Request\+Param(required=false) Boolean admin)
+\item 
+Response\+Entity$<$ Void $>$ \mbox{\hyperlink{classcom_1_1carrental_1_1controller_1_1CarApiController_a91103344167e496403257e09928ab011}{delete\+Car}} (@Path\+Variable Long id)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+REST API Controller for handling car-\/related operations. 
+
+This controller provides endpoints to fetch all cars and to search cars based on one or two filter criteria. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarApiController_a91103344167e496403257e09928ab011}\index{com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}!deleteCar@{deleteCar}}
+\index{deleteCar@{deleteCar}!com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}}
+\doxysubsubsection{\texorpdfstring{deleteCar()}{deleteCar()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1controller_1_1CarApiController_a91103344167e496403257e09928ab011} 
+Response\+Entity$<$ Void $>$ com.\+carrental.\+controller.\+Car\+Api\+Controller.\+delete\+Car (\begin{DoxyParamCaption}\item[{@Path\+Variable Long}]{id}{}\end{DoxyParamCaption})}
+
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1carrental_1_1controller_1_1CarApiController_a91103344167e496403257e09928ab011_cgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarApiController_a293cf4cff0fb13a575534b83f88b8e41}\index{com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}!deleteCar@{deleteCar}}
+\index{deleteCar@{deleteCar}!com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}}
+\doxysubsubsection{\texorpdfstring{deleteCar()}{deleteCar()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1controller_1_1CarApiController_a293cf4cff0fb13a575534b83f88b8e41} 
+Response\+Entity$<$?$>$ com.\+carrental.\+controller.\+Car\+Api\+Controller.\+delete\+Car (\begin{DoxyParamCaption}\item[{@Path\+Variable Long}]{id}{, }\item[{@Request\+Param(required=false) Boolean}]{admin}{}\end{DoxyParamCaption})}
+
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcom_1_1carrental_1_1controller_1_1CarApiController_a293cf4cff0fb13a575534b83f88b8e41_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarApiController_a571d297f16cb883faf364e609c759f54}\index{com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}!getAllCars@{getAllCars}}
+\index{getAllCars@{getAllCars}!com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}}
+\doxysubsubsection{\texorpdfstring{getAllCars()}{getAllCars()}}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1controller_1_1CarApiController_a571d297f16cb883faf364e609c759f54} 
+Response\+Entity$<$ List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1dto_1_1CarDTO}{Car\+DTO}} $>$ $>$ com.\+carrental.\+controller.\+Car\+Api\+Controller.\+get\+All\+Cars (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Retrieves all cars. 
+
+\begin{DoxyReturn}{Returns}
+List of all cars mapped to \doxylink{classcom_1_1carrental_1_1dto_1_1CarDTO}{Car\+DTO} objects. 
+\end{DoxyReturn}
+\Hypertarget{classcom_1_1carrental_1_1controller_1_1CarApiController_a951686c5fd7bce30ce2194b6db0336a7}\index{com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}!searchCarsByFields@{searchCarsByFields}}
+\index{searchCarsByFields@{searchCarsByFields}!com.carrental.controller.CarApiController@{com.carrental.controller.CarApiController}}
+\doxysubsubsection{\texorpdfstring{searchCarsByFields()}{searchCarsByFields()}}
+{\footnotesize\ttfamily \label{classcom_1_1carrental_1_1controller_1_1CarApiController_a951686c5fd7bce30ce2194b6db0336a7} 
+List$<$ \mbox{\hyperlink{classcom_1_1carrental_1_1dto_1_1CarDTO}{Car\+DTO}} $>$ com.\+carrental.\+controller.\+Car\+Api\+Controller.\+search\+Cars\+By\+Fields (\begin{DoxyParamCaption}\item[{@Request\+Param String}]{field}{, }\item[{@Request\+Param String}]{value}{, }\item[{@Request\+Param(required=false) String}]{field2}{, }\item[{@Request\+Param(required=false) String}]{value2}{}\end{DoxyParamCaption})}
+
+
+
+Searches cars based on one or two fields. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em field} & The primary field to search by (e.\+g., brand, model). \\
+\hline
+{\em value} & The value to match in the primary field. \\
+\hline
+{\em field2} & (Optional) A second field to search by. \\
+\hline
+{\em value2} & (Optional) The value to match in the second field. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+List of cars matching the given search criteria, mapped to \doxylink{classcom_1_1carrental_1_1dto_1_1CarDTO}{Car\+DTO}. 
+\end{DoxyReturn}
+Here is the call graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{classcom_1_1carrental_1_1controller_1_1CarApiController_a951686c5fd7bce30ce2194b6db0336a7_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=274pt]{classcom_1_1carrental_1_1controller_1_1CarApiController_a951686c5fd7bce30ce2194b6db0336a7_icgraph}
+\end{center}
+\end{figure}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{CarApiController_8java}{Car\+Api\+Controller.\+java}}\end{DoxyCompactItemize}

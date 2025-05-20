@@ -1,0 +1,8 @@
+<map id="com.carrental.models.Booking.setDailyPrice" name="com.carrental.models.Booking.setDailyPrice">
+<area shape="rect" id="Node000001" title=" " alt="" coords="289,73,535,113"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1controller_1_1BookingController.html#a8f1d246ed5d38625a56dcb297c274d6b" title=" " alt="" coords="5,29,241,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="275,78,241,74,242,69,276,73"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1carrental_1_1service_1_1BookingService.html#a05a0275b62fb8e90f2d58e7ea103e9c9" title=" " alt="" coords="13,109,233,149"/>
+<area shape="poly" id="edge3_Node000001_Node000003" title=" " alt="" coords="276,112,234,118,233,112,275,107"/>
+<area shape="poly" id="edge2_Node000002_Node000002" title=" " alt="" coords="172,19,154,11,123,8,97,10,81,15,73,21,73,29,68,29,68,19,78,10,96,5,123,3,156,6,174,14"/>
+</map>

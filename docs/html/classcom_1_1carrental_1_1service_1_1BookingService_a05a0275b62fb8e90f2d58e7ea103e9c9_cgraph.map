@@ -1,0 +1,43 @@
+<map id="com.carrental.service.BookingService.updateBooking" name="com.carrental.service.BookingService.updateBooking">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,591,225,631"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1models_1_1Booking.html#ac64d75b3045c4d4025bc803f9937a437" title=" " alt="" coords="288,5,535,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="117,590,135,480,169,318,190,235,215,160,242,97,256,74,271,55,276,51,280,55,275,59,261,77,246,100,220,161,195,237,174,320,141,480,122,591"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1carrental_1_1models_1_1Booking.html#aa5803d97802a28ddb1a2da0176ff9f49" title=" " alt="" coords="277,70,545,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="113,590,117,501,123,439,136,370,155,298,183,228,221,162,245,133,272,106,278,101,282,105,275,110,249,136,226,165,188,230,160,300,141,371,129,440,122,502,119,591"/>
+<area shape="rect" id="Node000004" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a45e09d4f1af2bfb8f9f084d879451f19" title=" " alt="" coords="288,120,535,160"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="115,590,122,512,131,458,145,398,165,336,192,275,227,219,271,170,277,165,280,170,275,174,232,222,197,278,170,338,150,399,137,459,128,512,120,591"/>
+<area shape="rect" id="Node000005" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a2b53f18a1c73ef58d0a99b5f8090a0b3" title=" " alt="" coords="288,184,535,224"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="116,590,128,521,154,425,174,373,200,322,232,275,272,234,277,229,281,234,275,238,236,278,204,325,179,375,159,427,133,522,121,591"/>
+<area shape="rect" id="Node000006" href="$classcom_1_1carrental_1_1models_1_1Booking.html#aaba34e459c5684b3e002141c2b8ee9a6" title=" " alt="" coords="288,248,535,288"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="118,590,133,532,162,453,182,410,207,369,237,331,272,298,278,293,282,297,275,302,241,334,212,372,187,413,167,455,138,533,123,591"/>
+<area shape="rect" id="Node000007" href="$classcom_1_1carrental_1_1models_1_1Booking.html#ac13974a83f12ac33b787a8de029b0f45" title=" " alt="" coords="288,312,535,352"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="121,590,140,542,171,480,215,416,242,387,272,362,281,356,284,361,275,366,245,391,219,419,176,483,145,545,126,592"/>
+<area shape="rect" id="Node000008" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a17424c9e7773668ed68f121dda98b28d" title=" " alt="" coords="288,376,535,416"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="126,589,148,553,181,509,223,464,272,426,284,419,286,424,275,430,227,468,185,512,153,556,130,592"/>
+<area shape="rect" id="Node000009" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a6da1b59d816658e19d4776c960ef6a63" title=" " alt="" coords="288,440,535,480"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="135,589,194,539,232,512,272,490,290,482,292,487,274,494,235,517,197,543,139,593"/>
+<area shape="rect" id="Node000010" href="$classcom_1_1carrental_1_1models_1_1Booking.html#aca2626a525f3f4412e9099f9cf565b97" title=" " alt="" coords="288,504,535,544"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="169,588,273,553,305,545,306,550,274,559,170,593"/>
+<area shape="rect" id="Node000011" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a53ccacfc0a338efb32bab5e3b934a394" title=" " alt="" coords="273,569,549,594"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="225,597,269,593,270,598,226,602"/>
+<area shape="rect" id="Node000012" href="$classcom_1_1carrental_1_1models_1_1Booking.html#aaab41f7aeb29e3de1d668ea38259d2eb" title=" " alt="" coords="289,619,534,659"/>
+<area shape="poly" id="edge11_Node000001_Node000012" title=" " alt="" coords="226,618,275,623,275,628,225,624"/>
+<area shape="rect" id="Node000013" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a908e940d3e400bce0a5fc7dc7f39d14f" title=" " alt="" coords="278,683,545,709"/>
+<area shape="poly" id="edge12_Node000001_Node000013" title=" " alt="" coords="164,628,216,649,274,668,315,678,314,683,273,673,214,654,162,633"/>
+<area shape="rect" id="Node000014" href="$classcom_1_1carrental_1_1models_1_1Booking.html#aceb3651ec012a0f95c7e00a20c58e7c9" title=" " alt="" coords="289,733,534,773"/>
+<area shape="poly" id="edge13_Node000001_Node000014" title=" " alt="" coords="141,629,199,674,236,697,274,718,297,727,295,731,272,722,233,702,196,678,138,633"/>
+<area shape="rect" id="Node000015" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a7eaa4f29ab084f3297b8f9ebb978e165" title=" " alt="" coords="289,797,534,837"/>
+<area shape="poly" id="edge14_Node000001_Node000015" title=" " alt="" coords="131,630,154,664,187,705,228,748,275,783,287,790,285,794,272,788,224,752,183,709,150,667,127,633"/>
+<area shape="rect" id="Node000016" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a48ba0f19a57a48566e4f617bfa94a00c" title=" " alt="" coords="289,861,534,901"/>
+<area shape="poly" id="edge15_Node000001_Node000016" title=" " alt="" coords="126,630,146,675,177,735,220,796,246,823,275,847,284,853,281,857,272,851,242,827,216,799,172,737,141,678,121,632"/>
+<area shape="rect" id="Node000017" href="$classcom_1_1carrental_1_1models_1_1Booking.html#ad3bb4f98d65232a5a29b77c1208f835a" title=" " alt="" coords="289,925,534,965"/>
+<area shape="poly" id="edge16_Node000001_Node000017" title=" " alt="" coords="124,630,139,687,168,763,188,804,213,844,241,880,275,911,282,916,278,920,272,915,238,884,208,847,184,807,163,766,134,689,118,632"/>
+<area shape="rect" id="Node000018" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a79c8e7285d24444b7a8ca3792550ee3f" title=" " alt="" coords="289,989,534,1029"/>
+<area shape="poly" id="edge17_Node000001_Node000018" title=" " alt="" coords="122,631,133,698,160,791,180,842,205,891,237,936,275,975,281,980,277,984,272,979,233,940,201,894,175,844,155,793,128,699,116,632"/>
+<area shape="rect" id="Node000019" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a3c166d2cd29ec9b8868b8516357078e7" title=" " alt="" coords="289,1053,534,1093"/>
+<area shape="poly" id="edge18_Node000001_Node000019" title=" " alt="" coords="120,631,128,708,137,761,151,819,171,879,198,938,232,992,275,1039,280,1044,277,1048,271,1043,228,995,193,940,166,881,146,820,132,762,123,709,115,631"/>
+<area shape="rect" id="Node000020" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a5479107a929c7145d690e1e255dcd296" title=" " alt="" coords="289,1117,534,1157"/>
+<area shape="poly" id="edge19_Node000001_Node000020" title=" " alt="" coords="119,631,124,718,131,778,144,845,163,915,190,984,227,1048,250,1077,275,1103,280,1107,276,1111,272,1107,246,1081,223,1051,186,986,158,917,138,847,126,779,118,718,114,631"/>
+<area shape="rect" id="Node000021" href="$classcom_1_1carrental_1_1models_1_1Booking.html#a12ee7b53669e8b56117fcf3fc32af531" title=" " alt="" coords="274,1182,549,1207"/>
+<area shape="poly" id="edge20_Node000001_Node000021" title=" " alt="" coords="122,631,140,743,173,905,194,989,218,1065,246,1127,260,1150,275,1167,281,1172,278,1177,271,1171,256,1153,241,1129,214,1067,189,990,167,907,135,744,117,632"/>
+</map>
