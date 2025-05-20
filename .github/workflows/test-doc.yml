@@ -47,12 +47,18 @@ jobs:
         sudo apt-get install -y doxygen graphviz
         doxygen Doxyfile
 
+    - name: Check Graphviz install
+      run: |
+        dot -V
+        which dot
+        echo "DOT path: $(which dot)"
+
     - name: Archive Doxygen Docs
       if: always()
       uses: actions/upload-artifact@v4
       with:
         name: doxygen-docs
-        path: docs/html/
+        path: docs/
 
     - name: Archive Performance Reports
       if: always()
