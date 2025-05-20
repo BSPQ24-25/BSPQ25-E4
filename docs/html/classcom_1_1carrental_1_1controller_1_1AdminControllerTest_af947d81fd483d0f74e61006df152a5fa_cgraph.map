@@ -1,0 +1,7 @@
+<map id="com.carrental.controller.AdminControllerTest.testConfirmBooking_RedirectsToPendingReservations" name="com.carrental.controller.AdminControllerTest.testConfirmBooking_RedirectsToPendingReservations">
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,30,300,85"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1controller_1_1AdminController.html#a78ced4a3cec9cba7d89ac7edb5c7fc68" title=" " alt="" coords="348,5,581,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="300,40,334,36,334,41,300,45"/>
+<area shape="rect" id="Node000003" href="$classcom_1_1carrental_1_1controller_1_1AdminControllerTest.html#a932c6b76b056b4c67b5e59fbe821ff0d" title=" " alt="" coords="367,69,562,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="300,70,354,75,353,81,300,75"/>
+</map>

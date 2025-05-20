@@ -1,4 +1,6 @@
 <map id="com.carrental.controller.AdminController.updateUser" name="com.carrental.controller.AdminController.updateUser">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,29,212,69"/>
-<area shape="poly" id="edge1_Node000001_Node000001" title=" " alt="" coords="143,18,131,11,109,8,89,10,77,15,73,21,75,28,70,30,68,20,74,11,88,5,109,3,133,6,146,13"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="284,29,491,69"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="433,18,417,11,387,8,361,10,346,15,340,21,343,28,338,30,335,20,343,10,360,5,387,3,418,5,435,13"/>
+<area shape="rect" id="Node000002" href="$classcom_1_1carrental_1_1controller_1_1AdminControllerTest.html#aa945848c6aac1428e1b05473694303ab" title=" " alt="" coords="5,22,236,77"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="271,52,236,52,236,47,271,47"/>
 </map>

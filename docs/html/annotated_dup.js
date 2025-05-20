@@ -3,15 +3,20 @@ var annotated_dup =
     [ "com", null, [
       [ "carrental", "namespacecom_1_1carrental.html", [
         [ "config", "namespacecom_1_1carrental_1_1config.html", [
-          [ "SecurityConfig", "classcom_1_1carrental_1_1config_1_1SecurityConfig.html", "classcom_1_1carrental_1_1config_1_1SecurityConfig" ]
+          [ "SecurityConfig", "classcom_1_1carrental_1_1config_1_1SecurityConfig.html", "classcom_1_1carrental_1_1config_1_1SecurityConfig" ],
+          [ "TestSecurityConfig", "classcom_1_1carrental_1_1config_1_1TestSecurityConfig.html", "classcom_1_1carrental_1_1config_1_1TestSecurityConfig" ]
         ] ],
         [ "controller", "namespacecom_1_1carrental_1_1controller.html", [
           [ "AdminController", "classcom_1_1carrental_1_1controller_1_1AdminController.html", "classcom_1_1carrental_1_1controller_1_1AdminController" ],
+          [ "AdminControllerTest", "classcom_1_1carrental_1_1controller_1_1AdminControllerTest.html", "classcom_1_1carrental_1_1controller_1_1AdminControllerTest" ],
           [ "AdminDashboardController", "classcom_1_1carrental_1_1controller_1_1AdminDashboardController.html", "classcom_1_1carrental_1_1controller_1_1AdminDashboardController" ],
+          [ "AdminDashboardControllerTest", "classcom_1_1carrental_1_1controller_1_1AdminDashboardControllerTest.html", "classcom_1_1carrental_1_1controller_1_1AdminDashboardControllerTest" ],
           [ "AuthController", "classcom_1_1carrental_1_1controller_1_1AuthController.html", "classcom_1_1carrental_1_1controller_1_1AuthController" ],
           [ "BookingController", "classcom_1_1carrental_1_1controller_1_1BookingController.html", "classcom_1_1carrental_1_1controller_1_1BookingController" ],
           [ "BookingWebController", "classcom_1_1carrental_1_1controller_1_1BookingWebController.html", "classcom_1_1carrental_1_1controller_1_1BookingWebController" ],
+          [ "BookingWebControllerTest", "classcom_1_1carrental_1_1controller_1_1BookingWebControllerTest.html", "classcom_1_1carrental_1_1controller_1_1BookingWebControllerTest" ],
           [ "CarApiController", "classcom_1_1carrental_1_1controller_1_1CarApiController.html", "classcom_1_1carrental_1_1controller_1_1CarApiController" ],
+          [ "CarApiControllerTest", "classcom_1_1carrental_1_1controller_1_1CarApiControllerTest.html", null ],
           [ "CarController", "classcom_1_1carrental_1_1controller_1_1CarController.html", "classcom_1_1carrental_1_1controller_1_1CarController" ],
           [ "InsuranceController", "classcom_1_1carrental_1_1controller_1_1InsuranceController.html", "classcom_1_1carrental_1_1controller_1_1InsuranceController" ],
           [ "InsuranceRestController", "classcom_1_1carrental_1_1controller_1_1InsuranceRestController.html", "classcom_1_1carrental_1_1controller_1_1InsuranceRestController" ],
@@ -31,11 +36,18 @@ var annotated_dup =
           [ "PaymentGateway", "interfacecom_1_1carrental_1_1gateway_1_1PaymentGateway.html", "interfacecom_1_1carrental_1_1gateway_1_1PaymentGateway" ],
           [ "PayPalGateway", "classcom_1_1carrental_1_1gateway_1_1PayPalGateway.html", "classcom_1_1carrental_1_1gateway_1_1PayPalGateway" ]
         ] ],
+        [ "integration", "namespacecom_1_1carrental_1_1integration.html", [
+          [ "CarRentalIntegrationTest", "classcom_1_1carrental_1_1integration_1_1CarRentalIntegrationTest.html", null ]
+        ] ],
         [ "models", "namespacecom_1_1carrental_1_1models.html", [
           [ "Booking", "classcom_1_1carrental_1_1models_1_1Booking.html", "classcom_1_1carrental_1_1models_1_1Booking" ],
           [ "Car", "classcom_1_1carrental_1_1models_1_1Car.html", "classcom_1_1carrental_1_1models_1_1Car" ],
           [ "Insurance", "classcom_1_1carrental_1_1models_1_1Insurance.html", "classcom_1_1carrental_1_1models_1_1Insurance" ],
           [ "User", "classcom_1_1carrental_1_1models_1_1User.html", "classcom_1_1carrental_1_1models_1_1User" ]
+        ] ],
+        [ "performance", "namespacecom_1_1carrental_1_1performance.html", [
+          [ "ControllerPerformanceTest", "classcom_1_1carrental_1_1performance_1_1ControllerPerformanceTest.html", "classcom_1_1carrental_1_1performance_1_1ControllerPerformanceTest" ],
+          [ "ServicePerformanceTest", "classcom_1_1carrental_1_1performance_1_1ServicePerformanceTest.html", "classcom_1_1carrental_1_1performance_1_1ServicePerformanceTest" ]
         ] ],
         [ "repository", "namespacecom_1_1carrental_1_1repository.html", [
           [ "BookingRepository", "interfacecom_1_1carrental_1_1repository_1_1BookingRepository.html", "interfacecom_1_1carrental_1_1repository_1_1BookingRepository" ],
@@ -51,7 +63,8 @@ var annotated_dup =
           [ "PaymentGatewayService", "classcom_1_1carrental_1_1service_1_1PaymentGatewayService.html", "classcom_1_1carrental_1_1service_1_1PaymentGatewayService" ],
           [ "UserService", "classcom_1_1carrental_1_1service_1_1UserService.html", "classcom_1_1carrental_1_1service_1_1UserService" ]
         ] ],
-        [ "App", "classcom_1_1carrental_1_1App.html", null ]
+        [ "App", "classcom_1_1carrental_1_1App.html", null ],
+        [ "AppTest", "classcom_1_1carrental_1_1AppTest.html", null ]
       ] ]
     ] ]
 ];
