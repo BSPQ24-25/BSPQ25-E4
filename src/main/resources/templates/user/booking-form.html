@@ -89,8 +89,6 @@
         .w-100 {
             width: 100%;
         }
-
-        /* Estilo para el botón rojo */
         .btn-back {
             background-color: red;
             color: white;
@@ -102,34 +100,45 @@
             display: inline-block;
             text-align: center;
         }
-
         .btn-back:hover {
             background-color: darkred;
+        }
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
         }
     </style>
 </head>
 <body class="bg-light">
+
+<!-- Language Select -->
+<div class="lang-select-container">
+  <select id="langSelect" class="form-select">
+    <option value="en" selected>English</option>
+    <option value="fr">Français</option>
+    <option value="es">Español</option>
+  </select>
+</div>
+
 <div class="container mt-5">
     <h2 class="text-center mb-4">Create a Booking</h2>
     <form th:action="@{/user/bookings/create}" method="post" class="card p-4 shadow">
-        <!-- Car Selection -->
         <div class="mb-3">
             <label for="carId" class="form-label">Select Car</label>
             <select id="carId" name="carId" class="form-select" required>
                 <option disabled selected value="">-- Select a Car --</option>
-                <option th:each="car : ${cars}" 
-                        th:value="${car.id}" 
-                        th:text="${car.model}">Car</option>
+                <option th:each="car : ${cars}" th:value="${car.id}" th:text="${car.model}">Car</option>
             </select>
         </div>
-        
-        <!-- Daily Price -->
+
         <div class="mb-3">
             <label for="dailyPrice" class="form-label">Daily Price ($)</label>
             <input type="number" id="dailyPrice" name="dailyPrice" step="0.01" class="form-control" required>
         </div>
-        
-        <!-- Dates -->
+
         <div class="mb-3">
             <label for="startDate" class="form-label">Start Date</label>
             <input type="date" id="startDate" name="startDate" class="form-control" required>
@@ -138,10 +147,7 @@
             <label for="endDate" class="form-label">End Date</label>
             <input type="date" id="endDate" name="endDate" class="form-control" required>
         </div>
-        
-        
-        
-        <!-- Payment Method -->
+
         <div class="mb-3">
             <label for="paymentMethod" class="form-label">Payment Method</label>
             <select id="paymentMethod" name="paymentMethod" class="form-select" required>
@@ -149,44 +155,29 @@
                 <option value="Credit Card">Credit Card</option>
                 <option value="PayPal">PayPal</option>
             </select>
-			<!-- NUEVO -->
-			<div id="creditCardFields" style="display: none;">
-			    <div class="mb-3">
-			        <label class="form-label">Card Number</label>
-			        <input type="text" class="form-control" name="cardNumber" placeholder="1234 5678 9012 3456">
-			    </div>
-			    <div class="mb-3">
-			        <label class="form-label">CVV</label>
-			        <input type="text" class="form-control" name="cvv" placeholder="123">
-			    </div>
-			</div>
+            <div id="creditCardFields" style="display: none;">
+                <div class="mb-3">
+                    <label class="form-label">Card Number</label>
+                    <input type="text" class="form-control" name="cardNumber" placeholder="1234 5678 9012 3456">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">CVV</label>
+                    <input type="text" class="form-control" name="cvv" placeholder="123">
+                </div>
+            </div>
 
-			<div id="paypalFields" style="display: none;">
-			    <div class="mb-3">
-			        <label class="form-label">PayPal Email</label>
-			        <input type="email" class="form-control" name="paypalEmail" placeholder="your@email.com">
-			    </div>
-			</div>
-			<script>
-			    document.getElementById('paymentMethod').addEventListener('change', function () {
-			        const method = this.value;
-			        document.getElementById('creditCardFields').style.display = method === 'Credit Card' ? 'block' : 'none';
-			        document.getElementById('paypalFields').style.display = method === 'PayPal' ? 'block' : 'none';
-			    });
-			</script>
-
-
+            <div id="paypalFields" style="display: none;">
+                <div class="mb-3">
+                    <label class="form-label">PayPal Email</label>
+                    <input type="email" class="form-control" name="paypalEmail" placeholder="your@email.com">
+                </div>
+            </div>
         </div>
-        
-        
-        
-        
-        
-        <!-- Rating and Review (typically added after the booking is completed) -->
+
         <div class="mb-3">
             <h4>Post-Rental Feedback</h4>
             <p class="text-muted">(Optional - Can be updated after the rental period)</p>
-            
+
             <label for="rating" class="form-label">Rating (1-5)</label>
             <select id="rating" name="rating" class="form-select">
                 <option value="">-- Select Rating --</option>
@@ -201,24 +192,26 @@
             <label for="review" class="form-label">Review</label>
             <textarea id="review" name="review" class="form-control" rows="3"></textarea>
         </div>
-        
+
         <button type="submit" class="btn btn-primary w-100">Book Now</button>
         <a href="/user/dashboard" class="btn-back">Back</a>
     </form>
 </div>
 
 <script>
-    // You might want to add some client-side validation
+    document.getElementById('paymentMethod').addEventListener('change', function () {
+        const method = this.value;
+        document.getElementById('creditCardFields').style.display = method === 'Credit Card' ? 'block' : 'none';
+        document.getElementById('paypalFields').style.display = method === 'PayPal' ? 'block' : 'none';
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
         const startDateInput = document.getElementById('startDate');
         const endDateInput = document.getElementById('endDate');
-        
-        // Set minimum date to today
         const today = new Date().toISOString().split('T')[0];
         startDateInput.min = today;
         endDateInput.min = today;
-        
-        // Make end date always after start date
+
         startDateInput.addEventListener('change', function() {
             endDateInput.min = startDateInput.value;
             if (endDateInput.value && endDateInput.value < startDateInput.value) {
@@ -226,6 +219,78 @@
             }
         });
     });
+
+    const translations = {
+      en: {
+        createBooking: "Create a Booking",
+        selectCar: "Select Car",
+        price: "Daily Price ($)",
+        startDate: "Start Date",
+        endDate: "End Date",
+        payment: "Payment Method",
+        postFeedback: "Post-Rental Feedback",
+        optional: "(Optional - Can be updated after the rental period)",
+        rating: "Rating (1-5)",
+        review: "Review",
+        bookNow: "Book Now",
+        back: "Back",
+        ratingOptions: ["-- Select Rating --", "1 - Poor", "2 - Fair", "3 - Good", "4 - Very Good", "5 - Excellent"]
+      },
+      fr: {
+        createBooking: "Créer une réservation",
+        selectCar: "Choisir une voiture",
+        price: "Prix journalier (€)",
+        startDate: "Date de début",
+        endDate: "Date de fin",
+        payment: "Méthode de paiement",
+        postFeedback: "Avis post-location",
+        optional: "(Optionnel - Peut être modifié après la période de location)",
+        rating: "Note (1-5)",
+        review: "Commentaire",
+        bookNow: "Réserver",
+        back: "Retour",
+        ratingOptions: ["-- Sélectionnez une note --", "1 - Mauvais", "2 - Passable", "3 - Bon", "4 - Très bon", "5 - Excellent"]
+      },
+      es: {
+        createBooking: "Crear una reserva",
+        selectCar: "Seleccionar coche",
+        price: "Precio diario (€)",
+        startDate: "Fecha de inicio",
+        endDate: "Fecha de fin",
+        payment: "Método de pago",
+        postFeedback: "Comentarios tras el alquiler",
+        optional: "(Opcional - Puede actualizarse después del período de alquiler)",
+        rating: "Puntuación (1-5)",
+        review: "Reseña",
+        bookNow: "Reservar",
+        back: "Volver",
+        ratingOptions: ["-- Seleccionar puntuación --", "1 - Malo", "2 - Regular", "3 - Bueno", "4 - Muy bueno", "5 - Excelente"]
+      }
+    };
+
+    document.getElementById("langSelect").addEventListener("change", function () {
+      const lang = this.value;
+      const t = translations[lang];
+
+      document.querySelector("h2").innerText = t.createBooking;
+      document.querySelector("label[for='carId']").innerText = t.selectCar;
+      document.querySelector("label[for='dailyPrice']").innerText = t.price;
+      document.querySelector("label[for='startDate']").innerText = t.startDate;
+      document.querySelector("label[for='endDate']").innerText = t.endDate;
+      document.querySelector("label[for='paymentMethod']").innerText = t.payment;
+      document.querySelector("h4").innerText = t.postFeedback;
+      document.querySelector("p.text-muted").innerText = t.optional;
+      document.querySelector("label[for='rating']").innerText = t.rating;
+      document.querySelector("label[for='review']").innerText = t.review;
+      document.querySelector("button[type='submit']").innerText = t.bookNow;
+      document.querySelector(".btn-back").innerText = t.back;
+
+      const ratingOptions = document.getElementById("rating").options;
+      t.ratingOptions.forEach((text, i) => {
+        ratingOptions[i].text = text;
+      });
+    });
 </script>
+
 </body>
 </html>

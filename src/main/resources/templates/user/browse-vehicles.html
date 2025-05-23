@@ -120,16 +120,32 @@
         .clear-btn:hover {
             background-color: #d32f2f;
         }
+
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
+        }
     </style>
 </head>
 
 <body>
+    <div class="lang-select-container">
+        <select id="langSelect" class="form-select">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
     <div class="container">
-        <h1>Available vehicles</h1>
+        <h1 data-i18n="title">Available vehicles</h1>
 
         <form id="searchForm" style="margin-bottom: 20px;">
             <div class="filter-group">
-                <label for="searchField1">Search by:</label>
+                <label for="searchField1" data-i18n="searchBy">Search by:</label>
                 <select id="searchField1" class="input-field">
                     <option value="brand">Brand</option>
                     <option value="model">Model</option>
@@ -141,13 +157,13 @@
                     <option value="manufacturingYear">Manufacturing Year</option>
                     <option value="insuranceId">Insurance ID</option>
                 </select>
-                <input type="text" id="searchValue1" class="input-field" placeholder="Enter value..." />
+                <input type="text" id="searchValue1" class="input-field" placeholder="Enter value..." data-i18n-placeholder="enterValue"/>
             </div>
 
             <div class="filter-group">
-                <label for="searchField2">And by:</label>
+                <label for="searchField2" data-i18n="andBy">And by:</label>
                 <select id="searchField2" class="input-field">
-                    <option value="">(none)</option> <!-- optional second filter -->
+                    <option value="">(none)</option>
                     <option value="brand">Brand</option>
                     <option value="model">Model</option>
                     <option value="color">Color</option>
@@ -158,40 +174,110 @@
                     <option value="manufacturingYear">Manufacturing Year</option>
                     <option value="insuranceId">Insurance ID</option>
                 </select>
-                <input type="text" id="searchValue2" class="input-field" placeholder="Enter value..." />
+                <input type="text" id="searchValue2" class="input-field" placeholder="Enter value..." data-i18n-placeholder="enterValue"/>
             </div>
 
-            <button type="submit" class="action-btn search-btn">Search</button>
-            <button type="button" id="clearButton" class="action-btn clear-btn">Clear</button>
+            <button type="submit" class="action-btn search-btn" data-i18n="search">Search</button>
+            <button type="button" id="clearButton" class="action-btn clear-btn" data-i18n="clear">Clear</button>
         </form>
 
-
-
-
-        <!-- Table -->
         <table>
             <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Brand</th>
-                    <th>Model</th>
-                    <th>Color</th>
-                    <th>Fuel Level</th>
-                    <th>Transmission</th>
-                    <th>Status</th>
-                    <th>Mileage</th>
-                    <th>Year</th>
-                    <th>Insurance ID</th>
+                    <th data-i18n="id">ID</th>
+                    <th data-i18n="brand">Brand</th>
+                    <th data-i18n="model">Model</th>
+                    <th data-i18n="color">Color</th>
+                    <th data-i18n="fuelLevel">Fuel Level</th>
+                    <th data-i18n="transmission">Transmission</th>
+                    <th data-i18n="status">Status</th>
+                    <th data-i18n="mileage">Mileage</th>
+                    <th data-i18n="year">Year</th>
+                    <th data-i18n="insuranceId">Insurance ID</th>
                 </tr>
             </thead>
             <tbody id="vehicleTableBody"></tbody>
         </table>
-        <a href="/user/dashboard" class="btn-back">Back</a>
+        <a href="/user/dashboard" class="btn-back" data-i18n="back">Back</a>
     </div>
 
-
-
     <script>
+        const translations = {
+            en: {
+                title: "Available vehicles",
+                searchBy: "Search by:",
+                andBy: "And by:",
+                search: "Search",
+                clear: "Clear",
+                enterValue: "Enter value...",
+                id: "ID",
+                brand: "Brand",
+                model: "Model",
+                color: "Color",
+                fuelLevel: "Fuel Level",
+                transmission: "Transmission",
+                status: "Status",
+                mileage: "Mileage",
+                year: "Year",
+                insuranceId: "Insurance ID",
+                back: "Back"
+            },
+            fr: {
+                title: "Véhicules disponibles",
+                searchBy: "Rechercher par :",
+                andBy: "Et par :",
+                search: "Rechercher",
+                clear: "Effacer",
+                enterValue: "Entrer une valeur...",
+                id: "ID",
+                brand: "Marque",
+                model: "Modèle",
+                color: "Couleur",
+                fuelLevel: "Niveau de carburant",
+                transmission: "Transmission",
+                status: "Statut",
+                mileage: "Kilométrage",
+                year: "Année",
+                insuranceId: "ID d'assurance",
+                back: "Retour"
+            },
+            es: {
+                title: "Vehículos disponibles",
+                searchBy: "Buscar por:",
+                andBy: "Y por:",
+                search: "Buscar",
+                clear: "Borrar",
+                enterValue: "Ingrese valor...",
+                id: "ID",
+                brand: "Marca",
+                model: "Modelo",
+                color: "Color",
+                fuelLevel: "Nivel de combustible",
+                transmission: "Transmisión",
+                status: "Estado",
+                mileage: "Kilometraje",
+                year: "Año",
+                insuranceId: "ID de seguro",
+                back: "Atrás"
+            }
+        };
+
+        const applyTranslations = (lang) => {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                el.textContent = translations[lang][key];
+            });
+            document.querySelectorAll("[data-i18n-placeholder]").forEach(el => {
+                const key = el.getAttribute("data-i18n-placeholder");
+                el.placeholder = translations[lang][key];
+            });
+        };
+
+        document.getElementById("langSelect").addEventListener("change", (e) => {
+            const selectedLang = e.target.value;
+            applyTranslations(selectedLang);
+        });
+
         const renderVehicles = (vehicles) => {
             const tableBody = document.getElementById("vehicleTableBody");
             tableBody.innerHTML = '';
@@ -233,26 +319,22 @@
         });
 
         window.addEventListener('DOMContentLoaded', async () => {
+            applyTranslations("en");
             const response = await fetch('/api/cars');
             const data = await response.json();
             renderVehicles(data);
         });
 
         document.getElementById('clearButton').addEventListener('click', async function () {
-            // Clear both input fields
             document.getElementById('searchValue1').value = '';
             document.getElementById('searchValue2').value = '';
-
-            // Reset both selects (optional, depends if you want)
             document.getElementById('searchField1').selectedIndex = 0;
             document.getElementById('searchField2').selectedIndex = 0;
 
-            // Reload all vehicles
             const response = await fetch('/api/cars');
             const data = await response.json();
             renderVehicles(data);
         });
-
     </script>
 </body>
 

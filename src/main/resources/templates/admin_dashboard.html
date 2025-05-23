@@ -1,9 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" 
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
+    <title data-i18n="title">Admin Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
@@ -41,24 +40,39 @@
             text-align: right;
             margin-bottom: 20px;
         }
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
+        }
     </style>
 </head>
 <body>
+    <div class="lang-select-container">
+        <select id="langSelect" class="form-select">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
     <div class="container py-5">
         <div class="user-info">
-            <p>Welcome, <span sec:authentication="name"></span></p>
+            <p data-i18n="welcome">Welcome, <span sec:authentication="name"></span></p>
             <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-outline-danger">Log out</button>
+                <button type="submit" class="btn btn-outline-danger" data-i18n="logout">Log out</button>
             </form>
         </div>
         
-        <h1 class="mb-4">Admin Dashboard</h1>
+        <h1 class="mb-4" data-i18n="title">Admin Dashboard</h1>
 
         <div class="row mb-4">
             <div class="col-md-4">
                 <div class="card text-white bg-primary mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Available Cars</h5>
+                        <h5 class="card-title" data-i18n="availableCars">Available Cars</h5>
                         <p class="card-text fs-4" th:text="${availableCars}">0</p>
                     </div>
                 </div>
@@ -66,7 +80,7 @@
             <div class="col-md-4">
                 <div class="card text-white bg-warning mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Active Rentals</h5>
+                        <h5 class="card-title" data-i18n="activeRentals">Active Rentals</h5>
                         <p class="card-text fs-4" th:text="${activeRentals}">0</p>
                     </div>
                 </div>
@@ -74,7 +88,7 @@
             <div class="col-md-4">
                 <div class="card text-white bg-success mb-3">
                     <div class="card-body">
-                        <h5 class="card-title">Total Revenue</h5>
+                        <h5 class="card-title" data-i18n="totalRevenue">Total Revenue</h5>
                         <p class="card-text fs-4">€<span th:text="${totalRevenue}">0.00</span></p>
                     </div>
                 </div>
@@ -82,13 +96,73 @@
         </div>
 
         <div class="list-group">
-            <a th:href="@{/admin/users}" class="list-group-item list-group-item-action">User Management 👥</a>
-            <a th:href="@{/admin/vehicles}" class="list-group-item list-group-item-action">Vehicle Management 🚗</a>
-            <a th:href="@{/admin/reservations}" class="list-group-item list-group-item-action">Pending Reservations ⏳</a>
-            <a th:href="@{/admin/history}" class="list-group-item list-group-item-action">Rental History 📊</a>
-			<a th:href="@{/admin/insurances}" class="list-group-item list-group-item-action">Insurance Management 🛡️</a>
-
+            <a th:href="@{/admin/users}" class="list-group-item list-group-item-action" data-i18n="userManagement">User Management 👥</a>
+            <a th:href="@{/admin/vehicles}" class="list-group-item list-group-item-action" data-i18n="vehicleManagement">Vehicle Management 🚗</a>
+            <a th:href="@{/admin/reservations}" class="list-group-item list-group-item-action" data-i18n="pendingReservations">Pending Reservations ⏳</a>
+            <a th:href="@{/admin/history}" class="list-group-item list-group-item-action" data-i18n="rentalHistory">Rental History 📊</a>
+            <a th:href="@{/admin/insurances}" class="list-group-item list-group-item-action" data-i18n="insuranceManagement">Insurance Management 🛡️</a>
         </div>
     </div>
+
+    <script>
+        const translations = {
+            en: {
+                title: "Admin Dashboard",
+                welcome: "Welcome,",
+                logout: "Log out",
+                availableCars: "Available Cars",
+                activeRentals: "Active Rentals",
+                totalRevenue: "Total Revenue",
+                userManagement: "User Management 👥",
+                vehicleManagement: "Vehicle Management 🚗",
+                pendingReservations: "Pending Reservations ⏳",
+                rentalHistory: "Rental History 📊",
+                insuranceManagement: "Insurance Management 🛡️"
+            },
+            fr: {
+                title: "Tableau de bord admin",
+                welcome: "Bienvenue,",
+                logout: "Déconnexion",
+                availableCars: "Voitures disponibles",
+                activeRentals: "Locations actives",
+                totalRevenue: "Revenu total",
+                userManagement: "Gestion des utilisateurs 👥",
+                vehicleManagement: "Gestion des véhicules 🚗",
+                pendingReservations: "Réservations en attente ⏳",
+                rentalHistory: "Historique des locations 📊",
+                insuranceManagement: "Gestion des assurances 🛡️"
+            },
+            es: {
+                title: "Panel de administrador",
+                welcome: "Bienvenido,",
+                logout: "Cerrar sesión",
+                availableCars: "Coches disponibles",
+                activeRentals: "Alquileres activos",
+                totalRevenue: "Ingresos totales",
+                userManagement: "Gestión de usuarios 👥",
+                vehicleManagement: "Gestión de vehículos 🚗",
+                pendingReservations: "Reservas pendientes ⏳",
+                rentalHistory: "Historial de alquileres 📊",
+                insuranceManagement: "Gestión de seguros 🛡️"
+            }
+        };
+
+        const applyTranslations = (lang) => {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                el.textContent = translations[lang][key];
+            });
+            document.title = translations[lang]['title'];
+        };
+
+        document.getElementById("langSelect").addEventListener("change", (e) => {
+            const selectedLang = e.target.value;
+            applyTranslations(selectedLang);
+        });
+
+        window.addEventListener("DOMContentLoaded", () => {
+            applyTranslations("en");
+        });
+    </script>
 </body>
 </html>

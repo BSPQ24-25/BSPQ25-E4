@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Review Your Car Rental</title>
+    <title data-i18n="title">Review Your Car Rental</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <style>
@@ -39,14 +39,29 @@
         .btn-primary:hover {
             background: #ff5277;
         }
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
+        }
     </style>
 </head>
 <body>
+    <div class="lang-select-container">
+        <select id="langSelect" class="form-select">
+            <option value="en" selected>English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
     <div class="container text-center">
-        <h2 class="mb-4">🚗 Leave a review</h2>
+        <h2 class="mb-4" data-i18n="header">🚗 Leave a review</h2>
         <form id="reviewForm">
             <div class="mb-3 rating-select">
-                <label for="rating" class="form-label">Rate Your Experience</label>
+                <label for="rating" class="form-label" data-i18n="rateLabel">Rate Your Experience</label>
                 <select id="rating" class="form-control">
                     <option value="5">⭐⭐⭐⭐⭐ (Amazing!)</option>
                     <option value="4">⭐⭐⭐⭐ (Great)</option>
@@ -56,19 +71,59 @@
                 </select>
             </div>
             <div class="mb-3">
-                <label for="review" class="form-label">Your Thoughts</label>
+                <label for="review" class="form-label" data-i18n="reviewLabel">Your Thoughts</label>
                 <textarea class="form-control" id="review" rows="4" required placeholder="Tell us about your ride! 🚘"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary w-100">Submit Review 🎯</button>
+            <button type="submit" class="btn btn-primary w-100" data-i18n="submitBtn">Submit Review 🎯</button>
         </form>
     </div>
+
     <script>
+        const translations = {
+            en: {
+                title: "Review Your Car Rental",
+                header: "🚗 Leave a review",
+                rateLabel: "Rate Your Experience",
+                reviewLabel: "Your Thoughts",
+                submitBtn: "Submit Review 🎯"
+            },
+            fr: {
+                title: "Évaluez votre location",
+                header: "🚗 Laissez un avis",
+                rateLabel: "Évaluez votre expérience",
+                reviewLabel: "Vos impressions",
+                submitBtn: "Soumettre l'avis 🎯"
+            },
+            es: {
+                title: "Califica tu alquiler",
+                header: "🚗 Deja una reseña",
+                rateLabel: "Califica tu experiencia",
+                reviewLabel: "Tus pensamientos",
+                submitBtn: "Enviar reseña 🎯"
+            }
+        };
+
+        const applyTranslations = (lang) => {
+            document.querySelectorAll("[data-i18n]").forEach(el => {
+                const key = el.getAttribute("data-i18n");
+                el.textContent = translations[lang][key];
+            });
+            document.title = translations[lang]['title'];
+        };
+
+        document.getElementById("langSelect").addEventListener("change", (e) => {
+            const selectedLang = e.target.value;
+            applyTranslations(selectedLang);
+        });
+
+        window.addEventListener("DOMContentLoaded", () => {
+            applyTranslations("en");
+        });
+
         document.getElementById("reviewForm").addEventListener("submit", function(event) {
             event.preventDefault();
-            
             const rating = document.getElementById("rating").value;
             const review = document.getElementById("review").value;
-            
             fetch(`/api/bookings/review`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },

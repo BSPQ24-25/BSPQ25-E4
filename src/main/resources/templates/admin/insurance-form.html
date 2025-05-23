@@ -1,98 +1,161 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-	<meta charset="UTF-8">
-	    <style>
-	        body {
-	            font-family: Arial, sans-serif;
-	            background-color: #f4f4f4;
-	            margin: 0;
-	            padding: 0;
-	            display: flex;
-	            justify-content: center;
-	            align-items: center;
-	            height: 100vh;
-	        }
-
-	        .container {
-	            width: 100%;
-	            max-width: 600px;
-	            background-color: white;
-	            padding: 30px;
-	            border-radius: 8px;
-	            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-	        }
-
-	        h1 {
-	            text-align: center;
-	            color: #333;
-	            margin-bottom: 30px;
-	        }
-
-	        label {
-	            display: block;
-	            margin-bottom: 6px;
-	            font-weight: bold;
-	            color: #555;
-	        }
-
-	        input {
-	            width: 100%;
-	            padding: 8px 10px;
-	            margin-bottom: 15px;
-	            border: 1px solid #ccc;
-	            border-radius: 4px;
-	            font-size: 14px;
-	        }
-
-	        button {
-	            width: 100%;
-	            padding: 10px;
-	            background-color: #4CAF50;
-	            border: none;
-	            color: white;
-	            font-size: 16px;
-	            border-radius: 4px;
-	            cursor: pointer;
-	        }
-
-	        button:hover {
-	            background-color: #45a049;
-	        }
-
-	        /* Estilo para el botón rojo */
-        	.btn-back {
-            	background-color: red;
-            	color: white;
-            	padding: 10px 20px;
-            	text-decoration: none;
-            	border-radius: 5px;
-            	font-size: 16px;
-            	margin-top: 20px;
-            	display: inline-block;
-            	text-align: center;
-        	}
-
-        	.btn-back:hover {
-            	background-color: darkred;
-        	}
-	    </style>
 <head>
-    <title>Create insurance</title>
+    <meta charset="UTF-8">
+    <title data-i18n="title">Create insurance</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .btn-back {
+            background-color: red;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-back:hover {
+            background-color: darkred;
+        }
+
+        .lang-select-container {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 1000;
+            max-width: 150px;
+        }
+    </style>
 </head>
 <body>
-<div class="container">
-    <h1>Create new insurance</h1>
-	<form th:action="@{/admin/insurances/save}" th:object="${insurance}" method="post">
-	    <input type="hidden" th:field="*{insuranceId}" />
-	    <label>Provider:</label>
-	    <input type="text" th:field="*{provider}" /><br/>
-	    <label>Coverage:</label>
-	    <input type="text" th:field="*{coverage}" /><br/>
-	    <label>Monthly Price:</label>
-	    <input type="number" th:field="*{monthlyPrice}" step="0.01"/><br/>
-	    <button type="submit">Guardar</button>
-	</form>
-	<a href="/admin/insurances">Back</a>
+<div class="lang-select-container">
+    <select id="langSelect" class="form-select">
+        <option value="en" selected>English</option>
+        <option value="fr">Français</option>
+        <option value="es">Español</option>
+    </select>
 </div>
+
+<div class="container">
+    <h1 data-i18n="header">Create new insurance</h1>
+    <form th:action="@{/admin/insurances/save}" th:object="${insurance}" method="post">
+        <input type="hidden" th:field="*{insuranceId}" />
+        <label data-i18n="provider">Provider:</label>
+        <input type="text" th:field="*{provider}" />
+        <label data-i18n="coverage">Coverage:</label>
+        <input type="text" th:field="*{coverage}" />
+        <label data-i18n="price">Monthly Price:</label>
+        <input type="number" th:field="*{monthlyPrice}" step="0.01" />
+        <button type="submit" data-i18n="submitBtn">Save</button>
+    </form>
+    <a href="/admin/insurances" class="btn-back" data-i18n="back">Back</a>
+</div>
+
+<script>
+    const translations = {
+        en: {
+            title: "Create insurance",
+            header: "Create new insurance",
+            provider: "Provider:",
+            coverage: "Coverage:",
+            price: "Monthly Price:",
+            submitBtn: "Save",
+            back: "Back"
+        },
+        fr: {
+            title: "Créer une assurance",
+            header: "Créer une nouvelle assurance",
+            provider: "Fournisseur :",
+            coverage: "Couverture :",
+            price: "Prix mensuel :",
+            submitBtn: "Enregistrer",
+            back: "Retour"
+        },
+        es: {
+            title: "Crear seguro",
+            header: "Crear nuevo seguro",
+            provider: "Proveedor:",
+            coverage: "Cobertura:",
+            price: "Precio mensual:",
+            submitBtn: "Guardar",
+            back: "Atrás"
+        }
+    };
+
+    const applyTranslations = (lang) => {
+        document.querySelectorAll("[data-i18n]").forEach(el => {
+            const key = el.getAttribute("data-i18n");
+            el.textContent = translations[lang][key];
+        });
+        document.title = translations[lang]["title"];
+    };
+
+    document.getElementById("langSelect").addEventListener("change", (e) => {
+        applyTranslations(e.target.value);
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+        applyTranslations("en");
+    });
+</script>
 </body>
 </html>
