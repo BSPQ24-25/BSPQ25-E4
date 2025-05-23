@@ -42,10 +42,18 @@ To run the project:
    a. Email: user5@example.com  
    b. Password: hola11
 
+## ▶️ Ejecutar el proyecto
 
+Para compilar y ejecutar la aplicación, usa los siguientes comandos:
 
-### 1️⃣ Clone the repository:
 ```bash
+# Clone the repository
 git clone https://github.com/BSPQ24-25/BSPQ25-E4.git
 cd BSPQ25-E4
+
+# Run the app
+mvn clean spring-boot:run
+
+# Run the tests
+mvn clean test
 
