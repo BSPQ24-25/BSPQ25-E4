@@ -35,12 +35,13 @@ To run the project:
 2. mvn package (optional)
 3. mvn spring-boot:run
 4. Go to http://localhost:port on browser
-5. Admin Credentials:
-   a. Email: admin2@example.com
+5. Admin Credentials:  
+   a. Email: admin2@example.com  
    b. Password: admin2
-6. User Credentials:
-   a. Email: user5@example.com
+6. User Credentials:  
+   a. Email: user5@example.com  
    b. Password: hola11
+
 
 
 ### 1️⃣ Clone the repository:
