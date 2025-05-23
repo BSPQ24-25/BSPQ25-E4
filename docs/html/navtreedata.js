@@ -29,10 +29,12 @@ var NAVTREE =
       [ "BSPQ25-E4", "md_README.html#autotoc_md1", [
         [ "📁 GitHub repository: https://github.com/BSPQ24-25/BSPQ25-E4", "md_README.html#autotoc_md2", null ],
         [ "📦 Technologies Used", "md_README.html#autotoc_md4", null ],
-        [ "⚙️ Project Setup", "md_README.html#autotoc_md6", [
-          [ "1️⃣ Clone the repository:", "md_README.html#autotoc_md7", null ]
-        ] ]
-      ] ]
+        [ "⚙️ Project Setup", "md_README.html#autotoc_md6", null ],
+        [ "▶️ Ejecutar el proyecto", "md_README.html#autotoc_md7", null ]
+      ] ],
+      [ "Clone the repository", "md_README.html#autotoc_md8", null ],
+      [ "Run the app", "md_README.html#autotoc_md9", null ],
+      [ "Run the tests", "md_README.html#autotoc_md10", null ]
     ] ],
     [ "Packages", "namespaces.html", [
       [ "Package List", "namespaces.html", "namespaces_dup" ]
